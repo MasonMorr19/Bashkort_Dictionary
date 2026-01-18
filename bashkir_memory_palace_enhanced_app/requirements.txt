@@ -23,12 +23,22 @@ transformers>=4.30.0
 torch>=2.0.0
 openai-whisper>=20231117
 
+# Image Processing
+Pillow>=10.0.0
+
+# OCR (Optical Character Recognition)
+easyocr>=1.7.0
+
+# Web Scraping (for Reading Practice content)
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# Graph Database (Neo4j for BashkortNet)
+neo4j>=5.0.0
+
 # Database (optional, for production deployment)
 # sqlalchemy>=2.0.0
 # psycopg2-binary>=2.9.0
-
-# Graph Database (optional, for advanced BashkortNet)
-# neo4j>=5.0.0
 
 # Testing
 pytest>=7.0.0

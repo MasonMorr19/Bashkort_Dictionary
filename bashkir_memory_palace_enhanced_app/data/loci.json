@@ -79,6 +79,164 @@
       "784"
     ]
   },
+  "TwoFountains": {
+    "id": "locus_two_fountains",
+    "name": "Two Fountains",
+    "display_name": "Ике Фонтан – Meeting of Waters",
+    "bird": "Eagle",
+    "symbol": "⛲⛲",
+    "coordinates": [
+      54.7346,
+      55.9578
+    ],
+    "description": {
+      "short": "Central Ufa square where two fountains face each other — a place of meeting, conversation, and civic life.",
+      "long": "The Square of Two Fountains (Ике Фонтан Мәйҙаны) in central Ufa is where two waters rise and fall in perpetual dialogue. Here Bashkirs meet for business and pleasure, where old friends reconnect and new alliances form. The twin fountains represent duality: east and west, past and future, Bashkir and Russian, always in conversation.",
+      "ibn_arabi_connection": "The Eagle of First Intellect surveys this meeting place. In Ibn Arabi's cosmology, the Intellect mediates between the One and the Many. Here, two fountains represent multiplicity arising from unity — separate streams from the same source, separate peoples in the same land."
+    },
+    "stations": [
+      {
+        "id": "station_two_fountains_1",
+        "number": 2,
+        "name": "The Meeting Point",
+        "display_name": "Meeting Point – Where Dialogue Flows",
+        "words": [
+          "ике",
+          "очрашыу",
+          "әңгәмә",
+          "ҡала",
+          "урам",
+          "мәйҙан",
+          "көн уртаһы",
+          "юл",
+          "автобус",
+          "трамвай",
+          "магазин",
+          "банк",
+          "почта",
+          "мәсьет",
+          "сәғәт",
+          "ваҡыт",
+          "бүген",
+          "иртән",
+          "кисен",
+          "кис",
+          "ҡайҙа",
+          "бында",
+          "унда",
+          "тиҙ",
+          "һуң",
+          "әйбәт",
+          "рәхмәт",
+          "һау бул",
+          "әйе",
+          "юҡ",
+          "бар",
+          "ним?",
+          "кем?",
+          "ниңә?",
+          "ҡасан?",
+          "ниҙә?",
+          "ҡайһы?",
+          "һүҙ",
+          "телмәр",
+          "һөйләү"
+        ],
+        "opening_meditation": "You enter the Square of Two Fountains at midday. The Eagle circles overhead, its shadow passing between the twin jets of water. 'Voyager,' it calls down, 'I am the intellect that bridges. Two fountains, one square. Two languages, one land. Every word you learn here is a meeting point.' Strangers become friends. Deals are struck. Ideas flow. What will you exchange?",
+        "closing_meditation": "You leave the Square as afternoon shadows lengthen. Ten words now flow between your thoughts — two, meeting, city, street, today, time, where, here, thank you, and goodbye. The Eagle lands between the fountains. 'Every conversation is two streams meeting. Every language learned is a bridge built.' The city opens before you.",
+        "mnemonic_theme": "meeting, dialogue, urban life, directions, questions"
+      }
+    ],
+    "themes": [
+      "urban",
+      "civic",
+      "dialogue",
+      "daily life",
+      "duality"
+    ],
+    "ocm_codes": [
+      "363",
+      "481",
+      "197"
+    ]
+  },
+  "ThreeShikhans": {
+    "id": "locus_three_shikhans",
+    "name": "Three Shikhans",
+    "display_name": "Өс Шиһан – Toratau, Yuraktau, Kushtau",
+    "bird": "Crow",
+    "symbol": "🏔️🏔️🏔️",
+    "coordinates": [
+      53.5561,
+      56.0972
+    ],
+    "description": {
+      "short": "The Three Shikhans — ancient coral reefs turned to sacred mountains, standing as guardians of Bashkir memory.",
+      "long": "The Three Shikhans (Өс Шиһан) rise majestically along the Belaya River near Sterlitamak: Toratau (Fortress Hill), Yuraktau (Heart Hill), and Kushtau (Twin Hill). These 285-million-year-old coral reef remnants are among the oldest geological monuments on Earth. Sacred to the Yurmat tribe, they hold ancient shrines and tombs dating to the 2nd century BCE. Kushtau was saved from mining by heroic protests in 2020 — a victory of the people over extraction. Yet the mountains stand in mourning, for they remember a fourth sibling... one whose name is whispered only by those who seek deeper knowledge.",
+      "ibn_arabi_connection": "The Crow guards these mountains as it guards all ancient memory. The Three Shikhans are the Universal Body made manifest — primordial matter that remembers when seas covered the Urals. Yet Ibn Arabi taught that absence speaks as loudly as presence. Where four stood, three remain. The empty space between them holds a secret for those who learn to see."
+    },
+    "stations": [
+      {
+        "id": "station_three_shikhans_1",
+        "number": 3,
+        "name": "The Ancient Reef",
+        "display_name": "Ancient Reef – Where Time Crystallizes",
+        "words": [
+          "Торатау",
+          "Юрактау",
+          "Ҡоштау",
+          "шиһан",
+          "ҡурсау",
+          "диңгеҙ",
+          "иҫкәрмә",
+          "эҫ",
+          "уй",
+          "һаҡлау",
+          "тәбиғәт",
+          "миллион",
+          "тоҙ",
+          "ҡая",
+          "ҡорамал",
+          "тарихи",
+          "байлыҡ",
+          "ҡурсалау",
+          "еңеү",
+          "барлыҡ",
+          "юҡлыҡ",
+          "тәүге",
+          "ахырғы",
+          "экология",
+          "ғалим",
+          "өс",
+          "дүрт",
+          "йомаҡ",
+          "серле"
+        ],
+        "opening_meditation": "You approach the Three Shikhans as the sun sets, painting the ancient peaks in gold and shadow. The Crow perches atop Toratau, the Fortress Hill, its dark eyes reflecting 285 million years of memory. 'Voyager,' it speaks, 'I am the keeper of deep time. Toratau the fortress, Yuraktau the heart, Kushtau the twin — three siblings standing watch. But count the shadows at twilight... do you see a fourth?' The wind carries whispers of salt and loss. What secrets will the mountains reveal?",
+        "closing_meditation": "You descend from the Three Shikhans with ancient coral dust on your boots and questions in your heart. Nine words now crystallize within you — Toratau, Yuraktau, Kushtau, mountain, sea, protect, nature, three, and victory. The Crow circles overhead, cawing. 'The people saved Kushtau from destruction. But remember: not all mountains can be saved. Some truths await the worthy seeker.' A presence lingers where something once stood.",
+        "mnemonic_theme": "geology, preservation, ecology, time, mystery, loss"
+      }
+    ],
+    "themes": [
+      "geology",
+      "preservation",
+      "time",
+      "ecology",
+      "sacred",
+      "loss"
+    ],
+    "ocm_codes": [
+      "131",
+      "311",
+      "824",
+      "773"
+    ],
+    "hidden_knowledge": {
+      "unlock_condition": "mastery_level_3",
+      "revelation": "Shakhtau – The Fourth Shikhan",
+      "content": "There were once FOUR Shikhans. Shakhtau (Шаҡтау) — the King Hill — stood 336 meters tall, the mightiest of the siblings. In the 1950s, it was handed to the Bashkir Soda Company. By the 21st century, the King was gone — reduced to a quarry, devoured for industry. Where Shakhtau once rose, now there is only absence. The Crow remembers. The empty fourth space in your memory palace is not an error — it is a memorial. Shakhtau: present in absence, remembered in forgetting, the mountain that was unmade."
+    }
+  },
   "Shulgan-Tash": {
     "id": "locus_shulgan",
     "name": "Shulgan-Tash",
@@ -97,7 +255,7 @@
     "stations": [
       {
         "id": "station_shulgan_1",
-        "number": 2,
+        "number": 4,
         "name": "The Cave Mouth",
         "display_name": "Cave Mouth – Where Ancestors Whisper",
         "words": [
@@ -175,7 +333,7 @@
     "stations": [
       {
         "id": "station_yamantau_1",
-        "number": 3,
+        "number": 5,
         "name": "The Summit Path",
         "display_name": "Summit Path – Where Danger Transforms",
         "words": [
@@ -253,7 +411,7 @@
     "stations": [
       {
         "id": "station_beloretsk_1",
-        "number": 4,
+        "number": 6,
         "name": "The Iron Works",
         "display_name": "Iron Works – Where Matter Takes Shape",
         "words": [
@@ -294,6 +452,75 @@
       "325"
     ]
   },
+  "SevenGirls": {
+    "id": "locus_seven_girls",
+    "name": "Seven Girls",
+    "display_name": "Ете Ҡыҙ – Seven Sisters in the Sky",
+    "bird": "Ringdove",
+    "symbol": "💃✨",
+    "coordinates": [
+      54.7254,
+      55.9478
+    ],
+    "description": {
+      "short": "The legendary fountain where seven maidens dance eternally, mirrors of the Pleiades above.",
+      "long": "The Seven Girls Fountain (Ете Ҡыҙ) stands in Ufa's Theater Square. The legend tells of seven sisters who chose death over dishonor, leaping from a cliff and becoming the Pleiades. The fountain captures them mid-dance, frozen between earth and sky. Water cascades around their bronze forms as they spin toward the stars.",
+      "ibn_arabi_connection": "The Ringdove here represents the Universal Soul in its aspect of beauty and sacrifice. The seven maidens embody the soul's journey from earthly form to celestial light — Ibn Arabi's concept of fana (annihilation in the Divine) transformed into starlight."
+    },
+    "stations": [
+      {
+        "id": "station_seven_girls_1",
+        "number": 7,
+        "name": "The Dancing Waters",
+        "display_name": "Dancing Waters – Where Beauty Becomes Eternal",
+        "words": [
+          "ҡыҙ",
+          "һылыу",
+          "бейеү",
+          "йондоҙ",
+          "ете",
+          "ғүмер",
+          "хәтер",
+          "намыҫ",
+          "мәхәббәт",
+          "тормош",
+          "күрке",
+          "яҙмыш",
+          "ир-ат",
+          "ҡатын",
+          "егет",
+          "йәш",
+          "ҡәҙер",
+          "йөрәк",
+          "һөйөү",
+          "өмөт",
+          "сағыш",
+          "шатлыҡ",
+          "ҡайғы",
+          "тыуған көн",
+          "никах",
+          "ғашиҡ",
+          "оҫталыҡ",
+          "быуат"
+        ],
+        "opening_meditation": "You approach the Seven Girls Fountain as twilight falls. The Ringdove perches atop the central dancer's bronze arm, its feathers catching the last light. 'Voyager,' it sings, 'these seven became stars rather than surrender their souls. Every word you learn here carries their courage.' The water catches starlight. The dancers begin to move. What do they whisper?",
+        "closing_meditation": "You step back from the fountain, droplets of water like stars on your skin. Seven words now shine within you — girl, beauty, dance, star, seven, love, and heart. The Ringdove rises toward the Pleiades. 'They danced away from one life into another. You, too, are learning to transform.' The theater doors open behind you.",
+        "mnemonic_theme": "beauty, sacrifice, love, stars, feminine strength"
+      }
+    ],
+    "themes": [
+      "beauty",
+      "legend",
+      "stars",
+      "feminine",
+      "sacrifice"
+    ],
+    "ocm_codes": [
+      "773",
+      "535",
+      "775"
+    ]
+  },
   "Bizhbulyak": {
     "id": "locus_bizhbulyak",
     "name": "Bizhbulyak",
@@ -312,7 +539,7 @@
     "stations": [
       {
         "id": "station_bizhbulyak_1",
-        "number": 5,
+        "number": 8,
         "name": "The Village Hearth",
         "display_name": "Village Hearth – Where Language Lives",
         "words": [
@@ -388,223 +615,6 @@
       "594",
       "222",
       "342"
-    ]
-  },
-  "SevenGirls": {
-    "id": "locus_seven_girls",
-    "name": "Seven Bashkir Girls",
-    "display_name": "Ете Ҡыҙ – Seven Sisters in the Sky",
-    "bird": "Ringdove",
-    "symbol": "💃✨",
-    "coordinates": [
-      54.7254,
-      55.9478
-    ],
-    "description": {
-      "short": "The legendary fountain where seven maidens dance eternally, mirrors of the Pleiades above.",
-      "long": "The Seven Bashkir Girls Fountain (Ете Ҡыҙ) stands in Ufa's Theater Square. The legend tells of seven sisters who chose death over dishonor, leaping from a cliff and becoming the Pleiades. The fountain captures them mid-dance, frozen between earth and sky. Water cascades around their bronze forms as they spin toward the stars.",
-      "ibn_arabi_connection": "The Ringdove here represents the Universal Soul in its aspect of beauty and sacrifice. The seven maidens embody the soul's journey from earthly form to celestial light — Ibn Arabi's concept of fana (annihilation in the Divine) transformed into starlight."
-    },
-    "stations": [
-      {
-        "id": "station_seven_girls_1",
-        "number": 6,
-        "name": "The Dancing Waters",
-        "display_name": "Dancing Waters – Where Beauty Becomes Eternal",
-        "words": [
-          "ҡыҙ",
-          "һылыу",
-          "бейеү",
-          "йондоҙ",
-          "ете",
-          "ғүмер",
-          "хәтер",
-          "намыҫ",
-          "мәхәббәт",
-          "тормош",
-          "күрке",
-          "яҙмыш",
-          "ир-ат",
-          "ҡатын",
-          "егет",
-          "йәш",
-          "ҡәҙер",
-          "йөрәк",
-          "һөйөү",
-          "өмөт",
-          "сағыш",
-          "шатлыҡ",
-          "ҡайғы",
-          "тыуған көн",
-          "никах",
-          "ғашиҡ",
-          "оҫталыҡ",
-          "быуат"
-        ],
-        "opening_meditation": "You approach the Seven Girls Fountain as twilight falls. The Ringdove perches atop the central dancer's bronze arm, its feathers catching the last light. 'Voyager,' it sings, 'these seven became stars rather than surrender their souls. Every word you learn here carries their courage.' The water catches starlight. The dancers begin to move. What do they whisper?",
-        "closing_meditation": "You step back from the fountain, droplets of water like stars on your skin. Seven words now shine within you — girl, beauty, dance, star, seven, love, and heart. The Ringdove rises toward the Pleiades. 'They danced away from one life into another. You, too, are learning to transform.' The theater doors open behind you.",
-        "mnemonic_theme": "beauty, sacrifice, love, stars, feminine strength"
-      }
-    ],
-    "themes": [
-      "beauty",
-      "legend",
-      "stars",
-      "feminine",
-      "sacrifice"
-    ],
-    "ocm_codes": [
-      "773",
-      "535",
-      "775"
-    ]
-  },
-  "Shikhan": {
-    "id": "locus_shikhan",
-    "name": "Shikhan",
-    "display_name": "Шиһан – Mountains of Memory",
-    "bird": "Crow",
-    "symbol": "🏔️🍺",
-    "coordinates": [
-      53.6833,
-      56.0833
-    ],
-    "description": {
-      "short": "The sacred Shikhan mountains — ancient coral reefs turned to stone, now symbols of preservation and heritage.",
-      "long": "The Shikhans are four isolated hills in Bashkortostan (Yuraktau, Kushtau, Tratau, and the lost Shakhtau). These 285-million-year-old coral reef remnants are unique geological monuments. The Shikhan brewery honors this legacy. Kushtau was saved from mining by public protest in 2020 — a victory of memory over extraction.",
-      "ibn_arabi_connection": "The Crow guards these mountains as it guards all ancient knowledge. Like the cave paintings at Shulgan-Tash, the Shikhans are the Universal Body made manifest — matter that remembers. The beer represents transformation: ancient sea creatures becoming mountains becoming tradition becoming sustenance."
-    },
-    "stations": [
-      {
-        "id": "station_shikhan_1",
-        "number": 7,
-        "name": "The Ancient Reef",
-        "display_name": "Ancient Reef – Where Time Crystallizes",
-        "words": [
-          "Шиһан",
-          "ҡурсау",
-          "диңгеҙ",
-          "иҫкәрмә",
-          "эҫ",
-          "сыра",
-          "уй",
-          "һаҡлау",
-          "ғаиб",
-          "тәбиғәт",
-          "миллион",
-          "етем",
-          "тоҙ",
-          "ҡая",
-          "ҡорамал",
-          "тарихи",
-          "байлыҡ",
-          "ҡурсалау",
-          "еңеү",
-          "барлыҡ",
-          "юҡлыҡ",
-          "әхирәт",
-          "тәүге",
-          "ахырғы",
-          "экология",
-          "ғалим"
-        ],
-        "opening_meditation": "You climb the Shikhan as evening approaches. The Crow waits among fossils embedded in the hillside, its dark eyes reflecting 285 million years. 'Voyager,' it speaks, 'I am the keeper of deep time. These mountains were once a seabed; now they produce beer for the living. Every word you learn here carries the weight of eons.' The wind carries salt and memory. What fossils speak to you?",
-        "closing_meditation": "You descend the Shikhan with stone dust on your boots and ancient salt on your tongue. Six words now crystallize within you — mountain, sea, memory, protect, nature, and victory. The Crow caws approvingly. 'The people saved Kushtau from destruction. You, too, learn to protect what matters.' A cold Shikhan beer awaits.",
-        "mnemonic_theme": "geology, preservation, ecology, time, transformation"
-      }
-    ],
-    "themes": [
-      "geology",
-      "preservation",
-      "time",
-      "ecology",
-      "tradition"
-    ],
-    "ocm_codes": [
-      "131",
-      "311",
-      "824"
-    ]
-  },
-  "TwoFountains": {
-    "id": "locus_two_fountains",
-    "name": "Square of Two Fountains",
-    "display_name": "Ике Фонтан – Meeting of Waters",
-    "bird": "Eagle",
-    "symbol": "⛲⛲",
-    "coordinates": [
-      54.7346,
-      55.9578
-    ],
-    "description": {
-      "short": "Central Ufa square where two fountains face each other — a place of meeting, conversation, and civic life.",
-      "long": "The Square of Two Fountains (Ике Фонтан Мәйҙаны) in central Ufa is where two waters rise and fall in perpetual dialogue. Here Bashkirs meet for business and pleasure, where old friends reconnect and new alliances form. The twin fountains represent duality: east and west, past and future, Bashkir and Russian, always in conversation.",
-      "ibn_arabi_connection": "The Eagle of First Intellect surveys this meeting place. In Ibn Arabi's cosmology, the Intellect mediates between the One and the Many. Here, two fountains represent multiplicity arising from unity — separate streams from the same source, separate peoples in the same land."
-    },
-    "stations": [
-      {
-        "id": "station_two_fountains_1",
-        "number": 8,
-        "name": "The Meeting Point",
-        "display_name": "Meeting Point – Where Dialogue Flows",
-        "words": [
-          "ике",
-          "очрашыу",
-          "әңгәмә",
-          "ҡала",
-          "урам",
-          "мәйҙан",
-          "көн уртаһы",
-          "юл",
-          "автобус",
-          "трамвай",
-          "магазин",
-          "банк",
-          "почта",
-          "мәсьет",
-          "сәғәт",
-          "ваҡыт",
-          "бүген",
-          "иртән",
-          "кисен",
-          "кис",
-          "ҡайҙа",
-          "бында",
-          "унда",
-          "тиҙ",
-          "һуң",
-          "әйбәт",
-          "рәхмәт",
-          "һау бул",
-          "әйе",
-          "юҡ",
-          "бар",
-          "ним?",
-          "кем?",
-          "ниңә?",
-          "ҡасан?",
-          "ниҙә?",
-          "ҡайһы?",
-          "һүҙ",
-          "телмәр",
-          "һөйләү"
-        ],
-        "opening_meditation": "You enter the Square of Two Fountains at midday. The Eagle circles overhead, its shadow passing between the twin jets of water. 'Voyager,' it calls down, 'I am the intellect that bridges. Two fountains, one square. Two languages, one land. Every word you learn here is a meeting point.' Strangers become friends. Deals are struck. Ideas flow. What will you exchange?",
-        "closing_meditation": "You leave the Square as afternoon shadows lengthen. Ten words now flow between your thoughts — two, meeting, city, street, today, time, where, here, thank you, and goodbye. The Eagle lands between the fountains. 'Every conversation is two streams meeting. Every language learned is a bridge built.' The city opens before you.",
-        "mnemonic_theme": "meeting, dialogue, urban life, directions, questions"
-      }
-    ],
-    "themes": [
-      "urban",
-      "civic",
-      "dialogue",
-      "daily life",
-      "duality"
-    ],
-    "ocm_codes": [
-      "363",
-      "481",
-      "197"
     ]
   }
 }

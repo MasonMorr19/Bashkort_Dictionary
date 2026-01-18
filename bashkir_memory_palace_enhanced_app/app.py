@@ -717,9 +717,12 @@ if "Palace" in selected_page:
         locus_options = list(loci_data.keys())
         locus_display = {
             "Ufa": "🦅 Өфө – Eagle's Perch (Civic)",
+            "TwoFountains": "⛲ Ике Фонтан – Meeting of Waters (Dialogue)",
+            "ThreeShikhans": "🏔️ Өс Шиһан – Toratau, Yuraktau, Kushtau (Ancient Memory)",
             "Shulgan-Tash": "🐦⬛ Шүлгәнташ – Crow's Archive (Ancestry)",
             "Yamantau": "🔥🕊️ Ямантау – Anqa's Ascent (Mystery)",
             "Beloretsk": "🕊️ Белорет – Ringdove's Forge (Labor)",
+            "SevenGirls": "💃 Ете Ҡыҙ – Seven Sisters in the Sky (Legend)",
             "Bizhbulyak": "🕊️ Бижбуляк – Ringdove's Hearth (Home)"
         }
 

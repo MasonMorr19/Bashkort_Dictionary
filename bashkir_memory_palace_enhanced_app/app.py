@@ -675,6 +675,7 @@ pages = [
     "🔤 Alphabet",
     "✍️ Sentence Builder",
     "🔊 Audio Dictionary",
+    "📖 Reading Practice",
     "🔄 Review",
     "🕸️ BashkortNet Explorer",
     "📖 Cultural Context",
@@ -1506,11 +1507,12 @@ elif "Media" in selected_page:
     st.markdown("*Watch Bashkir TV, follow Real Russia content, and transcribe audio*")
 
     # Create tabs for different media sections
-    media_tab1, media_tab2, media_tab3, media_tab4 = st.tabs([
+    media_tab1, media_tab2, media_tab3, media_tab4, media_tab5 = st.tabs([
         "📺 TV Guide",
         "🇷🇺 Real Russia",
         "⬇️ Downloads",
-        "✍️ Media Transcript"
+        "✍️ Media Transcript",
+        "📸 Scan Text (OCR)"
     ])
 
     # === TV GUIDE TAB ===
@@ -1909,6 +1911,158 @@ elif "Media" in selected_page:
             5. **Stress:** Usually on the last syllable, which can help identify word endings
             """)
 
+    # === SCAN TEXT (OCR) TAB ===
+    with media_tab5:
+        st.markdown("### 📸 Scan Text (OCR)")
+        st.markdown("*Extract Bashkir text from images using Optical Character Recognition*")
+
+        # Import OCR service
+        try:
+            from modules.ocr_service import get_ocr_service, scan_text_from_image
+            ocr_available = True
+        except ImportError:
+            ocr_available = False
+
+        if not ocr_available:
+            st.warning("⚠️ OCR module not available. Please install dependencies: `pip install easyocr Pillow`")
+        else:
+            ocr_service = get_ocr_service()
+
+            st.info("""
+            📷 **How to use:**
+            1. Upload an image containing Bashkir/Cyrillic text
+            2. The OCR will extract and recognize the text
+            3. Matched words will be linked to the dictionary for instant lookup
+            """)
+
+            # File uploader
+            uploaded_image = st.file_uploader(
+                "Upload an image with Bashkir text",
+                type=['png', 'jpg', 'jpeg', 'webp', 'bmp'],
+                help="Supported formats: PNG, JPG, JPEG, WEBP, BMP"
+            )
+
+            col1, col2 = st.columns([1, 1])
+
+            with col1:
+                preprocess = st.checkbox("Apply image preprocessing", value=True,
+                                        help="Enhance contrast and sharpness for better OCR accuracy")
+
+            with col2:
+                min_confidence = st.slider("Minimum confidence", 0.1, 0.9, 0.3,
+                                          help="Filter out low-confidence text detections")
+
+            if uploaded_image:
+                # Display the uploaded image
+                st.markdown("#### 📷 Uploaded Image")
+                st.image(uploaded_image, use_container_width=True)
+
+                # Process button
+                if st.button("🔍 Scan Text", use_container_width=True):
+                    with st.spinner("Initializing OCR engine (first run downloads ~100MB model)..."):
+                        # Initialize OCR if needed
+                        if not ocr_service.is_initialized:
+                            success = ocr_service.initialize()
+                            if not success:
+                                st.error(f"Failed to initialize OCR: {ocr_service.init_error}")
+                                st.stop()
+
+                    with st.spinner("Scanning image for text..."):
+                        # Run OCR with dictionary matching
+                        results = scan_text_from_image(uploaded_image, words_data)
+
+                    if 'error' in results:
+                        st.error(results['error'])
+                    else:
+                        # Display results
+                        st.markdown("---")
+                        st.markdown("#### 📜 Extracted Text")
+
+                        raw_results = results.get('raw_results', [])
+                        if raw_results:
+                            # Show all detected text regions
+                            full_text = " ".join([r['text'] for r in raw_results])
+                            st.markdown(f"""
+                            <div class="word-card" style="background: #f9f9f9; font-size: 1.2em;">
+                                {full_text}
+                            </div>
+                            """, unsafe_allow_html=True)
+
+                            # Copy button
+                            st.code(full_text, language=None)
+
+                            # Statistics
+                            stats = results.get('statistics', {})
+                            st.markdown("#### 📊 Scan Statistics")
+                            stat_cols = st.columns(4)
+                            with stat_cols[0]:
+                                st.metric("Text Regions", stats.get('total_regions', 0))
+                            with stat_cols[1]:
+                                st.metric("Words Found", stats.get('total_words', 0))
+                            with stat_cols[2]:
+                                st.metric("Dictionary Matches", stats.get('dictionary_matches', 0))
+                            with stat_cols[3]:
+                                match_rate = stats.get('match_rate', 0) * 100
+                                st.metric("Match Rate", f"{match_rate:.1f}%")
+
+                            # Dictionary matches
+                            matches = results.get('matches', [])
+                            dict_matches = [m for m in matches if m.get('in_dictionary')]
+
+                            if dict_matches:
+                                st.markdown("#### 📚 Words Found in Dictionary")
+                                st.markdown("*Click on a word to hear its pronunciation*")
+
+                                for match in dict_matches[:20]:  # Limit display
+                                    with st.expander(f"🔊 {match['matched_word']} — {match.get('english', '')}"):
+                                        st.markdown(f"""
+                                        - **Scanned:** {match['scanned_text']}
+                                        - **Bashkir:** {match['matched_word']}
+                                        - **English:** {match.get('english', 'N/A')}
+                                        - **Russian:** {match.get('russian', 'N/A')}
+                                        - **Confidence:** {match['confidence']:.0%}
+                                        """)
+                                        if st.button("🔊 Play", key=f"ocr_play_{match['matched_word']}"):
+                                            play_audio(match['matched_word'], slow=True)
+
+                            # Unknown words
+                            unknown = [m for m in matches if not m.get('in_dictionary')]
+                            if unknown:
+                                with st.expander(f"❓ {len(unknown)} words not in dictionary"):
+                                    st.markdown(", ".join([m['scanned_text'] for m in unknown[:30]]))
+                        else:
+                            st.warning("No text detected in the image. Try a clearer image or adjust settings.")
+
+            else:
+                # Placeholder when no image uploaded
+                st.markdown("""
+                <div class="meditation-box" style="text-align: center; padding: 40px;">
+                    <span style="font-size: 4em;">📷</span>
+                    <h4>Upload an image to scan</h4>
+                    <p>Supports photos of books, signs, handwriting, and more</p>
+                </div>
+                """, unsafe_allow_html=True)
+
+            st.markdown("---")
+
+            # Tips
+            with st.expander("💡 Tips for Best Results"):
+                st.markdown("""
+                **For accurate OCR:**
+
+                1. **Image quality:** Use clear, well-lit images with good contrast
+                2. **Text orientation:** Keep text horizontal when possible
+                3. **Font size:** Larger text is recognized more accurately
+                4. **Preprocessing:** Enable preprocessing for photos, disable for clean digital text
+                5. **Supported scripts:** Cyrillic (Russian/Bashkir) and Latin scripts
+
+                **Common use cases:**
+                - 📚 Scanning pages from Bashkir books or textbooks
+                - 🪧 Reading signs and labels in Bashkortostan
+                - ✍️ Digitizing handwritten notes
+                - 📱 Screenshots from Bashkir websites or apps
+                """)
+
 # === PAGE: ALPHABET ===
 elif "Alphabet" in selected_page:
     golden_data = load_golden_light_data()
@@ -2257,7 +2411,7 @@ elif "Sentence Builder" in selected_page:
                         st.session_state.saved_sentences.pop(idx)
                         st.rerun()
 
-# === PAGE: AUDIO DICTIONARY (Enhanced with OCM Categories) ===
+# === PAGE: AUDIO DICTIONARY (Enhanced with OCM Categories and OCR) ===
 elif "Audio Dictionary" in selected_page:
     st.title("🔊 Audio Dictionary")
     st.markdown("*Listen to all Bashkir words organized by cultural categories (OCM eHRAF 2021)*")
@@ -2267,137 +2421,404 @@ elif "Audio Dictionary" in selected_page:
     thematic_groups = ocm_data.get('thematic_groups', {})
     ocm_labels = ocm_data.get('ocm_labels', {})
 
-    # Search bar with improved styling
-    st.markdown("### 🔍 Search")
-    search_term = st.text_input("Search words (Bashkir, English, or Russian):",
-                                 key="audio_search",
-                                 placeholder="Type to search all words...")
+    # Search and Scan tabs
+    dict_search_tab, dict_scan_tab = st.tabs(["🔍 Search & Browse", "📸 Quick Scan"])
 
-    # Filter words based on search
-    if search_term:
-        filtered_words = [w for w in words_data if
-                         search_term.lower() in w['bashkir'].lower() or
-                         search_term.lower() in w.get('english', '').lower() or
-                         search_term.lower() in w.get('russian', '').lower()]
-        st.markdown(f"**Found {len(filtered_words)} matching words**")
+    with dict_search_tab:
+        # Search bar with improved styling
+        st.markdown("### 🔍 Search")
+        search_term = st.text_input("Search words (Bashkir, English, or Russian):",
+                                     key="audio_search",
+                                     placeholder="Type to search all words...")
 
-        # Show search results
-        for word in filtered_words:
-            with st.expander(f"🔊 {word['bashkir']} — {word.get('english', '')}"):
-                col1, col2 = st.columns([2, 1])
+        # Filter words based on search
+        if search_term:
+            filtered_words = [w for w in words_data if
+                             search_term.lower() in w['bashkir'].lower() or
+                             search_term.lower() in w.get('english', '').lower() or
+                             search_term.lower() in w.get('russian', '').lower()]
+            st.markdown(f"**Found {len(filtered_words)} matching words**")
+
+            # Show search results
+            for word in filtered_words:
+                with st.expander(f"🔊 {word['bashkir']} — {word.get('english', '')}"):
+                    col1, col2 = st.columns([2, 1])
+
+                    with col1:
+                        word_ocm_codes = word.get('cultural_context', {}).get('ocm_codes', [])
+                        word_ocm_names = [ocm_labels.get(code, code) for code in word_ocm_codes[:3]]
+
+                        st.markdown(f"""
+                        <div class="word-card">
+                            <span class="bashkir-text" style="font-size: 2em;">{word['bashkir']}</span>
+                            <span class="ipa-text" style="font-size: 1.2em;">{word.get('ipa', '')}</span>
+                            <div class="english-text" style="font-size: 1.3em; margin: 10px 0;">{word.get('english', '')}</div>
+                            <span class="russian-text" style="font-size: 1.1em;">🇷🇺 {word.get('russian', '')}</span>
+                            <br><br>
+                            <span style="color: #0066B3; font-size: 0.9em;">📚 OCM: {', '.join(word_ocm_names) if word_ocm_names else 'General'}</span>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    with col2:
+                        st.markdown("**🔊 Audio:**")
+                        if st.button("▶️ Normal", key=f"audio_normal_{word['id']}"):
+                            play_audio(word['bashkir'], slow=False)
+                        if st.button("🐢 Slow", key=f"audio_slow_{word['id']}"):
+                            play_audio(word['bashkir'], slow=True)
+
+                        audio_bytes = generate_audio_with_retry(word['bashkir'], slow=True)
+                        if audio_bytes:
+                            st.download_button(
+                                label="⬇️ Download",
+                                data=audio_bytes,
+                                file_name=f"{word['bashkir']}.mp3",
+                                mime="audio/mp3",
+                                key=f"download_{word['id']}"
+                            )
+        else:
+            # Show all words organized by OCM thematic groups
+            st.markdown("---")
+            st.markdown("### 📚 Browse by Cultural Category (OCM eHRAF 2021)")
+            st.markdown("*Words organized into 2-5 word groups by anthropological classification*")
+
+            # Create tabs for thematic groups
+            group_names = list(thematic_groups.keys())
+            display_names = [thematic_groups[g].get('display_name', g) for g in group_names]
+
+            if display_names:
+                category_tabs = st.tabs(display_names)
+
+                for cat_tab, group_key in zip(category_tabs, group_names):
+                    with cat_tab:
+                        group_info = thematic_groups[group_key]
+                        group_words_list = group_info.get('words', [])
+                        group_ocm_codes = group_info.get('ocm_codes', [])
+
+                        # Get OCM labels for this group
+                        group_ocm_names = [f"{code}: {ocm_labels.get(code, 'Unknown')}" for code in group_ocm_codes[:5]]
+
+                        st.markdown(f"**OCM Categories:** {', '.join(group_ocm_names[:3])}...")
+
+                        # Find matching words from words_data
+                        matching_words = []
+                        for word in words_data:
+                            word_ocm = word.get('cultural_context', {}).get('ocm_codes', [])
+                            if any(code in word_ocm for code in group_ocm_codes):
+                                matching_words.append(word)
+                            elif word['bashkir'] in group_words_list:
+                                matching_words.append(word)
+
+                        # Remove duplicates
+                        seen = set()
+                        unique_words = []
+                        for w in matching_words:
+                            if w['bashkir'] not in seen:
+                                seen.add(w['bashkir'])
+                                unique_words.append(w)
+
+                        if unique_words:
+                            st.markdown(f"**{len(unique_words)} words in this category:**")
+
+                            # Display in groups of 3-4 per row
+                            for i in range(0, len(unique_words), 3):
+                                cols = st.columns(3)
+                                for j, col in enumerate(cols):
+                                    if i + j < len(unique_words):
+                                        word = unique_words[i + j]
+                                        with col:
+                                            st.markdown(f"""
+                                            <div class="word-card" style="text-align: center; min-height: 120px;">
+                                                <span class="bashkir-text" style="font-size: 1.6em;">{word['bashkir']}</span>
+                                                <span class="ipa-text">{word.get('ipa', '')}</span>
+                                                <div style="color: #004d00; font-size: 1.1em; margin: 8px 0;">{word.get('english', '')}</div>
+                                                <small style="color: #666;">🇷🇺 {word.get('russian', '')}</small>
+                                            </div>
+                                            """, unsafe_allow_html=True)
+
+                                            bcol1, bcol2 = st.columns(2)
+                                            with bcol1:
+                                                if st.button("🔊", key=f"cat_audio_{group_key}_{word['id']}",
+                                                            help=f"Play {word['bashkir']}"):
+                                                    play_audio(word['bashkir'], slow=True)
+                                            with bcol2:
+                                                audio_data = generate_audio_with_retry(word['bashkir'], slow=True)
+                                                if audio_data:
+                                                    st.download_button(
+                                                        "⬇️",
+                                                        data=audio_data,
+                                                        file_name=f"{word['bashkir']}.mp3",
+                                                        mime="audio/mp3",
+                                                        key=f"cat_dl_{group_key}_{word['id']}"
+                                                    )
+                        else:
+                            st.info("No words found in this category yet.")
+
+            # Show total word count
+            st.markdown("---")
+            st.markdown(f"**📊 Total: {len(words_data)} words in dictionary**")
+
+    # Quick Scan Tab (OCR)
+    with dict_scan_tab:
+        st.markdown("### 📸 Quick Scan")
+        st.markdown("*Scan text from an image and instantly look up words*")
+
+        try:
+            from modules.ocr_service import get_ocr_service, scan_text_from_image
+            dict_ocr_available = True
+        except ImportError:
+            dict_ocr_available = False
+
+        if not dict_ocr_available:
+            st.warning("⚠️ OCR not available. Install with: `pip install easyocr Pillow`")
+        else:
+            st.info("📷 Upload a photo with Bashkir text to instantly find words in the dictionary")
+
+            quick_scan_image = st.file_uploader(
+                "Upload image",
+                type=['png', 'jpg', 'jpeg'],
+                key="dict_quick_scan"
+            )
+
+            if quick_scan_image:
+                col1, col2 = st.columns([1, 1])
 
                 with col1:
-                    ocm_codes = word.get('cultural_context', {}).get('ocm_codes', [])
-                    ocm_names = [ocm_labels.get(code, code) for code in ocm_codes[:3]]
-
-                    st.markdown(f"""
-                    <div class="word-card">
-                        <span class="bashkir-text" style="font-size: 2em;">{word['bashkir']}</span>
-                        <span class="ipa-text" style="font-size: 1.2em;">{word.get('ipa', '')}</span>
-                        <div class="english-text" style="font-size: 1.3em; margin: 10px 0;">{word.get('english', '')}</div>
-                        <span class="russian-text" style="font-size: 1.1em;">🇷🇺 {word.get('russian', '')}</span>
-                        <br><br>
-                        <span style="color: #0066B3; font-size: 0.9em;">📚 OCM: {', '.join(ocm_names) if ocm_names else 'General'}</span>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    st.image(quick_scan_image, caption="Uploaded Image", use_container_width=True)
 
                 with col2:
-                    st.markdown("**🔊 Audio:**")
-                    if st.button("▶️ Normal", key=f"audio_normal_{word['id']}"):
-                        play_audio(word['bashkir'], slow=False)
-                    if st.button("🐢 Slow", key=f"audio_slow_{word['id']}"):
-                        play_audio(word['bashkir'], slow=True)
+                    if st.button("🔍 Scan & Lookup", use_container_width=True, key="dict_scan_btn"):
+                        with st.spinner("Scanning..."):
+                            ocr_svc = get_ocr_service()
+                            if not ocr_svc.is_initialized:
+                                ocr_svc.initialize()
 
-                    audio_bytes = generate_audio_with_retry(word['bashkir'], slow=True)
-                    if audio_bytes:
-                        st.download_button(
-                            label="⬇️ Download",
-                            data=audio_bytes,
-                            file_name=f"{word['bashkir']}.mp3",
-                            mime="audio/mp3",
-                            key=f"download_{word['id']}"
-                        )
+                            scan_results = scan_text_from_image(quick_scan_image, words_data)
+
+                        if 'error' not in scan_results:
+                            matches = scan_results.get('matches', [])
+                            dict_matches = [m for m in matches if m.get('in_dictionary')]
+
+                            if dict_matches:
+                                st.success(f"✅ Found {len(dict_matches)} words!")
+                                for m in dict_matches[:10]:
+                                    st.markdown(f"**{m['matched_word']}** — {m.get('english', '')}")
+                                    if st.button(f"🔊 {m['matched_word']}", key=f"qs_{m['matched_word']}"):
+                                        play_audio(m['matched_word'], slow=True)
+                            else:
+                                st.warning("No dictionary matches found")
+                        else:
+                            st.error(scan_results.get('error'))
+            else:
+                st.markdown("""
+                <div style="text-align: center; padding: 30px; background: #f5f5f5; border-radius: 10px;">
+                    <span style="font-size: 3em;">📷</span>
+                    <p>Upload a photo to scan</p>
+                </div>
+                """, unsafe_allow_html=True)
+
+# === PAGE: READING PRACTICE ===
+elif "Reading Practice" in selected_page:
+    st.title("📖 Reading Practice")
+    st.markdown("*Improve your Bashkir reading with graded texts and vocabulary support*")
+
+    # Import content scraper
+    try:
+        from modules.content_scraper import get_content_scraper, DifficultyLevel
+        reading_available = True
+    except ImportError:
+        reading_available = False
+
+    if not reading_available:
+        st.warning("⚠️ Reading Practice module not available.")
     else:
-        # Show all words organized by OCM thematic groups
+        scraper = get_content_scraper()
+        all_texts = scraper.get_all_texts()
+
+        # Initialize reading progress in session state
+        if 'completed_readings' not in st.session_state:
+            st.session_state.completed_readings = []
+        if 'known_words' not in st.session_state:
+            st.session_state.known_words = set(st.session_state.learned_words)
+
+        # Statistics
+        stats = scraper.get_reading_stats(st.session_state.completed_readings)
+
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("📚 Texts Available", stats['total_texts'])
+        with col2:
+            st.metric("✅ Completed", stats['completed_texts'])
+        with col3:
+            st.metric("📝 Words Read", stats['words_read'])
+        with col4:
+            completion_pct = stats['completion_rate'] * 100
+            st.metric("📊 Progress", f"{completion_pct:.0f}%")
+
         st.markdown("---")
-        st.markdown("### 📚 Browse by Cultural Category (OCM eHRAF 2021)")
-        st.markdown("*Words organized into 2-5 word groups by anthropological classification*")
 
-        # Create tabs for thematic groups
-        group_names = list(thematic_groups.keys())
-        display_names = [thematic_groups[g].get('display_name', g) for g in group_names]
+        # Difficulty filter
+        st.markdown("### 📊 Select Difficulty")
+        difficulty_options = {
+            "All Levels": None,
+            "🌱 Beginner": DifficultyLevel.BEGINNER,
+            "🌿 Elementary": DifficultyLevel.ELEMENTARY,
+            "🌳 Intermediate": DifficultyLevel.INTERMEDIATE,
+            "🏔️ Advanced": DifficultyLevel.ADVANCED
+        }
 
-        if display_names:
-            tabs = st.tabs(display_names)
+        selected_difficulty = st.selectbox(
+            "Filter by difficulty:",
+            list(difficulty_options.keys()),
+            key="reading_difficulty"
+        )
 
-            for tab, group_key in zip(tabs, group_names):
-                with tab:
-                    group_info = thematic_groups[group_key]
-                    group_words_list = group_info.get('words', [])
-                    ocm_codes = group_info.get('ocm_codes', [])
+        difficulty_filter = difficulty_options[selected_difficulty]
 
-                    # Get OCM labels for this group
-                    ocm_names = [f"{code}: {ocm_labels.get(code, 'Unknown')}" for code in ocm_codes[:5]]
+        # Filter texts
+        if difficulty_filter:
+            filtered_texts = scraper.get_texts_by_difficulty(difficulty_filter)
+        else:
+            filtered_texts = all_texts
 
-                    st.markdown(f"**OCM Categories:** {', '.join(ocm_names[:3])}...")
+        st.markdown(f"**{len(filtered_texts)} texts available**")
 
-                    # Find matching words from words_data
-                    matching_words = []
-                    for word in words_data:
-                        word_ocm = word.get('cultural_context', {}).get('ocm_codes', [])
-                        if any(code in word_ocm for code in ocm_codes):
-                            matching_words.append(word)
-                        elif word['bashkir'] in group_words_list:
-                            matching_words.append(word)
+        st.markdown("---")
 
-                    # Remove duplicates
-                    seen = set()
-                    unique_words = []
-                    for w in matching_words:
-                        if w['bashkir'] not in seen:
-                            seen.add(w['bashkir'])
-                            unique_words.append(w)
+        # Display texts
+        st.markdown("### 📖 Reading Texts")
 
-                    if unique_words:
-                        st.markdown(f"**{len(unique_words)} words in this category:**")
+        for text in filtered_texts:
+            # Determine completion status
+            is_completed = text.id in st.session_state.completed_readings
 
-                        # Display in groups of 3-4 per row
-                        for i in range(0, len(unique_words), 3):
-                            cols = st.columns(3)
-                            for j, col in enumerate(cols):
-                                if i + j < len(unique_words):
-                                    word = unique_words[i + j]
-                                    with col:
-                                        st.markdown(f"""
-                                        <div class="word-card" style="text-align: center; min-height: 120px;">
-                                            <span class="bashkir-text" style="font-size: 1.6em;">{word['bashkir']}</span>
-                                            <span class="ipa-text">{word.get('ipa', '')}</span>
-                                            <div style="color: #004d00; font-size: 1.1em; margin: 8px 0;">{word.get('english', '')}</div>
-                                            <small style="color: #666;">🇷🇺 {word.get('russian', '')}</small>
-                                        </div>
-                                        """, unsafe_allow_html=True)
+            # Difficulty badge colors
+            diff_colors = {
+                DifficultyLevel.BEGINNER: "#4CAF50",
+                DifficultyLevel.ELEMENTARY: "#8BC34A",
+                DifficultyLevel.INTERMEDIATE: "#FFC107",
+                DifficultyLevel.ADVANCED: "#FF9800",
+                DifficultyLevel.NATIVE: "#F44336"
+            }
+            diff_color = diff_colors.get(text.difficulty, "#888")
 
-                                        bcol1, bcol2 = st.columns(2)
-                                        with bcol1:
-                                            if st.button("🔊", key=f"cat_audio_{group_key}_{word['id']}",
-                                                        help=f"Play {word['bashkir']}"):
-                                                play_audio(word['bashkir'], slow=True)
-                                        with bcol2:
-                                            audio_data = generate_audio_with_retry(word['bashkir'], slow=True)
-                                            if audio_data:
-                                                st.download_button(
-                                                    "⬇️",
-                                                    data=audio_data,
-                                                    file_name=f"{word['bashkir']}.mp3",
-                                                    mime="audio/mp3",
-                                                    key=f"cat_dl_{group_key}_{word['id']}"
-                                                )
+            with st.expander(
+                f"{'✅' if is_completed else '📖'} {text.title} — {text.difficulty.name.title()} ({text.word_count} words)",
+                expanded=False
+            ):
+                # Header with metadata
+                meta_cols = st.columns([2, 1, 1])
+                with meta_cols[0]:
+                    st.markdown(f"**Topics:** {', '.join(text.topics)}")
+                with meta_cols[1]:
+                    st.markdown(f"""
+                    <span style="background: {diff_color}; color: white; padding: 2px 8px;
+                                 border-radius: 12px; font-size: 0.8em;">
+                        {text.difficulty.name}
+                    </span>
+                    """, unsafe_allow_html=True)
+                with meta_cols[2]:
+                    st.markdown(f"**{text.word_count}** words")
+
+                st.markdown("---")
+
+                # The reading text with vocabulary highlighting
+                st.markdown("#### 📜 Text")
+
+                # Highlight vocabulary
+                highlighted_text = scraper.highlight_vocabulary(
+                    text.content,
+                    st.session_state.known_words,
+                    words_data
+                )
+
+                st.markdown(f"""
+                <div class="word-card" style="font-size: 1.2em; line-height: 1.8; white-space: pre-wrap;">
+                    {highlighted_text}
+                </div>
+                """, unsafe_allow_html=True)
+
+                # Legend
+                st.markdown("""
+                <small>
+                    <span style="color: #00AF66;">■ Known words</span> |
+                    <span style="color: #0066B3;">■ Dictionary words (click to learn)</span> |
+                    <span style="color: #888;">■ Unknown words</span>
+                </small>
+                """, unsafe_allow_html=True)
+
+                st.markdown("---")
+
+                # Vocabulary section
+                st.markdown("#### 📚 Vocabulary")
+                vocab_list = text.vocabulary if text.vocabulary else []
+
+                if vocab_list:
+                    vocab_cols = st.columns(3)
+                    for idx, vocab_word in enumerate(vocab_list[:12]):
+                        with vocab_cols[idx % 3]:
+                            # Find word in dictionary
+                            dict_entry = next((w for w in words_data if w['bashkir'].lower() == vocab_word.lower()), None)
+                            if dict_entry:
+                                st.markdown(f"**{dict_entry['bashkir']}** — {dict_entry.get('english', '')}")
+                                if st.button(f"🔊", key=f"read_audio_{text.id}_{vocab_word}"):
+                                    play_audio(dict_entry['bashkir'], slow=True)
+                            else:
+                                st.markdown(f"**{vocab_word}**")
+                else:
+                    st.info("No vocabulary list for this text.")
+
+                st.markdown("---")
+
+                # Actions
+                action_cols = st.columns([1, 1, 1])
+                with action_cols[0]:
+                    if st.button("🔊 Read Aloud", key=f"read_aloud_{text.id}"):
+                        # Read first sentence
+                        first_sentence = text.content.split('.')[0] + '.'
+                        play_audio(first_sentence, slow=True)
+
+                with action_cols[1]:
+                    if not is_completed:
+                        if st.button("✅ Mark Complete", key=f"complete_{text.id}"):
+                            st.session_state.completed_readings.append(text.id)
+                            st.success("Text marked as completed!")
+                            st.rerun()
                     else:
-                        st.info("No words found in this category yet.")
+                        st.markdown("✅ **Completed**")
 
-        # Show total word count
+                with action_cols[2]:
+                    # Add vocabulary to review
+                    if vocab_list:
+                        if st.button("➕ Add Words to Review", key=f"add_vocab_{text.id}"):
+                            added = 0
+                            for vocab_word in vocab_list:
+                                dict_entry = next((w for w in words_data if w['bashkir'].lower() == vocab_word.lower()), None)
+                                if dict_entry and dict_entry['bashkir'] not in st.session_state.learned_words:
+                                    st.session_state.learned_words.add(dict_entry['bashkir'])
+                                    st.session_state.review_queue.append(dict_entry['bashkir'])
+                                    added += 1
+                            if added > 0:
+                                st.success(f"Added {added} words to review!")
+                            else:
+                                st.info("All words already in your review list")
+
+        # Tips section
         st.markdown("---")
-        st.markdown(f"**📊 Total: {len(words_data)} words in dictionary**")
+        with st.expander("💡 Reading Tips"):
+            st.markdown("""
+            **How to get the most from reading practice:**
+
+            1. **Start with your level:** Begin with texts at or slightly below your level
+            2. **Read multiple times:** First for gist, then for detail, then for vocabulary
+            3. **Use audio:** Listen while reading to improve pronunciation
+            4. **Learn vocabulary:** Add unfamiliar words to your review queue
+            5. **Mark progress:** Complete texts to track your reading journey
+
+            **Color coding:**
+            - 🟢 **Green** — Words you've already learned
+            - 🔵 **Blue** — Words in the dictionary (click to learn)
+            - ⚫ **Gray** — Words not yet in the dictionary
+            """)
 
 # === PAGE: REVIEW (Fixed ZeroDivisionError) ===
 elif "Review" in selected_page:
@@ -2565,49 +2986,153 @@ elif "BashkortNet" in selected_page:
     ocm_labels = ocm_data.get('ocm_labels', {})
     bashkir_to_ocm = ocm_data.get('bashkir_to_ocm', {})
 
-    # Neo4j integration info
+    # Import Neo4j service
+    try:
+        from modules.neo4j_service import get_neo4j_service, Neo4jConfig
+        neo4j_module_available = True
+    except ImportError:
+        neo4j_module_available = False
+
+    # Neo4j integration section
     st.markdown("---")
     st.markdown("### 🗄️ Neo4j Graph Database Integration")
-    st.info("""
-    **Future Development:** BashkortNet is designed to integrate with Neo4j graph database for advanced semantic queries.
 
-    **Planned Features:**
-    - Cypher query support for complex relationship traversal
-    - Visual graph exploration of word connections
-    - Export semantic network to Neo4j format
-    - Real-time knowledge graph updates
+    if not neo4j_module_available:
+        st.warning("⚠️ Neo4j module not available. Install with: `pip install neo4j>=5.0.0`")
+    else:
+        neo4j_service = get_neo4j_service()
 
-    **Current Data Format:** The BashkortNet relationships in this app use JSON-LD compatible structures
-    that can be directly imported into Neo4j using APOC procedures.
-    """)
+        # Connection status
+        neo4j_tabs = st.tabs(["📊 Status", "🔗 Connect", "📤 Export", "🔍 Query"])
 
-    # Export to Neo4j format button
-    if st.button("📤 Export to Neo4j Format (Cypher)"):
-        # Generate Cypher statements
-        cypher_statements = []
-        cypher_statements.append("// Neo4j Cypher statements for BashkortNet")
-        cypher_statements.append("// Run these in Neo4j Browser or neo4j-admin")
-        cypher_statements.append("")
+        with neo4j_tabs[0]:
+            st.markdown("#### Connection Status")
+            if neo4j_service.is_connected:
+                st.success("✅ Connected to Neo4j")
 
-        for word in words_data[:20]:  # Limit for display
-            bashkir = word['bashkir'].replace("'", "\\'")
-            english = word.get('english', '').replace("'", "\\'")
-            cypher_statements.append(f"CREATE (w:Word {{bashkir: '{bashkir}', english: '{english}', pos: '{word.get('pos', 'noun')}'}})")
+                # Show statistics
+                try:
+                    stats = neo4j_service.get_graph_statistics()
+                    stat_cols = st.columns(4)
+                    with stat_cols[0]:
+                        st.metric("Total Words", stats.get('total_words', 0))
+                    with stat_cols[1]:
+                        st.metric("Total Relations", stats.get('total_relations', 0))
+                    with stat_cols[2]:
+                        by_locus = stats.get('by_locus', {})
+                        st.metric("Locations", len(by_locus))
+                    with stat_cols[3]:
+                        by_rel = stats.get('by_relation', {})
+                        st.metric("Relation Types", len(by_rel))
+                except Exception as e:
+                    st.error(f"Error fetching stats: {e}")
+            else:
+                st.info("🔌 Not connected to Neo4j database")
+                if neo4j_service.connection_error:
+                    st.warning(f"Last error: {neo4j_service.connection_error}")
 
-            # Add relations
-            bashkortnet_data = word.get('bashkortnet', {})
-            relations = bashkortnet_data.get('relations', {})
-            for rel_type, targets in relations.items():
-                for target in targets:
-                    if isinstance(target, dict):
-                        target_word = target.get('target', '').replace("'", "\\'")
+        with neo4j_tabs[1]:
+            st.markdown("#### Connect to Neo4j")
+            st.markdown("Configure your Neo4j connection settings below.")
+
+            with st.form("neo4j_connection"):
+                neo4j_uri = st.text_input("Neo4j URI", value="bolt://localhost:7687",
+                                          help="e.g., bolt://localhost:7687 or neo4j+s://xxx.databases.neo4j.io")
+                neo4j_user = st.text_input("Username", value="neo4j")
+                neo4j_password = st.text_input("Password", type="password", value="")
+                neo4j_database = st.text_input("Database", value="neo4j")
+
+                col1, col2 = st.columns(2)
+                with col1:
+                    connect_btn = st.form_submit_button("🔗 Connect", use_container_width=True)
+                with col2:
+                    import_btn = st.form_submit_button("📥 Connect & Import Data", use_container_width=True)
+
+            if connect_btn or import_btn:
+                config = Neo4jConfig(
+                    uri=neo4j_uri,
+                    username=neo4j_user,
+                    password=neo4j_password,
+                    database=neo4j_database
+                )
+                neo4j_service.config = config
+
+                with st.spinner("Connecting to Neo4j..."):
+                    if neo4j_service.connect():
+                        st.success("✅ Connected successfully!")
+
+                        if import_btn:
+                            with st.spinner("Setting up schema..."):
+                                neo4j_service.setup_schema()
+
+                            with st.spinner("Importing vocabulary data..."):
+                                words_imported, relations_created = neo4j_service.import_words(words_data)
+                                st.success(f"✅ Imported {words_imported} words and {relations_created} relations!")
                     else:
-                        target_word = str(target).replace("'", "\\'")
-                    if target_word:
-                        cypher_statements.append(f"// {bashkir} -{rel_type}-> {target_word}")
+                        st.error(f"❌ Connection failed: {neo4j_service.connection_error}")
 
-        st.code("\n".join(cypher_statements[:30]), language="cypher")
-        st.caption("*Showing first 30 statements. Full export available for download.*")
+        with neo4j_tabs[2]:
+            st.markdown("#### Export to Neo4j Format")
+            st.markdown("Generate Cypher statements for importing into Neo4j.")
+
+            export_count = st.slider("Number of words to export", 10, len(words_data), min(50, len(words_data)))
+
+            if st.button("📤 Generate Cypher Export", use_container_width=True):
+                with st.spinner("Generating Cypher statements..."):
+                    if neo4j_module_available:
+                        cypher_export = neo4j_service.generate_cypher_export(words_data[:export_count])
+                    else:
+                        # Fallback generation
+                        cypher_statements = ["// Neo4j Cypher statements for BashkortNet"]
+                        for word in words_data[:export_count]:
+                            bashkir = word['bashkir'].replace('"', '\\"')
+                            english = word.get('english', '').replace('"', '\\"')
+                            cypher_statements.append(f'MERGE (w:Word {{bashkir: "{bashkir}"}}) SET w.english = "{english}";')
+                        cypher_export = "\n".join(cypher_statements)
+
+                st.code(cypher_export[:3000], language="cypher")
+                if len(cypher_export) > 3000:
+                    st.caption("*Showing first 3000 characters...*")
+
+                st.download_button(
+                    "⬇️ Download Full Cypher File",
+                    data=cypher_export,
+                    file_name="bashkortnet_export.cypher",
+                    mime="text/plain"
+                )
+
+        with neo4j_tabs[3]:
+            st.markdown("#### Query BashkortNet")
+
+            if neo4j_service.is_connected:
+                st.markdown("**Find Path Between Words**")
+                path_cols = st.columns(2)
+                with path_cols[0]:
+                    start_word = st.selectbox("Start word", [w['bashkir'] for w in words_data], key="path_start")
+                with path_cols[1]:
+                    end_word = st.selectbox("End word", [w['bashkir'] for w in words_data], key="path_end")
+
+                if st.button("🔍 Find Path"):
+                    path = neo4j_service.find_path(start_word, end_word)
+                    if path:
+                        st.success(f"Found path with {len(path)} steps:")
+                        for step in path:
+                            st.markdown(f"**{step['from']}** —[{step['relation']}]→ **{step['to']}**")
+                    else:
+                        st.warning("No path found between these words")
+
+                st.markdown("---")
+                st.markdown("**Search Words**")
+                search_query = st.text_input("Search query", placeholder="Enter Bashkir, English, or Russian...")
+                if search_query and st.button("🔍 Search"):
+                    results = neo4j_service.search_words(search_query)
+                    if results:
+                        for r in results[:10]:
+                            st.markdown(f"**{r.get('bashkir', '?')}** — {r.get('english', '')} ({r.get('russian', '')})")
+                    else:
+                        st.info("No results found")
+            else:
+                st.info("Connect to Neo4j to enable graph queries")
 
     st.markdown("---")
 

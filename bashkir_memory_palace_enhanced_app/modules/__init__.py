@@ -8,6 +8,9 @@ from .mnemonic_generator import MnemonicGenerator, StoryChainGenerator, generate
 from .spaced_repetition import SpacedRepetitionSystem, ReviewSession, ReviewItem
 from .sentence_builder import SentenceBuilder, BashkirGrammar, load_sentence_builder
 from .audio_service import AudioService, AudioPlayer, get_audio_service
+from .neo4j_service import Neo4jService, Neo4jConfig, get_neo4j_service, init_neo4j
+from .ocr_service import OCRService, get_ocr_service, scan_text_from_image
+from .content_scraper import ContentScraper, get_content_scraper, DifficultyLevel, ReadingText
 
 __all__ = [
     'BashkortNet',
@@ -24,4 +27,18 @@ __all__ = [
     'AudioService',
     'AudioPlayer',
     'get_audio_service',
+    # Neo4j Graph Database
+    'Neo4jService',
+    'Neo4jConfig',
+    'get_neo4j_service',
+    'init_neo4j',
+    # OCR Service
+    'OCRService',
+    'get_ocr_service',
+    'scan_text_from_image',
+    # Content Scraper
+    'ContentScraper',
+    'get_content_scraper',
+    'DifficultyLevel',
+    'ReadingText',
 ]

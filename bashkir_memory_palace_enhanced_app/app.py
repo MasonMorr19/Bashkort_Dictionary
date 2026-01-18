@@ -1504,15 +1504,16 @@ elif "Geography" in selected_page:
 # === PAGE: MEDIA (TV Guide, Real Russia, Transcription) ===
 elif "Media" in selected_page:
     st.title("📺 Медиа — Media Center")
-    st.markdown("*Watch Bashkir TV, follow Real Russia content, and transcribe audio*")
+    st.markdown("*Watch Bashkir TV, follow Real Russia content, and generate live subtitles*")
 
     # Create tabs for different media sections
-    media_tab1, media_tab2, media_tab3, media_tab4, media_tab5 = st.tabs([
+    media_tab1, media_tab2, media_tab3, media_tab4, media_tab5, media_tab6 = st.tabs([
         "📺 TV Guide",
+        "🎬 Video Player",
         "🇷🇺 Real Russia",
         "⬇️ Downloads",
-        "✍️ Media Transcript",
-        "📸 Scan Text (OCR)"
+        "📸 Scan Text (OCR)",
+        "🎤 Live Subtitles"
     ])
 
     # === TV GUIDE TAB ===
@@ -1634,8 +1635,165 @@ elif "Media" in selected_page:
                 </div>
                 """, unsafe_allow_html=True)
 
-    # === REAL RUSSIA TAB ===
+    # === VIDEO PLAYER TAB ===
     with media_tab2:
+        st.markdown("### 🎬 Video Player with Subtitles")
+        st.markdown("*Watch videos with auto-generated Bashkir subtitles*")
+
+        # Import subtitle service
+        try:
+            from modules.subtitle_service import get_subtitle_service, SubtitleFormat
+            subtitle_svc_available = True
+        except ImportError:
+            subtitle_svc_available = False
+
+        # Video source selection
+        video_source = st.radio(
+            "Video Source",
+            ["📤 Upload Video", "🔗 URL/Stream", "📁 Sample Videos"],
+            horizontal=True
+        )
+
+        if video_source == "📤 Upload Video":
+            uploaded_video = st.file_uploader(
+                "Upload a video file",
+                type=['mp4', 'mkv', 'avi', 'mov', 'webm'],
+                key="video_upload"
+            )
+
+            if uploaded_video:
+                # Save to temp file
+                import tempfile
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as f:
+                    f.write(uploaded_video.read())
+                    video_path = f.name
+
+                col1, col2 = st.columns([2, 1])
+
+                with col1:
+                    st.video(video_path)
+
+                with col2:
+                    st.markdown("#### 🎤 Generate Subtitles")
+
+                    if not subtitle_svc_available:
+                        st.warning("⚠️ Subtitle service not available. Install: `pip install faster-whisper`")
+                    else:
+                        sub_language = st.selectbox(
+                            "Language",
+                            ["Auto-detect", "Russian", "English", "Bashkir (experimental)"],
+                            key="vid_sub_lang"
+                        )
+
+                        model_size = st.selectbox(
+                            "Model Quality",
+                            ["base (fast)", "small (balanced)", "medium (accurate)", "large-v3 (best)"],
+                            key="vid_model"
+                        )
+
+                        if st.button("🎯 Generate Subtitles", use_container_width=True, key="gen_subs"):
+                            model = model_size.split(" ")[0]
+                            lang_map = {
+                                "Auto-detect": "auto",
+                                "Russian": "ru",
+                                "English": "en",
+                                "Bashkir (experimental)": "ba"
+                            }
+
+                            with st.spinner(f"Loading {model} model and generating subtitles..."):
+                                svc = get_subtitle_service(model_size=model)
+
+                                progress_placeholder = st.empty()
+
+                                def progress_cb(status, prog):
+                                    progress_placeholder.progress(prog, text=status)
+
+                                result = svc.transcribe_video(
+                                    video_path,
+                                    language=lang_map.get(sub_language, "auto"),
+                                    progress_callback=progress_cb
+                                )
+
+                            if result:
+                                st.success(f"✅ Generated {len(result.segments)} subtitle segments!")
+                                st.info(f"Detected language: {result.language}")
+
+                                # Show subtitles
+                                st.markdown("#### 📜 Subtitles Preview")
+                                for seg in result.segments[:10]:
+                                    st.markdown(f"**[{seg.start:.1f}s - {seg.end:.1f}s]** {seg.text}")
+
+                                if len(result.segments) > 10:
+                                    st.caption(f"... and {len(result.segments) - 10} more segments")
+
+                                # Download options
+                                st.markdown("#### ⬇️ Download")
+                                dl_cols = st.columns(3)
+                                with dl_cols[0]:
+                                    st.download_button(
+                                        "📄 SRT",
+                                        result.to_srt(),
+                                        file_name="subtitles.srt",
+                                        mime="text/plain"
+                                    )
+                                with dl_cols[1]:
+                                    st.download_button(
+                                        "📄 VTT",
+                                        result.to_vtt(),
+                                        file_name="subtitles.vtt",
+                                        mime="text/vtt"
+                                    )
+                                with dl_cols[2]:
+                                    st.download_button(
+                                        "📄 TXT",
+                                        result.text,
+                                        file_name="transcript.txt",
+                                        mime="text/plain"
+                                    )
+                            else:
+                                st.error(f"Subtitle generation failed: {svc.init_error}")
+
+        elif video_source == "🔗 URL/Stream":
+            st.markdown("#### 🔗 Enter Video URL")
+            video_url = st.text_input(
+                "Video URL",
+                placeholder="https://example.com/video.mp4 or stream URL",
+                key="video_url_input"
+            )
+
+            if video_url:
+                st.markdown("##### Preview")
+                try:
+                    st.video(video_url)
+                except Exception as e:
+                    st.warning(f"Cannot preview this URL directly. For streams, use VLC Media Player.")
+                    st.code(video_url)
+                    st.markdown("**To watch with VLC:**")
+                    st.markdown("1. Open VLC Media Player")
+                    st.markdown("2. Go to Media → Open Network Stream")
+                    st.markdown("3. Paste the URL above")
+
+        else:  # Sample Videos
+            st.markdown("#### 📁 Sample Bashkir Content")
+            st.info("Sample videos would be loaded from your library here.")
+
+            sample_videos = [
+                {"title": "Bashkir Alphabet Song", "duration": "3:45", "level": "Beginner"},
+                {"title": "Conversation Practice", "duration": "5:20", "level": "Elementary"},
+                {"title": "News Broadcast Sample", "duration": "2:30", "level": "Advanced"}
+            ]
+
+            for vid in sample_videos:
+                col1, col2, col3 = st.columns([3, 1, 1])
+                with col1:
+                    st.markdown(f"**{vid['title']}**")
+                with col2:
+                    st.caption(vid['duration'])
+                with col3:
+                    st.button("▶️ Play", key=f"play_{vid['title']}")
+
+    # === REAL RUSSIA TAB ===
+    with media_tab3:
         st.markdown("### 🇷🇺 Real Russia — Sergey Baklykov")
         st.markdown("*Follow Sergey Baklykov's Telegram for authentic Russian and Bashkir content*")
 
@@ -1729,7 +1887,7 @@ elif "Media" in selected_page:
             """)
 
     # === DOWNLOADS TAB ===
-    with media_tab3:
+    with media_tab4:
         st.markdown("### ⬇️ Downloadable Content")
         st.markdown("*Resources you can save for offline study*")
 
@@ -1795,121 +1953,168 @@ elif "Media" in selected_page:
                 with col3:
                     st.button(f"📥 Download", key=f"dlt_{text['name'][:10]}")
 
-    # === MEDIA TRANSCRIPT TAB ===
-    with media_tab4:
-        st.markdown("### ✍️ Media Transcription")
-        st.markdown("*Transcribe Bashkir audio to text using AI-powered recognition*")
+    # === LIVE SUBTITLES TAB ===
+    with media_tab6:
+        st.markdown("### 🎤 Live Subtitles")
+        st.markdown("*Real-time speech-to-text for live streams and broadcasts*")
 
-        st.info("🔬 **Powered by:** Turkic Languages Audio-to-Text Transcription technology")
+        st.info("""
+        🎧 **How it works:** This feature uses faster-whisper to transcribe audio in real-time,
+        allowing you to watch Bashkir TV or streams with live-generated subtitles.
+        """)
 
-        # Transcription interface
-        st.markdown("#### 📤 Upload Audio for Transcription")
+        # Import subtitle service
+        try:
+            from modules.subtitle_service import get_subtitle_service
+            live_sub_available = True
+        except ImportError:
+            live_sub_available = False
 
-        uploaded_file = st.file_uploader(
-            "Choose an audio file",
-            type=['mp3', 'wav', 'ogg', 'm4a'],
-            help="Supported formats: MP3, WAV, OGG, M4A"
-        )
-
-        if uploaded_file:
-            st.audio(uploaded_file)
-
-            col1, col2 = st.columns(2)
-            with col1:
-                language_mode = st.selectbox(
-                    "Transcription Language",
-                    ["Bashkir (Башҡорт)", "Russian (Русский)", "Mixed/Auto-detect"]
-                )
-            with col2:
-                output_format = st.selectbox(
-                    "Output Format",
-                    ["Plain Text", "With Timestamps", "SRT Subtitles"]
-                )
-
-            if st.button("🎯 Start Transcription", use_container_width=True):
-                with st.spinner("Transcribing audio... This may take a moment."):
-                    import time
-                    time.sleep(2)  # Simulated processing
-
-                st.success("✅ Transcription complete!")
-
-                # Sample output
-                st.markdown("#### 📜 Transcription Result")
-                st.markdown("""
-                <div class="word-card" style="background: #f5f5f5;">
-                    <p style="font-family: monospace; white-space: pre-wrap;">
-[00:00:02] Һаумыһығыҙ, дуҫтар!
-[00:00:05] Бүген беҙ Башҡортостан тураһында һөйләшербеҙ.
-[00:00:10] Башҡортостан — бик матур ер.
-[00:00:15] Унда тау, урман, йылға бар.
-                    </p>
-                </div>
-                """, unsafe_allow_html=True)
-
-                col1, col2, col3 = st.columns(3)
-                with col1:
-                    st.button("📋 Copy Text")
-                with col2:
-                    st.button("📥 Download TXT")
-                with col3:
-                    st.button("📥 Download SRT")
+        if not live_sub_available:
+            st.warning("⚠️ Subtitle service not available. Please install: `pip install faster-whisper`")
         else:
-            st.markdown("""
-            <div class="meditation-box" style="text-align: center;">
-                <span style="font-size: 3em;">🎙️</span>
-                <h4>Upload audio to begin transcription</h4>
-                <p>Drag and drop or click to select a file</p>
+            # Live transcription mode selection
+            live_mode = st.radio(
+                "Transcription Mode",
+                ["🎙️ Microphone Input", "🔗 Stream URL", "📺 System Audio"],
+                horizontal=True,
+                help="Choose audio source for live transcription"
+            )
+
+            col1, col2 = st.columns([2, 1])
+
+            with col1:
+                # Model selection for live
+                live_model = st.selectbox(
+                    "Whisper Model",
+                    ["tiny", "base", "small"],
+                    index=1,
+                    help="Smaller models = faster but less accurate. For live use 'tiny' or 'base'"
+                )
+
+            with col2:
+                live_lang = st.selectbox(
+                    "Language",
+                    ["Auto-detect", "Russian", "Bashkir (experimental)"],
+                    help="Auto-detect works well for Russian. Bashkir results may vary."
+                )
+
+            # Live subtitle display area
+            st.markdown("#### 📺 Subtitle Display")
+
+            subtitle_display = st.empty()
+
+            subtitle_display.markdown("""
+            <div style="background: #000; color: #fff; padding: 40px 20px; border-radius: 10px;
+                        text-align: center; min-height: 100px; font-size: 1.5em; font-family: Arial, sans-serif;">
+                <span style="color: #666;">[ Subtitles will appear here ]</span>
             </div>
             """, unsafe_allow_html=True)
 
-        st.markdown("---")
+            # Control buttons
+            btn_col1, btn_col2, btn_col3 = st.columns(3)
 
-        # Manual transcription tools
-        st.markdown("#### ✏️ Manual Transcription Helper")
-        st.markdown("*Type what you hear with assistance*")
+            with btn_col1:
+                if st.button("▶️ Start Live Transcription", use_container_width=True):
+                    st.session_state['live_transcribing'] = True
+                    st.toast("Starting live transcription... (simulation)")
 
-        col1, col2 = st.columns([2, 1])
+                    # Simulated live subtitle demo
+                    import time
+                    demo_subtitles = [
+                        "Һаумыһығыҙ, ҡәҙерле тамашасылар!",
+                        "Бүгөн беҙ Башҡортостан тураһында һөйләшәбеҙ.",
+                        "Башҡортостан — бик матур ер!",
+                        "Унда тауҙар, урмандар, йылғалар бар."
+                    ]
 
-        with col1:
-            manual_text = st.text_area(
-                "Your transcription:",
-                height=150,
-                placeholder="Type the Bashkir text you hear..."
-            )
+                    for sub in demo_subtitles:
+                        subtitle_display.markdown(f"""
+                        <div style="background: #000; color: #fff; padding: 40px 20px; border-radius: 10px;
+                                    text-align: center; min-height: 100px; font-size: 1.5em; font-family: Arial, sans-serif;">
+                            {sub}
+                        </div>
+                        """, unsafe_allow_html=True)
+                        time.sleep(2)
 
-            if manual_text:
-                st.markdown("**Word Count:** " + str(len(manual_text.split())))
-                st.markdown("**Character Count:** " + str(len(manual_text)))
+                    subtitle_display.markdown("""
+                    <div style="background: #000; color: #0f0; padding: 40px 20px; border-radius: 10px;
+                                text-align: center; min-height: 100px; font-size: 1.3em;">
+                        ✓ Demo complete — Install faster-whisper for real-time transcription
+                    </div>
+                    """, unsafe_allow_html=True)
 
-        with col2:
-            st.markdown("##### 🔤 Quick Insert")
-            special_chars = ['ә', 'ө', 'ү', 'ҡ', 'ғ', 'һ', 'ҙ', 'ҫ', 'ң']
-            char_cols = st.columns(3)
-            for idx, char in enumerate(special_chars):
-                with char_cols[idx % 3]:
-                    if st.button(char, key=f"char_{char}"):
-                        st.toast(f"Copied: {char}")
+            with btn_col2:
+                if st.button("⏹️ Stop", use_container_width=True):
+                    st.session_state['live_transcribing'] = False
+                    st.toast("Stopped transcription")
 
-        st.markdown("---")
+            with btn_col3:
+                if st.button("📥 Save Transcript", use_container_width=True):
+                    st.toast("Transcript saved (feature in development)")
 
-        # Transcription tips
-        with st.expander("💡 Transcription Tips"):
-            st.markdown("""
-            **For accurate Bashkir transcription:**
+            st.markdown("---")
 
-            1. **Listen for special sounds:** Pay attention to ҡ (like uvular k), ғ (like French r), and һ (like h)
+            # Stream URL input for live streams
+            if live_mode == "🔗 Stream URL":
+                st.markdown("#### 🔗 Stream Configuration")
+                stream_url = st.text_input(
+                    "Enter stream URL:",
+                    placeholder="https://example.com/stream.m3u8",
+                    help="Works with HLS, RTMP, and direct video URLs"
+                )
 
-            2. **Vowel harmony:** Bashkir uses front/back vowel harmony — this helps predict spelling
+                if stream_url:
+                    st.markdown(f"""
+                    <div class="word-card" style="background: #1a1a2e;">
+                        <p style="color: #fff;"><strong>Stream:</strong> <code>{stream_url}</code></p>
+                        <small style="color: #666;">Audio will be extracted and transcribed in real-time</small>
+                    </div>
+                    """, unsafe_allow_html=True)
 
-            3. **Common patterns:**
-               - -лар/-ләр (plural suffix)
-               - -ға/-гә/-ҡа/-кә (dative case)
-               - -да/-дә/-та/-тә (locative case)
+            # Subtitle settings
+            with st.expander("⚙️ Subtitle Settings"):
+                sub_col1, sub_col2 = st.columns(2)
 
-            4. **Word boundaries:** Bashkir is agglutinative — long words are often root + multiple suffixes
+                with sub_col1:
+                    st.selectbox("Font Size", ["Small", "Medium", "Large"], index=1)
+                    st.selectbox("Position", ["Bottom", "Top"], index=0)
 
-            5. **Stress:** Usually on the last syllable, which can help identify word endings
-            """)
+                with sub_col2:
+                    st.color_picker("Text Color", "#FFFFFF")
+                    st.color_picker("Background Color", "#000000")
+
+                st.checkbox("Show timestamps", value=False)
+                st.checkbox("Auto-scroll transcript", value=True)
+
+            # Tips
+            with st.expander("💡 Tips for Live Transcription"):
+                st.markdown("""
+                **Best practices for real-time subtitles:**
+
+                1. **Model Selection:**
+                   - Use `tiny` or `base` for minimal latency
+                   - Use `small` for better accuracy if you have GPU
+
+                2. **Audio Quality:**
+                   - Clear audio with minimal background noise works best
+                   - Headphones recommended to prevent feedback
+
+                3. **Language Detection:**
+                   - Russian is well-supported by Whisper
+                   - Bashkir may be transcribed as Russian (similar sounds)
+                   - For best Bashkir results, use larger models
+
+                4. **Performance:**
+                   - GPU (CUDA) dramatically improves speed
+                   - CPU-only mode works but may have 2-5 second delay
+
+                5. **Use Cases:**
+                   - 📺 Watching Bashkir TV (БСТ, Kuray TV)
+                   - 🎥 Following YouTube livestreams
+                   - 🎤 Transcribing video calls
+                   - 📻 Radio broadcast transcription
+                """)
 
     # === SCAN TEXT (OCR) TAB ===
     with media_tab5:

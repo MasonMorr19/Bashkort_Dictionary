@@ -1,0 +1,354 @@
+{
+  "golden_light": {
+    "title": {
+      "bashkir": "Алтын Яҡты",
+      "english": "Golden Light",
+      "subtitle_bashkir": "Башҡорт мәҙәниәтенә һәм телгә юл",
+      "subtitle_english": "A path to Bashkir culture and language"
+    },
+    "legacy_proverb": {
+      "bashkir": "Кешеләр тәндәре менән түгел, ә изге эштәре менән мәңге йәшәйҙәр",
+      "english": "People live forever not through their bodies, but through their good deeds",
+      "russian": "Люди живут вечно не телом, а добрыми делами",
+      "phonetic": "ke-she-LAR tan-da-RE me-NAN tu-GEL, a iz-GE esh-ta-RE me-NAN man-GE ya-sha-Y-zar"
+    },
+    "memory_palace_stations": [
+      {
+        "id": 1,
+        "title": "The Birth of Heroes",
+        "bashkir": "Батырҙарҙың тыуыуы",
+        "icon": "🏠",
+        "color": "emerald",
+        "summary": "Yanbirde and Yanbike raise two sons: Shulgen and Ural",
+        "memory_peg": "BIRTH = New BEGINNING on an island",
+        "memory_image": "A tiny island after a flood. An elderly couple with silver hair. Two boys — one with dark eyes, one with bright eyes.",
+        "vocab": [
+          {"bashkir": "батыр", "english": "hero", "phonetic": "ba-TIR"},
+          {"bashkir": "тау", "english": "mountain", "phonetic": "TAU"},
+          {"bashkir": "һыу", "english": "water", "phonetic": "SIU"}
+        ]
+      },
+      {
+        "id": 2,
+        "title": "The White Swan Maidens",
+        "bashkir": "Аҡҡош ҡыҙҙары",
+        "icon": "🦢",
+        "color": "sky",
+        "summary": "The brothers discover swan maidens; Ural shows kindness",
+        "memory_peg": "SWAN = Seven WHITE beauties",
+        "memory_image": "Crystal lake. Seven swans become women. One brother grabs robes, the other returns them.",
+        "vocab": [
+          {"bashkir": "аҡҡош", "english": "swan", "phonetic": "ak-KOSH"},
+          {"bashkir": "күл", "english": "lake", "phonetic": "KUL"},
+          {"bashkir": "ҡыҙ", "english": "maiden", "phonetic": "KIZ"}
+        ]
+      },
+      {
+        "id": 3,
+        "title": "The Quest Begins",
+        "bashkir": "Юлға сығыу",
+        "icon": "🧭",
+        "color": "blue",
+        "summary": "Ural seeks the Spring of Life; Shulgen chooses darkness",
+        "memory_peg": "QUEST = Question of CHOICE",
+        "memory_image": "Crossroads at dawn. One path lit by sun, one shrouded in shadow. Two brothers part ways.",
+        "vocab": [
+          {"bashkir": "юл", "english": "road", "phonetic": "YUL"},
+          {"bashkir": "ҡылыс", "english": "sword", "phonetic": "ky-LIS"},
+          {"bashkir": "урман", "english": "forest", "phonetic": "ur-MAN"}
+        ]
+      },
+      {
+        "id": 4,
+        "title": "The Kingdom of Samrau",
+        "bashkir": "Самрау батшалығы",
+        "icon": "👑",
+        "color": "amber",
+        "summary": "Ural wins King Samrau's trust and Humai's love",
+        "memory_peg": "SAMRAU = SAM flew REGAL",
+        "memory_image": "Palace above clouds. Giant bird-king on throne. Swan maiden recognizes the kind brother.",
+        "vocab": [
+          {"bashkir": "батша", "english": "king", "phonetic": "bat-SHA"},
+          {"bashkir": "ил", "english": "country", "phonetic": "IL"},
+          {"bashkir": "йөрәк", "english": "heart", "phonetic": "yu-RAK"}
+        ]
+      },
+      {
+        "id": 5,
+        "title": "The Serpent's Domain",
+        "bashkir": "Йылан батшалығы",
+        "icon": "🐍",
+        "color": "red",
+        "summary": "Shulgen joins Kahkaha and gains dark powers",
+        "memory_peg": "SERPENT = SOLD his soul",
+        "memory_image": "Dark cave lit by hellfire. Bronze dragon offers cup of venom. Man drinks—eyes turn yellow.",
+        "vocab": [
+          {"bashkir": "йылан", "english": "serpent", "phonetic": "yi-LAN"},
+          {"bashkir": "ҡараңғы", "english": "darkness", "phonetic": "ka-ran-GI"},
+          {"bashkir": "ҡан", "english": "blood", "phonetic": "KAN"}
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Trials of the Hero",
+        "bashkir": "Батырҙың һынауҙары",
+        "icon": "🛡️",
+        "color": "purple",
+        "summary": "Ural faces three impossible trials",
+        "memory_peg": "TRIALS = THREE tests of TRUTH",
+        "memory_image": "Sphinx asking riddles. Battlefield of ghosts. Village of sick people being healed.",
+        "vocab": [
+          {"bashkir": "һынау", "english": "trial", "phonetic": "si-NAU"},
+          {"bashkir": "көс", "english": "strength", "phonetic": "KUS"},
+          {"bashkir": "дөрөҫлөк", "english": "truth", "phonetic": "du-rus-LUK"}
+        ]
+      },
+      {
+        "id": 7,
+        "title": "War of Light and Darkness",
+        "bashkir": "Яҡты һәм ҡараңғы һуғышы",
+        "icon": "⚔️",
+        "color": "orange",
+        "summary": "Brother faces brother as Kahkaha's armies attack",
+        "memory_peg": "WAR = Brothers WRESTLE fate",
+        "memory_image": "Mountain shaking. Two brothers fighting. One falls, asking forgiveness.",
+        "vocab": [
+          {"bashkir": "һуғыш", "english": "war", "phonetic": "hu-GISH"},
+          {"bashkir": "дошман", "english": "enemy", "phonetic": "dosh-MAN"},
+          {"bashkir": "ғәләбә", "english": "victory", "phonetic": "ga-la-BA"}
+        ]
+      },
+      {
+        "id": 8,
+        "title": "The Final Battle",
+        "bashkir": "Һуңғы һуғыш",
+        "icon": "⚡",
+        "color": "red",
+        "summary": "Ural defeats Kahkaha through the power of love",
+        "memory_peg": "FINAL = LOVE defeats FEAR",
+        "memory_image": "Dragon recoiling from words of love. Glowing sword finds the hidden heart.",
+        "vocab": [
+          {"bashkir": "йән", "english": "soul", "phonetic": "YAN"},
+          {"bashkir": "өмөт", "english": "hope", "phonetic": "u-MUT"},
+          {"bashkir": "мәхәббәт", "english": "love", "phonetic": "ma-khab-BAT"}
+        ]
+      },
+      {
+        "id": 9,
+        "title": "The Spring of Life",
+        "bashkir": "Тереклек шишмәһе",
+        "icon": "💧",
+        "color": "cyan",
+        "summary": "Ural makes an impossible choice",
+        "memory_peg": "SPRING = SACRIFICE for all",
+        "memory_image": "Golden spring on mountaintop. Man pours water outward instead of drinking. Light spreads everywhere.",
+        "vocab": [
+          {"bashkir": "тереклек", "english": "life", "phonetic": "te-rek-LEK"},
+          {"bashkir": "шишмә", "english": "spring", "phonetic": "shish-MA"},
+          {"bashkir": "бүләк", "english": "gift", "phonetic": "bu-LAK"}
+        ]
+      },
+      {
+        "id": 10,
+        "title": "The Hero's Legacy",
+        "bashkir": "Батырҙың мираҫы",
+        "icon": "🏔️",
+        "color": "slate",
+        "summary": "Ural becomes the mountains—living forever through his deeds",
+        "memory_peg": "LEGACY = LOVE becomes LAND",
+        "memory_image": "Man transforming into mountain range. Swan singing on highest peak. People gathering in the valleys.",
+        "vocab": [
+          {"bashkir": "тау", "english": "mountain", "phonetic": "TAU"},
+          {"bashkir": "мираҫ", "english": "legacy", "phonetic": "mi-RAS"},
+          {"bashkir": "халыҡ", "english": "people", "phonetic": "kha-LIK"}
+        ]
+      }
+    ]
+  },
+  "independence": {
+    "title": {
+      "bashkir": "Бәйһеҙлек",
+      "english": "Independence",
+      "subtitle": "12 Reasons Why Bashkirs Must Attain Independence"
+    },
+    "author": "Ruslan Gabbasov",
+    "organization": "Free Nations League",
+    "reasons": [
+      {
+        "id": 1,
+        "title": "Colonial Status",
+        "icon": "⚖️",
+        "description": "Resources extracted while local interests ignored. Bashkortostan's vast natural wealth—oil, gas, minerals—flows to Moscow while the republic remains economically subordinate.",
+        "bashkir_term": "Мостәкыйллек"
+      },
+      {
+        "id": 2,
+        "title": "Indigenous Rights",
+        "icon": "🏔️",
+        "description": "Bashkirs are indigenous to their land with no other homeland on Earth. International law recognizes the rights of indigenous peoples to self-determination.",
+        "bashkir_term": "Төп халыҡ хоҡуҡтары"
+      },
+      {
+        "id": 3,
+        "title": "Legal Rights",
+        "icon": "📜",
+        "description": "International law supports self-determination for peoples under colonial rule. The UN Charter and multiple declarations affirm this fundamental right.",
+        "bashkir_term": "Юридик хоҡуҡтар"
+      },
+      {
+        "id": 4,
+        "title": "Historical Oppression",
+        "icon": "⛓️",
+        "description": "Centuries of colonization have made Bashkirs a minority in their own homeland. What was once a Bashkir-majority territory now has Bashkirs as only 30% of the population.",
+        "bashkir_term": "Тарихи золом"
+      },
+      {
+        "id": 5,
+        "title": "Religious Oppression",
+        "icon": "🕌",
+        "description": "The Muslim majority faces institutional discrimination. Religious practice is monitored, mosques are controlled, and Islamic education is restricted.",
+        "bashkir_term": "Дини золом"
+      },
+      {
+        "id": 6,
+        "title": "Language Oppression",
+        "icon": "🗣️",
+        "description": "Systematic destruction of the Bashkir language since 2017 policy changes removed mandatory Bashkir language education. UNESCO classifies Bashkir as 'vulnerable.'",
+        "bashkir_term": "Тел золомо"
+      },
+      {
+        "id": 7,
+        "title": "Cultural Oppression",
+        "icon": "🎭",
+        "description": "Authentic cultural expression is suppressed while folklore is commodified. Traditional practices are discouraged or co-opted by the state.",
+        "bashkir_term": "Мәҙәни золом"
+      },
+      {
+        "id": 8,
+        "title": "Replacing Heroes",
+        "icon": "🗿",
+        "description": "Genuine Bashkir heroes are replaced with Moscow-serving figures. The true story of Salavat Yulaev is sanitized to remove anti-colonial elements.",
+        "bashkir_term": "Батырҙарҙы алмаштырыу"
+      },
+      {
+        "id": 9,
+        "title": "Persecution",
+        "icon": "⚠️",
+        "description": "Ongoing persecution of political figures and activists. The 2024 Baymak protests and imprisonment of Fail Alsynov demonstrate continued repression.",
+        "bashkir_term": "Ҡуғыныу"
+      },
+      {
+        "id": 10,
+        "title": "Resource Theft",
+        "icon": "🛢️",
+        "description": "Natural resources are extracted for Moscow's benefit. Oil, gas, and minerals leave Bashkortostan while the republic sees little return.",
+        "bashkir_term": "Ресурс талауы"
+      },
+      {
+        "id": 11,
+        "title": "Assimilation",
+        "icon": "🌊",
+        "description": "Large-scale cultural and linguistic assimilation threatens Bashkir identity. Russian-language dominance erodes intergenerational transmission of culture.",
+        "bashkir_term": "Ассимиляция"
+      },
+      {
+        "id": 12,
+        "title": "Economic Exploitation",
+        "icon": "💰",
+        "description": "Despite vast resources, Bashkortostan remains economically subordinate. Wealth flows out while infrastructure and social services suffer.",
+        "bashkir_term": "Икътисади эксплуатация"
+      }
+    ]
+  },
+  "geography": {
+    "title": {
+      "bashkir": "Географиә",
+      "english": "Geography of Bashkortostan"
+    },
+    "overview": {
+      "area_km2": 143600,
+      "population": 4000000,
+      "capital": "Ufa (Өфө)",
+      "bashkir_name": "Башҡортостан Республикаһы"
+    },
+    "map_bounds": {
+      "north": 56.5,
+      "south": 51.5,
+      "east": 60.0,
+      "west": 53.0,
+      "center_lat": 54.0,
+      "center_lon": 56.5
+    },
+    "cities": [
+      {"name": "Ufa", "bashkir": "Өфө", "lat": 54.74, "lon": 55.97, "population": "1,100,000", "type": "capital"},
+      {"name": "Sterlitamak", "bashkir": "Стәрлетамаҡ", "lat": 53.63, "lon": 55.95, "population": "280,000", "type": "major"},
+      {"name": "Salavat", "bashkir": "Салауат", "lat": 53.36, "lon": 55.93, "population": "155,000", "type": "city"},
+      {"name": "Neftekamsk", "bashkir": "Нефтекама", "lat": 56.09, "lon": 54.27, "population": "140,000", "type": "major"},
+      {"name": "Beloretsk", "bashkir": "Белорет", "lat": 53.97, "lon": 58.40, "population": "66,000", "type": "city"},
+      {"name": "Sibay", "bashkir": "Сибай", "lat": 52.72, "lon": 58.67, "population": "60,000", "type": "city"},
+      {"name": "Baymak", "bashkir": "Баймаҡ", "lat": 52.59, "lon": 58.32, "population": "18,000", "type": "city"},
+      {"name": "Oktyabrsky", "bashkir": "Октябрьский", "lat": 54.48, "lon": 53.47, "population": "115,000", "type": "major"},
+      {"name": "Birsk", "bashkir": "Бирск", "lat": 55.42, "lon": 55.55, "population": "45,000", "type": "city"}
+    ],
+    "landmarks": [
+      {"name": "Mount Yamantau", "bashkir": "Ямантау", "lat": 54.25, "lon": 58.10, "icon": "⛰️", "description": "1,640m - Highest peak in the Southern Urals. 'Bad Mountain' in Bashkir.", "significance": "Sacred mountain in Ural-Batyr epic - site of transformation"},
+      {"name": "Mount Iremel", "bashkir": "Иремел", "lat": 54.52, "lon": 58.85, "icon": "⛰️", "description": "1,582m - Sacred mountain, pilgrimage site.", "significance": "Holy mountain where shamans sought visions"},
+      {"name": "Kushtau", "bashkir": "Ҡуштау", "lat": 53.57, "lon": 56.12, "icon": "⛰️", "description": "Symbol of 2020 environmental victory. 'Twin Mountains' in Bashkir.", "significance": "2020: People protected the mountain from mining"},
+      {"name": "Shulgan-Tash Cave", "bashkir": "Шүлгәнташ", "lat": 53.04, "lon": 57.06, "icon": "🎨", "description": "16,000-year-old cave paintings. UNESCO consideration.", "significance": "Named for Shulgen - he guards the ancient memory in darkness"},
+      {"name": "Agidel River", "bashkir": "Ағиҙел", "lat": 55.0, "lon": 55.8, "icon": "🌊", "description": "Main river, 1,430 km. 'White River' in Bashkir.", "significance": "Sacred river flowing from the Urals"}
+    ],
+    "facts": [
+      {"category": "geography", "title": "Ural Mountains", "content": "The Ural Mountains run through Bashkortostan. Legend says these are Ural-Batyr's transformed body, protecting his people forever."},
+      {"category": "geography", "title": "Borders", "content": "Bashkortostan borders Tatarstan, Udmurtia, Perm Krai, Sverdlovsk, Chelyabinsk, and Orenburg oblasts."},
+      {"category": "nature", "title": "Forests", "content": "40% of Bashkortostan is covered by forests, including taiga and mixed forests."},
+      {"category": "nature", "title": "Rivers", "content": "Over 12,000 rivers flow through Bashkortostan, including the Belaya (Agidel), Ufa, and Dema."},
+      {"category": "resources", "title": "Oil & Gas", "content": "Major oil and gas producer since the 1930s. The Ishimbay oil field was one of the 'Second Baku' discoveries."},
+      {"category": "resources", "title": "Honey", "content": "Bashkortostan is famous for its honey, especially from the wild Burzyan bee. 'Бал' (bal) means honey."}
+    ]
+  },
+  "alphabet": {
+    "title": {
+      "bashkir": "Башҡорт әлифбаһы",
+      "english": "The Bashkir Alphabet"
+    },
+    "description": "42 letters based on Cyrillic, including 9 unique letters not found in Russian",
+    "full_alphabet": ["А", "Б", "В", "Г", "Ғ", "Д", "Ҙ", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Ҡ", "Л", "М", "Н", "Ң", "О", "Ө", "П", "Р", "С", "Ҫ", "Т", "У", "Ү", "Ф", "Х", "Һ", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ә", "Ю", "Я"],
+    "special_letters": [
+      {"letter": "Ә", "name": "a with umlaut", "sound": "like 'a' in 'cat'", "example": "әсә (mother)"},
+      {"letter": "Ө", "name": "o with umlaut", "sound": "like German 'ö'", "example": "өй (house)"},
+      {"letter": "Ү", "name": "u with umlaut", "sound": "like German 'ü'", "example": "үҙ (self)"},
+      {"letter": "Ғ", "name": "voiced uvular fricative", "sound": "like Arabic 'gh'", "example": "ғаилә (family)"},
+      {"letter": "Ҡ", "name": "voiceless uvular stop", "sound": "deep 'k' from throat", "example": "ҡыҙ (girl)"},
+      {"letter": "Ң", "name": "velar nasal", "sound": "like 'ng' in 'sing'", "example": "таң (dawn)"},
+      {"letter": "Ҙ", "name": "voiced dental fricative", "sound": "like 'th' in 'this'", "example": "ҙур (big)"},
+      {"letter": "Ҫ", "name": "voiceless dental fricative", "sound": "like 'th' in 'think'", "example": "ҫәс (hair)"},
+      {"letter": "Һ", "name": "voiceless glottal fricative", "sound": "like 'h' in 'house'", "example": "һыу (water)"}
+    ]
+  },
+  "proverbs": [
+    {"category": "Legacy", "bashkir": "Кешеләр тәндәре менән түгел, ә изге эштәре менән мәңге йәшәйҙәр", "russian": "Люди живут вечно не телом, а добрыми делами", "english": "People live forever not through their bodies, but through their good deeds"},
+    {"category": "Wisdom", "bashkir": "Аҡылһыҙ баш асҡҡа аҙап", "russian": "Глупая голова ногам покоя не даёт", "english": "A foolish head gives no rest to the feet"},
+    {"category": "Homeland", "bashkir": "Ағас тамырынан ныҡлы", "russian": "Дерево сильно корнями", "english": "A tree is strong by its roots"},
+    {"category": "Homeland", "bashkir": "Тыуған ер — алтын бишек", "russian": "Родная земля — золотая колыбель", "english": "Native land is a golden cradle"},
+    {"category": "Heroism", "bashkir": "Батыр үлмәй, аты ҡала", "russian": "Батыр не умирает, имя остаётся", "english": "The hero doesn't die, his name remains"},
+    {"category": "Unity", "bashkir": "Берҙәмлек — көс", "russian": "Единство — сила", "english": "Unity is strength"},
+    {"category": "Unity", "bashkir": "Халыҡ көсө — таш тишә", "russian": "Народная сила — камень пробивает", "english": "The people's strength pierces stone"},
+    {"category": "Nature", "bashkir": "Һыу — тереклек сишмәһе", "russian": "Вода — источник жизни", "english": "Water is the spring of life"},
+    {"category": "Work", "bashkir": "Эш кешене аңрай", "russian": "Труд человека кормит", "english": "Work feeds a person"},
+    {"category": "Family", "bashkir": "Ата-инә — изге", "russian": "Родители святы", "english": "Parents are sacred"},
+    {"category": "Courage", "bashkir": "Батырҙың юлы — кешелеккә", "russian": "Путь героя — к человечности", "english": "The hero's path leads to humanity"}
+  ],
+  "timeline": [
+    {"year": "~1000", "event": "First written mentions of Bashkirs in Arab sources", "bashkir": "Башҡорттар тураһында беренсе яҙма иҫкәрмәләр"},
+    {"year": "1557", "event": "Voluntary union with Russia - treaty guarantees autonomy", "bashkir": "Рәсәйгә ихтыяри ҡушылыу"},
+    {"year": "1739", "event": "Kisyabika Bayryasova executed for leading uprising", "bashkir": "Ҡисәбикә Байырәсова башында күтәрелеш"},
+    {"year": "1773-75", "event": "Salavat Yulaev fights in Pugachev Rebellion", "bashkir": "Салауат Юлаев Пугачев күтәрелешендә"},
+    {"year": "1919", "event": "Bashkir ASSR formed - first Soviet autonomous republic", "bashkir": "Башҡорт АССР ойошторолоу"},
+    {"year": "1921-22", "event": "Great Famine - over 700,000 Bashkirs perish", "bashkir": "Ҙур асылыҡ"},
+    {"year": "1990", "event": "Declaration of State Sovereignty", "bashkir": "Дәүләт суверенитеты декларацияһы"},
+    {"year": "1993", "event": "Constitution of the Republic adopted", "bashkir": "Республика конституцияһы ҡабул ителеү"},
+    {"year": "2009", "event": "UNESCO classifies Bashkir as 'vulnerable'", "bashkir": "ЮНЕСКО башҡорт телен 'һәләкәт ҡурҡыныслы' тип билдәләне"},
+    {"year": "2020", "event": "Kushtau Victory - people protect sacred mountain from mining", "bashkir": "Ҡуштау еңеүе"},
+    {"year": "2024", "event": "Baymak protests after Fail Alsynov's imprisonment", "bashkir": "Баймаҡта протесттар"}
+  ]
+}

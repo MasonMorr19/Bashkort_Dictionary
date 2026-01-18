@@ -1,0 +1,212 @@
+{
+  "patterns": [
+    {
+      "id": "pattern_001",
+      "level": "beginner",
+      "name": "I love X",
+      "template": "Мин {NOUN} яратам",
+      "template_gloss": "I {NOUN} love",
+      "english_pattern": "I love {NOUN}",
+      "slots": [
+        {"position": 1, "type": "NOUN", "case": "nominative"}
+      ],
+      "examples": [
+        {"bashkir": "Мин Башҡортостан яратам", "english": "I love Bashkortostan"},
+        {"bashkir": "Мин бал яратам", "english": "I love honey"},
+        {"bashkir": "Мин ҡурай яратам", "english": "I love the kuray"}
+      ],
+      "grammar_note": "In Bashkir, the verb comes at the END (SOV order). The object takes nominative case with яратам."
+    },
+    {
+      "id": "pattern_002",
+      "level": "beginner",
+      "name": "This is X",
+      "template": "Был {NOUN}",
+      "template_gloss": "This {NOUN}",
+      "english_pattern": "This is {NOUN}",
+      "slots": [
+        {"position": 1, "type": "NOUN", "case": "nominative"}
+      ],
+      "examples": [
+        {"bashkir": "Был тау", "english": "This is a mountain"},
+        {"bashkir": "Был бал", "english": "This is honey"},
+        {"bashkir": "Был ҡурай", "english": "This is a kuray"}
+      ],
+      "grammar_note": "Simple identification. No verb needed in present tense equative sentences."
+    },
+    {
+      "id": "pattern_003",
+      "level": "beginner",
+      "name": "I am going to X",
+      "template": "Мин {NOUN}-ға барам",
+      "template_gloss": "I {NOUN}-to go",
+      "english_pattern": "I am going to {NOUN}",
+      "slots": [
+        {"position": 1, "type": "NOUN", "case": "dative"}
+      ],
+      "examples": [
+        {"bashkir": "Мин тауға барам", "english": "I am going to the mountain"},
+        {"bashkir": "Мин өйгә барам", "english": "I am going home"},
+        {"bashkir": "Мин Өфөгә барам", "english": "I am going to Ufa"}
+      ],
+      "grammar_note": "Direction/destination takes DATIVE case (-ға/-гә/-ҡа/-кә). Verb барам means 'I go/am going'."
+    },
+    {
+      "id": "pattern_004",
+      "level": "beginner",
+      "name": "X is good",
+      "template": "{NOUN} яҡшы",
+      "template_gloss": "{NOUN} good",
+      "english_pattern": "{NOUN} is good",
+      "slots": [
+        {"position": 0, "type": "NOUN", "case": "nominative"}
+      ],
+      "examples": [
+        {"bashkir": "Бал яҡшы", "english": "Honey is good"},
+        {"bashkir": "Һыу яҡшы", "english": "Water is good"},
+        {"bashkir": "Көн яҡшы", "english": "The day is good"}
+      ],
+      "grammar_note": "Adjectives follow nouns in attributive use, but come after in predicative use."
+    },
+    {
+      "id": "pattern_005",
+      "level": "intermediate",
+      "name": "X is the best Y",
+      "template": "{NOUN1} — иң яҡшы {NOUN2}",
+      "template_gloss": "{NOUN1} — most good {NOUN2}",
+      "english_pattern": "{NOUN1} is the best {NOUN2}",
+      "slots": [
+        {"position": 0, "type": "NOUN", "case": "nominative"},
+        {"position": 3, "type": "NOUN", "case": "nominative"}
+      ],
+      "examples": [
+        {"bashkir": "Бурзян балы — иң яҡшы бал", "english": "Burzyan honey is the best honey"},
+        {"bashkir": "Ағиҙел — иң яҡшы йылға", "english": "Agidel is the best river"},
+        {"bashkir": "Ямантау — иң ҙур тау", "english": "Yamantau is the biggest mountain"}
+      ],
+      "grammar_note": "Superlative formed with иң + adjective. The dash (—) acts like 'is' in equative sentences."
+    },
+    {
+      "id": "pattern_006",
+      "level": "intermediate",
+      "name": "X comes from Y",
+      "template": "{NOUN1} {PLACE}-дан килә",
+      "template_gloss": "{NOUN1} {PLACE}-from comes",
+      "english_pattern": "{NOUN1} comes from {PLACE}",
+      "slots": [
+        {"position": 0, "type": "NOUN", "case": "nominative"},
+        {"position": 1, "type": "PLACE", "case": "ablative"}
+      ],
+      "examples": [
+        {"bashkir": "Бал Бурзяндан килә", "english": "Honey comes from Burzyan"},
+        {"bashkir": "Һыу таудан килә", "english": "Water comes from the mountain"},
+        {"bashkir": "Ул Өфөнән килә", "english": "He/she comes from Ufa"}
+      ],
+      "grammar_note": "Source/origin takes ABLATIVE case (-дан/-дән/-тан/-тән/-нан/-нән)."
+    },
+    {
+      "id": "pattern_007",
+      "level": "intermediate",
+      "name": "The X language is the essence of Y",
+      "template": "{NOUN1} теле — ул {NOUN2}-ның асылы",
+      "template_gloss": "{NOUN1} language — it {NOUN2}-of essence-its",
+      "english_pattern": "The {NOUN1} language is the essence of {NOUN2}",
+      "slots": [
+        {"position": 0, "type": "NOUN", "case": "nominative"},
+        {"position": 3, "type": "NOUN", "case": "genitive"}
+      ],
+      "examples": [
+        {"bashkir": "Башҡорт теле — ул киләсәктең асылы", "english": "The Bashkir language is the essence of the future"}
+      ],
+      "grammar_note": "Genitive case shows possession (-ның/-нең/-ҙың/-ҙең). Cultural pattern from constitutional discourse."
+    },
+    {
+      "id": "pattern_008",
+      "level": "beginner",
+      "name": "I see X",
+      "template": "Мин {NOUN}-ды күрәм",
+      "template_gloss": "I {NOUN}-ACC see",
+      "english_pattern": "I see {NOUN}",
+      "slots": [
+        {"position": 1, "type": "NOUN", "case": "accusative"}
+      ],
+      "examples": [
+        {"bashkir": "Мин тауҙы күрәм", "english": "I see the mountain"},
+        {"bashkir": "Мин йылғаны күрәм", "english": "I see the river"},
+        {"bashkir": "Мин атты күрәм", "english": "I see the horse"}
+      ],
+      "grammar_note": "Direct objects of transitive verbs take ACCUSATIVE case (-ды/-де/-ты/-те/-ны/-не)."
+    },
+    {
+      "id": "pattern_009",
+      "level": "beginner",
+      "name": "X is beautiful",
+      "template": "{NOUN} матур",
+      "template_gloss": "{NOUN} beautiful",
+      "english_pattern": "{NOUN} is beautiful",
+      "slots": [
+        {"position": 0, "type": "NOUN", "case": "nominative"}
+      ],
+      "examples": [
+        {"bashkir": "Тау матур", "english": "The mountain is beautiful"},
+        {"bashkir": "Йылға матур", "english": "The river is beautiful"},
+        {"bashkir": "Көн матур", "english": "The day is beautiful"}
+      ],
+      "grammar_note": "Simple predication with adjective. No copula needed in present tense."
+    },
+    {
+      "id": "pattern_010",
+      "level": "intermediate",
+      "name": "X is our Y",
+      "template": "{NOUN1} — беҙҙең {NOUN2}",
+      "template_gloss": "{NOUN1} — our {NOUN2}",
+      "english_pattern": "{NOUN1} is our {NOUN2}",
+      "slots": [
+        {"position": 0, "type": "NOUN", "case": "nominative"},
+        {"position": 2, "type": "NOUN", "case": "nominative"}
+      ],
+      "examples": [
+        {"bashkir": "Ағиҙел — беҙҙең йылға", "english": "Agidel is our river"},
+        {"bashkir": "Башҡортостан — беҙҙең ил", "english": "Bashkortostan is our country"},
+        {"bashkir": "Ҡурай — беҙҙең муз", "english": "Kuray is our music"}
+      ],
+      "grammar_note": "Possessive pronoun беҙҙең (our) precedes the possessed noun."
+    }
+  ],
+  
+  "grammar_reference": {
+    "word_order": {
+      "basic": "SOV (Subject - Object - Verb)",
+      "explanation": "Unlike English (SVO), Bashkir places the verb at the end of the sentence.",
+      "example": {
+        "english": "I see the mountain (S-V-O)",
+        "bashkir": "Мин тауҙы күрәм (S-O-V)",
+        "gloss": "I mountain-ACC see"
+      }
+    },
+    "cases": {
+      "nominative": {"suffix": "∅", "use": "Subject, naming"},
+      "genitive": {"suffix": "-ның/-нең/-ҙың/-ҙең", "use": "Possession, 'of'"},
+      "dative": {"suffix": "-ға/-гә/-ҡа/-кә", "use": "Direction, recipient, 'to/for'"},
+      "accusative": {"suffix": "-ды/-де/-ты/-те/-ны/-не", "use": "Direct object"},
+      "locative": {"suffix": "-да/-дә/-та/-тә", "use": "Location, 'in/at'"},
+      "ablative": {"suffix": "-дан/-дән/-тан/-тән/-нан/-нән", "use": "Source, 'from'"}
+    },
+    "vowel_harmony": {
+      "explanation": "Suffixes change based on the last vowel of the word",
+      "back_vowels": ["а", "о", "у", "ы"],
+      "front_vowels": ["ә", "ө", "ү", "е", "и"]
+    }
+  },
+  
+  "word_bank_categories": {
+    "pronouns": ["мин", "һин", "ул", "беҙ", "һеҙ", "улар"],
+    "nouns_nature": ["тау", "йылға", "күл", "урман", "һыу", "таш", "ел"],
+    "nouns_culture": ["бал", "ҡурай", "ат", "сабантуй", "өй"],
+    "nouns_people": ["ата", "әсә", "халыҡ", "оҫта"],
+    "nouns_concepts": ["иркенлек", "тел", "конституция", "эш"],
+    "verbs": ["яратам", "барам", "килә", "күрәм"],
+    "adjectives": ["яҡшы", "яман", "ҙур", "бәләкәй", "матур", "иҫке"],
+    "places": ["Башҡортостан", "Өфө", "Ағиҙел", "Ямантау", "Бурзян"]
+  }
+}

@@ -818,11 +818,11 @@ if "Palace" in selected_page:
 
         locus_options = list(loci_data.keys())
         locus_display = {
-            "Ufa": "🦅 Ó¨Ñ„Ó© â€“ Eagle's Perch (Civic)",
-            "Shulgan-Tash": "🐦‍⬛ Ð¨Ò¯Ð»Ð³Ó™Ð½Ñ‚Ð°Ñˆ â€“ Crow's Archive (Ancestry)",
-            "Yamantau": "🔥🕊️ Ð¯Ð¼Ð°Ð½Ñ‚Ð°Ñƒ â€“ Anqa's Ascent (Mystery)",
-            "Beloretsk": "🕊️ Ð‘ÐµÐ»Ð¾Ñ€ÐµÑ‚ â€“ Ringdove's Forge (Labor)",
-            "Bizhbulyak": "🕊️ Ð‘Ð¸Ð¶Ð±ÑƒÐ»ÑÐº â€“ Ringdove's Hearth (Home)"
+            "Ufa": "🦅 Өфө — Eagle's Perch (Civic)",
+            "Shulgan-Tash": "🐦‍⬛ Шүлгәнташ — Crow's Archive (Ancestry)",
+            "Yamantau": "🔥🕊️ Ямантау — Anqa's Ascent (Mystery)",
+            "Beloretsk": "🕊️ Белорет — Ringdove's Forge (Labor)",
+            "Bizhbulyak": "🕊️ Бижбуляк — Ringdove's Hearth (Home)"
         }
 
         selected_locus = st.selectbox(
@@ -952,7 +952,7 @@ if "Palace" in selected_page:
                     </div>
                     """, unsafe_allow_html=True)
 
-# === PAGE: GOLDEN LIGHT (ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹) ===
+# === PAGE: GOLDEN LIGHT (Алтын Яҡты) ===
 elif "Golden Light" in selected_page:
     # Load data
     golden_data = load_golden_light_data()
@@ -961,7 +961,7 @@ elif "Golden Light" in selected_page:
     legacy_proverb = gl_info.get('legacy_proverb', {})
     stations = gl_info.get('memory_palace_stations', [])
 
-    st.title("✨ ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹ â€” Golden Light")
+    st.title("✨ Алтын Яҡты — Golden Light")
     st.markdown(f"*{gl_title.get('subtitle_bashkir', '')}*")
     st.markdown(f"*{gl_title.get('subtitle_english', '')}*")
 
@@ -1097,9 +1097,9 @@ elif "Independence" in selected_page:
     title_info = independence.get('title', {})
     reasons = independence.get('reasons', [])
 
-    st.title("⚖️ Ð‘Ó™Ð¹Ò»ÐµÒ™Ð»ÐµÐº â€” Independence")
+    st.title("⚖️ Бәйһеҙлек — Independence")
     st.markdown(f"### {title_info.get('subtitle', '')}")
-    st.markdown(f"*By {independence.get('author', '')} â€” {independence.get('organization', '')}*")
+    st.markdown(f"*By {independence.get('author', '')} — {independence.get('organization', '')}*")
 
     # Introduction with scroll/legal theme
     st.markdown(f"""
@@ -1173,7 +1173,7 @@ elif "Independence" in selected_page:
     <div class="meditation-box" style="text-align: center; border: 2px solid #8B7355;">
         <p style="font-size: 1.2em;">📜 ⚖️ 📜</p>
         <p style="font-size: 1.1em; color: #004d00;">
-            <strong>"Ð¥Ð°Ð»Ñ‹Ò¡ ÐºÓ©ÑÓ© â€” Ñ‚Ð°Ñˆ Ñ‚Ð¸ÑˆÓ™"</strong><br>
+            <strong>"Халыҡ көсө — таш тишә"</strong><br>
             <em>The people's strength pierces stone.</em>
         </p>
     </div>
@@ -1187,66 +1187,66 @@ elif "Four Birds" in selected_page:
     birds = [
         {
             "name": "Eagle",
-            "arabic": "Ø§Ù„Ø¹Ù‚Ù„ Ø§Ù„Ø£ÙˆÙ„",
+            "arabic": "العقل الأول",
             "english": "First Intellect",
             "symbol": "🦅",
             "color": "eagle",
             "locus": "Ufa",
             "domain": "Civic & Legal Knowledge",
-            "description": """The Eagle represents the First Intellect (al-'Aql al-Awwal) â€”
+            "description": """The Eagle represents the First Intellect (al-'Aql al-Awwal) —
             the primordial light of knowledge from which all understanding flows.
             At Ufa, we encounter constitutional knowledge, legal rights, and civic identity.
             The Eagle sees the whole landscape from above; it knows the law that governs.""",
-            "vocabulary": ["Ð‘Ð°ÑˆÒ¡Ð¾Ñ€Ñ‚Ð¾ÑÑ‚Ð°Ð½", "Ñ…Ð°Ð»Ñ‹Ò¡", "Ð¸Ñ€ÐºÐµÐ½Ð»ÐµÐº", "Ñ‚ÐµÐ»", "ÐºÐ¾Ð½ÑÑ‚Ð¸Ñ‚ÑƒÑ†Ð¸Ñ"]
+            "vocabulary": ["Башҡортостан", "халыҡ", "иркенлек", "тел", "конституция"]
         },
         {
             "name": "Crow",
-            "arabic": "Ø§Ù„Ø¬Ø³Ù… Ø§Ù„ÙƒÙ„ÙŠ",
+            "arabic": "الجسم الكلي",
             "english": "Universal Body",
             "symbol": "🐦‍⬛",
             "color": "crow",
             "locus": "Shulgan-Tash",
             "domain": "Ancestral Memory & Nature",
-            "description": """The Crow represents Universal Body (al-Jism al-Kulli) â€”
+            "description": """The Crow represents Universal Body (al-Jism al-Kulli) —
             matter infused with spirit, darkness containing light. In the cave's depths,
             we find manifestation: the physical traces of spiritual vision painted on stone.
             The Crow guards what was; it remembers what others forget.""",
-            "vocabulary": ["Ò¡Ð¾ÑÑˆ", "Ð°Ð¹", "Ñ‚Ð°Ñˆ", "Ò»Ñ‹Ñƒ", "Ð¹Ñ‹Ð»Ò“Ð°", "ÐÒ“Ð¸Ò™ÐµÐ»"]
+            "vocabulary": ["ҡояш", "ай", "таш", "һыу", "йылға", "Ағиҙел"]
         },
         {
             "name": "Anqa",
-            "arabic": "Ø§Ù„Ù‡ÙŠÙˆÙ„Ù‰",
+            "arabic": "الهيولى",
             "english": "Prime Matter",
             "symbol": "🔥🕊️",
             "color": "anqa",
             "locus": "Yamantau",
             "domain": "Potential & Transformation",
-            "description": """The Anqa represents Prime Matter (al-HayÅ«lÄ) â€”
+            "description": """The Anqa represents Prime Matter (al-HayÅ«lÄ) —
             pure potentiality, the 'name without a body.' Like the mythical phoenix,
             it exists in the realm of possibility. At Yamantau ('Bad Mountain'),
             danger and transformation intertwine. From difficulty comes growth.""",
-            "vocabulary": ["Ñ‚Ð°Ñƒ", "ÐµÐ»", "ÑƒÑ€Ð¼Ð°Ð½", "Ò¡ÑƒÑ€Ò¡Ñ‹Ð½Ñ‹Ñ", "ÐºÒ¯Ð»", "ÑÐ¼Ð°Ð½", "Ò™ÑƒÑ€"]
+            "vocabulary": ["тау", "ел", "урман", "ҡурҡыныс", "күл", "яман", "ҙур"]
         },
         {
             "name": "Ringdove",
-            "arabic": "Ø§Ù„Ù†ÙØ³ Ø§Ù„ÙƒÙ„ÙŠØ©",
+            "arabic": "النفس الكلية",
             "english": "Universal Soul",
             "symbol": "🕊️",
             "color": "ringdove",
             "locus": "Beloretsk & Bizhbulyak",
             "domain": "Daily Life & Community",
-            "description": """The Ringdove represents Universal Soul (al-Nafs al-Kulliyya) â€”
+            "description": """The Ringdove represents Universal Soul (al-Nafs al-Kulliyya) —
             the receptive, nurturing principle that brings potential into form.
             At Beloretsk, raw ore becomes steel through patient work.
             At Bizhbulyak, family, food, and music create the texture of daily life.""",
-            "vocabulary": ["ÑÑˆ", "Ð±Ð¾Ð»Ð°Ñ‚", "Ð¾Ò«Ñ‚Ð°", "Ð±Ð°Ð»", "Ð°Ñ‚Ð°", "Ó™ÑÓ™", "Ó©Ð¹", "Ò¡ÑƒÑ€Ð°Ð¹", "Ð°Ñ‚"]
+            "vocabulary": ["эш", "болат", "оҫта", "бал", "ата", "әсә", "өй", "ҡурай", "ат"]
         }
     ]
 
     for bird in birds:
         st.markdown(f"""
         <div class="bird-card {bird['color']}-card">
-            <h3>{bird['symbol']} {bird['name']} â€” {bird['english']}</h3>
+            <h3>{bird['symbol']} {bird['name']} — {bird['english']}</h3>
             <p><em>Arabic: {bird['arabic']}</em></p>
             <p><strong>Domain:</strong> {bird['domain']}</p>
             <p><strong>Location:</strong> {bird['locus']}</p>
@@ -1347,8 +1347,8 @@ elif "Four Birds" in selected_page:
 
 # === PAGE: URAL-BATYR EPIC ===
 elif "Ural-Batyr" in selected_page:
-    st.title("⚔️ Ð£Ñ€Ð°Ð»-Ð‘Ð°Ñ‚Ñ‹Ñ€ / Ural-Batyr")
-    st.markdown("*The foundational myth of the Bashkir people â€” 4,576 lines of heroic legend*")
+    st.title("⚔️ Урал-Батыр / Ural-Batyr")
+    st.markdown("*The foundational myth of the Bashkir people — 4,576 lines of heroic legend*")
 
     # Load epic data
     epic_data = load_ural_batyr_epic()
@@ -1404,7 +1404,7 @@ elif "Ural-Batyr" in selected_page:
                     st.markdown("")
 
         with tab2:
-            st.markdown("### 🧠 Method of Loci â€” Memory Palace Technique")
+            st.markdown("### 🧠 Method of Loci — Memory Palace Technique")
             memory = current_ch.get('memory_palace', {})
 
             st.markdown(f"""
@@ -1453,7 +1453,7 @@ elif "Ural-Batyr" in selected_page:
             if current_ch.get('id') == 1:
                 st.markdown("""
                 **The Duality of Twins:** Like Ural and Shulgen, twins carry the potential for both paths.
-                One may seek the light, another may guard the depths. Both are necessaryâ€”the hero who
+                One may seek the light, another may guard the depths. Both are necessary—the hero who
                 sacrifices and the guardian who preserves memory in darkness.
                 """)
 
@@ -1491,7 +1491,7 @@ elif "Geography" in selected_page:
     facts = geography.get('facts', [])
     map_bounds = geography.get('map_bounds', {})
 
-    st.title("🗺️ Ð“ÐµÐ¾Ð³Ñ€Ð°Ñ„Ð¸Ó™ â€” Geography of Bashkortostan")
+    st.title("🗺️ Географиә — Geography of Bashkortostan")
     st.markdown(f"*{geo_title.get('bashkir', '')}*")
 
     # Overview stats
@@ -1661,7 +1661,7 @@ elif "Geography" in selected_page:
 
 # === PAGE: MEDIA (TV Guide, Real Russia, Transcription) ===
 elif "Media" in selected_page:
-    st.title("📺 МедÐ¸Ð° â€” Media Center")
+    st.title("📺 Медиа — Media Center")
     st.markdown("*Watch Bashkir TV, follow Real Russia content, and transcribe audio*")
 
     # Create tabs for different media sections
@@ -1704,25 +1704,25 @@ elif "Media" in selected_page:
 
         tv_channels = [
             {
-                "name": "Ð‘Ð¡Ð¢ (Bashkir Satellite Television)",
+                "name": "БСТ (Bashkir Satellite Television)",
                 "description": "Main Bashkir language broadcaster - news, culture, entertainment",
                 "stream_url": "https://bst.tv/live",
                 "icon": "📡"
             },
             {
-                "name": "ÐšÑƒÑ€Ð°Ð¹ Ð¢Ð’ (Kuray TV)",
+                "name": "Ðšурай ТВ (Kuray TV)",
                 "description": "Music and cultural programs featuring traditional Bashkir arts",
                 "stream_url": "https://kuray.tv",
                 "icon": "🎵"
             },
             {
-                "name": "Ð¡Ð°Ð»Ð°Ð²Ð°Ñ‚ Ð®Ð»Ð°ÐµÐ² Ð¢Ð’",
+                "name": "Салават Юлаев ТВ",
                 "description": "Sports channel - hockey and regional sports coverage",
                 "stream_url": "#",
                 "icon": "💬"
             },
             {
-                "name": "Ð¢Ð°Ð¼Ñ‹Ñ€ (Tamyr)",
+                "name": "Тамыр (Tamyr)",
                 "description": "Children's programming in Bashkir language",
                 "stream_url": "#",
                 "icon": "👶"
@@ -1745,11 +1745,11 @@ elif "Media" in selected_page:
         with col2:
             st.markdown("#### 🕐 TV Schedule (Sample)")
             st.markdown("""
-            **Ð‘Ð¡Ð¢ Tonight:**
-            - 18:00 â€” Ð¥Ó™Ð±Ó™Ñ€Ò™Ó™Ñ€ (News)
-            - 19:00 â€” Ð™Ñ‹Ñ€Ò™Ð°Ñ€ (Songs)
-            - 20:00 â€” Ó˜ÐºÐ¸Ó™Ñ‚ (Folk Tales)
-            - 21:00 â€” Ð”Ð¾ÐºÑƒÐ¼ÐµÐ½Ñ‚Ð°Ð»ÑŒ (Documentary)
+            **БСТ Tonight:**
+            - 18:00 — Хәбәрҙәр (News)
+            - 19:00 — Йырҙар (Songs)
+            - 20:00 — Ó˜киәт (Folk Tales)
+            - 21:00 — Документаль (Documentary)
             """)
 
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1793,7 +1793,7 @@ elif "Media" in selected_page:
 
     # === REAL RUSSIA TAB ===
     with media_tab2:
-        st.markdown("### 🇷🇺 Real Russia â€” Sergey Baklykov")
+        st.markdown("### 🇷🇺 Real Russia — Sergey Baklykov")
         st.markdown("*Follow Sergey Baklykov's Telegram for authentic Russian and Bashkir content*")
 
         col1, col2 = st.columns([3, 2])
@@ -1807,7 +1807,7 @@ elif "Media" in selected_page:
                     <span style="font-size: 3em;">📱</span>
                     <div>
                         <h3 style="color: white; margin: 0;">@baklykovlive</h3>
-                        <p style="color: rgba(255,255,255,0.8); margin: 5px 0;">Real Russia â€” Sergey Baklykov</p>
+                        <p style="color: rgba(255,255,255,0.8); margin: 5px 0;">Real Russia — Sergey Baklykov</p>
                     </div>
                 </div>
             </div>
@@ -1975,7 +1975,7 @@ elif "Media" in selected_page:
             with col1:
                 language_mode = st.selectbox(
                     "Transcription Language",
-                    ["Bashkir (Ð‘Ð°ÑˆÒ¡Ð¾Ñ€Ñ‚)", "Russian (Ð ÑƒÑÑÐºÐ¸Ð¹)", "Mixed/Auto-detect"]
+                    ["Bashkir (Башҡорт)", "Russian (Русский)", "Mixed/Auto-detect"]
                 )
             with col2:
                 output_format = st.selectbox(
@@ -1995,10 +1995,10 @@ elif "Media" in selected_page:
                 st.markdown("""
                 <div class="word-card" style="background: #f5f5f5;">
                     <p style="font-family: monospace; white-space: pre-wrap;">
-[00:00:02] ÒºÐ°ÑƒÐ¼Ñ‹Ò»Ñ‹Ò“Ñ‹Ò™, Ð´ÑƒÒ«Ñ‚Ð°Ñ€!
-[00:00:05] Ð‘Ò¯Ð³ÐµÐ½ Ð±ÐµÒ™ Ð‘Ð°ÑˆÒ¡Ð¾Ñ€Ñ‚Ð¾ÑÑ‚Ð°Ð½ Ñ‚ÑƒÑ€Ð°Ò»Ñ‹Ð½Ð´Ð° Ò»Ó©Ð¹Ð»Ó™ÑˆÐµÑ€Ð±ÐµÒ™.
-[00:00:10] Ð‘Ð°ÑˆÒ¡Ð¾Ñ€Ñ‚Ð¾ÑÑ‚Ð°Ð½ â€” Ð±Ð¸Ðº Ð¼Ð°Ñ‚ÑƒÑ€ ÐµÑ€.
-[00:00:15] Ð£Ð½Ð´Ð° Ñ‚Ð°Ñƒ, ÑƒÑ€Ð¼Ð°Ð½, Ð¹Ñ‹Ð»Ò“Ð° Ð±Ð°Ñ€.
+[00:00:02] Òºаумыһығыҙ, дуҫтар!
+[00:00:05] Бүген беҙ Башҡортостан тураһында һөйләшербеҙ.
+[00:00:10] Башҡортостан — бик матур ер.
+[00:00:15] Унда тау, урман, йылға бар.
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -2040,7 +2040,7 @@ elif "Media" in selected_page:
 
         with col2:
             st.markdown("##### 🔤 Quick Insert")
-            special_chars = ['Ó™', 'Ó©', 'Ò¯', 'Ò¡', 'Ò“', 'Ò»', 'Ò™', 'Ò«', 'Ò£']
+            special_chars = ['ә', 'ө', 'ү', 'ҡ', 'ғ', 'һ', 'ҙ', 'ҫ', 'Ò£']
             char_cols = st.columns(3)
             for idx, char in enumerate(special_chars):
                 with char_cols[idx % 3]:
@@ -2054,16 +2054,16 @@ elif "Media" in selected_page:
             st.markdown("""
             **For accurate Bashkir transcription:**
 
-            1. **Listen for special sounds:** Pay attention to Ò¡ (like uvular k), Ò“ (like French r), and Ò» (like h)
+            1. **Listen for special sounds:** Pay attention to ҡ (like uvular k), ғ (like French r), and һ (like h)
 
-            2. **Vowel harmony:** Bashkir uses front/back vowel harmony â€” this helps predict spelling
+            2. **Vowel harmony:** Bashkir uses front/back vowel harmony — this helps predict spelling
 
             3. **Common patterns:**
-               - -Ð»Ð°Ñ€/-Ð»Ó™Ñ€ (plural suffix)
-               - -Ò“Ð°/-Ð³Ó™/-Ò¡Ð°/-ÐºÓ™ (dative case)
-               - -Ð´Ð°/-Ð´Ó™/-Ñ‚Ð°/-Ñ‚Ó™ (locative case)
+               - -лар/-ләр (plural suffix)
+               - -ға/-гә/-ҡа/-кә (dative case)
+               - -да/-дә/-та/-тә (locative case)
 
-            4. **Word boundaries:** Bashkir is agglutinative â€” long words are often root + multiple suffixes
+            4. **Word boundaries:** Bashkir is agglutinative — long words are often root + multiple suffixes
 
             5. **Stress:** Usually on the last syllable, which can help identify word endings
             """)
@@ -2076,7 +2076,7 @@ elif "Alphabet" in selected_page:
     full_alphabet = alphabet_data.get('full_alphabet', [])
     special_letters = alphabet_data.get('special_letters', [])
 
-    st.title("🔤 БашÒ¡Ð¾Ñ€Ñ‚ Ó™Ð»Ð¸Ñ„Ð±Ð°Ò»Ñ‹ â€” The Bashkir Alphabet")
+    st.title("🔤 Башҡорт әлифбаһы — The Bashkir Alphabet")
     st.markdown(f"*{alphabet_data.get('description', '')}*")
 
     # Full alphabet display
@@ -2090,7 +2090,7 @@ elif "Alphabet" in selected_page:
         for j, letter in enumerate(row_letters):
             with cols[j]:
                 # Highlight special Bashkir letters
-                is_special = letter in ['Ó˜', 'Ó¨', 'Ò®', 'Ò’', 'Ò ', 'Ò¢', 'Ò˜', 'Òª', 'Òº']
+                is_special = letter in ['Ó˜', 'Ө', 'Ò®', 'Ò’', 'Ò ', 'Ò¢', 'Ò˜', 'Òª', 'Òº']
                 bg_color = '#00AF66' if is_special else '#e6f2ff'
                 text_color = 'white' if is_special else '#004d00'
 
@@ -2151,15 +2151,15 @@ elif "Alphabet" in selected_page:
     st.markdown("""
     | Letter | IPA | Similar To | Example |
     |:------:|:---:|:-----------|:--------|
-    | **Ó˜** | /Ã¦/ | 'a' in "cat" | Ó™ÑÓ™ (mother) |
-    | **Ó¨** | /Ã¸/ | German 'Ã¶' | Ó©Ð¹ (house) |
-    | **Ò®** | /y/ | German 'Ã¼' | Ò¯Ò™ (self) |
-    | **Ò’** | /Ê/ | Arabic 'Øº' (gh) | Ò“Ð°Ð¸Ð»Ó™ (family) |
-    | **Ò ** | /q/ | Deep throat 'k' | Ò¡Ñ‹Ò™ (girl) |
-    | **Ò¢** | /Å‹/ | 'ng' in "sing" | Ñ‚Ð°Ò£ (dawn) |
-    | **Ò˜** | // | 'th' in "this" | Ò™ÑƒÑ€ (big) |
-    | **Òª** | /Î¸/ | 'th' in "think" | Ò«Ó™Ñ (hair) |
-    | **Òº** | /h/ | 'h' in "house" | Ò»Ñ‹Ñƒ (water) |
+    | **Ó˜** | /Ã¦/ | 'a' in "cat" | әсә (mother) |
+    | **Ө** | /Ã¸/ | German 'Ã¶' | өй (house) |
+    | **Ò®** | /y/ | German 'Ã¼' | үҙ (self) |
+    | **Ò’** | /Ê/ | Arabic 'Øº' (gh) | ғаилә (family) |
+    | **Ò ** | /q/ | Deep throat 'k' | ҡыҙ (girl) |
+    | **Ò¢** | /Å‹/ | 'ng' in "sing" | таÒ£ (dawn) |
+    | **Ò˜** | // | 'th' in "this" | ҙур (big) |
+    | **Òª** | /Î¸/ | 'th' in "think" | ҫәс (hair) |
+    | **Òº** | /h/ | 'h' in "house" | һыу (water) |
     """)
 
 # === PAGE: SENTENCE BUILDER (Enhanced with Audio Export and Working Word Bank) ===
@@ -2200,10 +2200,10 @@ elif "Sentence Builder" in selected_page:
     places_ocm = ['361', '362', '363', '364', '365', '366', '367', '368', '369', '481', '482', '483', '484', '485', '486', '487', '488', '489', '131', '784']
 
     # Nature keywords for backup categorization
-    nature_keywords = ['Ñ‚Ð°Ñƒ', 'Ò¡Ð¾ÑÑˆ', 'Ð°Ð¹', 'Ð¹Ð¾Ð½Ð´Ð¾Ò™', 'Ò»Ñ‹Ñƒ', 'Ð¹Ñ‹Ð»Ò“Ð°', 'ÐºÒ¯Ð»', 'Ð´Ð¸Ò£Ð³ÐµÒ™', 'ÑƒÑ€Ð¼Ð°Ð½', 'Ð°Ò“Ð°Ñ', 'ÑÓ™ÑÐºÓ™', 'Ò¯Ð»Ó™Ð½', 'Ò¡Ð¾Ñˆ', 'Ð°Ð¹Ñ‹Ñƒ', 'Ð±Ò¯Ñ€Ðµ', 'Ò¡ÑƒÐ¹', 'Ð°Ñ‚', 'Ò»Ñ‹Ð¹Ñ‹Ñ€', 'Ð±Ð°Ð»Ñ‹Ò¡', 'Ð¹Ñ‹Ð»Ð°Ð½', 'ÐµÐ»', 'Ò¡Ð°Ñ€', 'Ð±Ð¾Ò™', 'ÑÐ¼Ò“Ñ‹Ñ€', 'Ð±Ð¾Ð»Ð¾Ñ‚', 'ÐºÓ©Ð½', 'Ñ‚Ó©Ð½', 'ÑÒ™', 'Ð¹Ó™Ð¹', 'ÐºÓ©Ò™', 'Ò¡Ñ‹Ñˆ', 'Ñ‚Ð°Ñˆ', 'Ñ‚ÑƒÑ„Ñ€Ð°Ò¡', 'ÐµÑ€', 'Ð½ÑƒÑ€']
-    culture_keywords = ['Ð±Ð°Ð¹Ñ€Ð°Ð¼', 'ÑÐ°Ð±Ð°Ð½Ñ‚ÑƒÐ¹', 'Ñ‚ÑƒÐ¹', 'Ð¹Ð¾Ð»Ð°', 'Ó™ÐºÐ¸Ó™Ñ‚', 'Ñ€Ð¸Ò¯Ó™Ð¹Ó™Ñ‚', 'Ð¹Ñ‹Ñ€', 'Ð¼Ð¾Ò£', 'Ð±ÐµÐ¹ÐµÒ¯', 'Ò¡ÑƒÑ€Ð°Ð¹', 'Ð´ÑƒÐ¼Ð±Ñ‹Ñ€Ð°', 'Ò¡ÑƒÐ±Ñ‹Ò™', 'Ð±Ð°Ð»', 'Ò¡Ñ‹Ð¼Ñ‹Ò™', 'Ð±ÑƒÒ™Ð°', 'Ð¸ÐºÐ¼Ó™Ðº', 'Ð¸Ñ‚', 'Ð°Ñˆ', 'ÑÓ™Ð¹', 'Ñ‚Ð¸Ñ€Ð¼Ó™', 'Ð±Ð¸Ò™Ó™Ðº', 'Ð¾Ð¹Ð¼Ð°', 'ÐºÓ©Ñ€Ó™Ñˆ', 'ÑƒÐ¹Ñ‹Ð½', 'Ð´Ð¸Ð½', 'Ð¼Ó™ÑÑŒÐµÑ‚', 'Ñ‚ÐµÐ°Ñ‚Ñ€']
-    people_keywords = ['Ð°Ñ‚Ð°', 'Ó™ÑÓ™', 'Ð±Ð°Ð»Ð°', 'Ò¡Ñ‹Ò™', 'ÐµÐ³ÐµÑ‚', 'Ð±Ð°Ð±Ð°Ð¹', 'Ó©Ð»Ó™ÑÓ™Ð¹', 'Ñ‚ÑƒÒ“Ð°Ð½Ð´Ð°Ñ€', 'Ò“Ð°Ð¸Ð»Ó™', 'Ñ…Ð°Ð»Ñ‹Ò¡', 'Ð¼Ð¸Ð»Ð»Ó™Ñ‚', 'Ð´ÑƒÒ«', 'Ò¡ÑƒÐ½Ð°Ò¡', 'ÑƒÒ¡Ñ‹Ñ‚Ñ‹ÑƒÑÑ‹', 'ÑÑˆÑÐµ', 'Ð¾Ò«Ñ‚Ð°', 'Ð±Ð°Ñ‚Ñ‹Ñ€', 'Ð³Ñ€Ð°Ð¶Ð´Ð°Ð½', 'Ð¿Ñ€ÐµÐ·Ð¸Ð´ÐµÐ½Ñ‚']
-    places_keywords = ['Ó¨Ñ„Ó©', 'Ð‘Ð°ÑˆÒ¡Ð¾Ñ€Ñ‚Ð¾ÑÑ‚Ð°Ð½', 'Ò¡Ð°Ð»Ð°', 'ÑƒÑ€Ð°Ð¼', 'Ð¼Ó™Ð¹Ò™Ð°Ð½', 'Ó©Ð¹', 'Ð¹Ð¾Ñ€Ñ‚', 'Ð¼Ó™ÐºÑ‚Ó™Ð¿', 'Ð·Ð°Ð²Ð¾Ð´', 'Ð¼Ð°Ð³Ð°Ð·Ð¸Ð½', 'Ð±Ð°Ð½Ðº', 'Ð¿Ð¾Ñ‡Ñ‚Ð°', 'Ð¸Ð»', 'Ð´Ó™Ò¯Ð»Ó™Ñ‚', 'Ñ€ÐµÑÐ¿ÑƒÐ±Ð»Ð¸ÐºÐ°', 'ÐÒ“Ð¸Ò™ÐµÐ»', 'Ð¨Ò¯Ð»Ð³Ó™Ð½Ñ‚Ð°Ñˆ', 'Ð¯Ð¼Ð°Ð½Ñ‚Ð°Ñƒ', 'Ð˜Ñ€ÐµÐ¼Ó™Ð»', 'Ð‘Ð¸Ð¶Ð±ÑƒÐ»ÑÐº', 'Ð‘ÐµÐ»Ð¾Ñ€ÐµÑ‚']
+    nature_keywords = ['тау', 'ҡояш', 'ай', 'йондоҙ', 'һыу', 'йылға', 'күл', 'диÒ£геҙ', 'урман', 'ағас', 'сәскә', 'үлән', 'ҡош', 'айыу', 'бүре', 'ҡуй', 'ат', 'һыйыр', 'балыҡ', 'йылан', 'ел', 'ҡар', 'боҙ', 'ямғыр', 'болот', 'көн', 'төн', 'яҙ', 'йәй', 'көҙ', 'ҡыш', 'таш', 'туфраҡ', 'ер', 'нур']
+    culture_keywords = ['байрам', 'сабантуй', 'туй', 'йола', 'әкиәт', 'риүәйәт', 'йыр', 'моÒ£', 'бейеү', 'ҡурай', 'думбыра', 'ҡубыҙ', 'бал', 'ҡымыҙ', 'буҙа', 'икмәк', 'ит', 'аш', 'сәй', 'тирмә', 'биҙәк', 'ойма', 'көрәш', 'уйын', 'дин', 'мәсьет', 'театр']
+    people_keywords = ['ата', 'әсә', 'бала', 'ҡыҙ', 'егет', 'бабай', 'өләсәй', 'туғандар', 'ғаилә', 'халыҡ', 'милләт', 'дуҫ', 'ҡунаҡ', 'уҡытыусы', 'эшсе', 'оҫта', 'батыр', 'граждан', 'президент']
+    places_keywords = ['Өфө', 'Башҡортостан', 'ҡала', 'урам', 'мәйҙан', 'өй', 'йорт', 'мәктәп', 'завод', 'магазин', 'банк', 'поÑ‡та', 'ил', 'дәүләт', 'республика', 'Ағиҙел', 'Шүлгәнташ', 'Ямантау', 'Ð˜ремәл', 'Бижбуляк', 'Белорет']
 
     # Expanded word categories
     word_categories = {
@@ -2372,13 +2372,13 @@ elif "Sentence Builder" in selected_page:
         **Bashkir Word Order: Subject - Object - Verb (SOV)**
 
         Unlike English (I *see* the mountain), Bashkir puts the verb at the END:
-        - ÐœÐ¸Ð½ Ñ‚Ð°ÑƒÒ™Ñ‹ **ÐºÒ¯Ñ€Ó™Ð¼** (I mountain **see**)
+        - Мин тауҙы **күрәм** (I mountain **see**)
 
         **Case Suffixes:**
         - Nominative (subject): no suffix
-        - Dative (to/for): -Ò“Ð°/-Ð³Ó™
-        - Accusative (object): -Ð½Ñ‹/-Ð½Ðµ
-        - Ablative (from): -Ð´Ð°Ð½/-Ð´Ó™Ð½
+        - Dative (to/for): -ға/-гә
+        - Accusative (object): -ны/-не
+        - Ablative (from): -дан/-дән
         """)
     else:
         st.markdown("*Click words from the Word Bank to build your sentence.*")
@@ -2442,7 +2442,7 @@ elif "Audio Dictionary" in selected_page:
 
         # Show search results
         for word in filtered_words:
-            with st.expander(f"🔊 {word['bashkir']} â€” {word.get('english', '')}"):
+            with st.expander(f"🔊 {word['bashkir']} — {word.get('english', '')}"):
                 col1, col2 = st.columns([2, 1])
 
                 with col1:
@@ -2863,7 +2863,7 @@ elif "BashkortNet" in selected_page:
             with col1:
                 st.markdown(f"""
                 <div class="word-card">
-                    <span class="bashkir-text">{word_data['bashkir']} (Ð‘Ð°ÑˆÒ¡Ð¾Ñ€Ñ‚ Ñ‚ÐµÐ»Ðµ)</span>
+                    <span class="bashkir-text">{word_data['bashkir']} (Башҡорт теле)</span>
                     <br>
                     <small>{word_data.get('ipa', '')}</small>
                     <br><br>
@@ -3001,7 +3001,7 @@ elif "Cultural Context" in selected_page:
             word_data = next((w for w in words_data if w['bashkir'] == search_word), None)
 
             if word_data:
-                st.markdown(f"## {word_data['bashkir']} â€” {word_data['english']}")
+                st.markdown(f"## {word_data['bashkir']} — {word_data['english']}")
 
                 cultural = word_data.get('cultural_context', {})
 
@@ -3110,7 +3110,7 @@ elif "Cultural Context" in selected_page:
 
 # === PAGE: TRUTH UNVEILED ===
 elif "Truth Unveiled" in selected_page:
-    st.title("🌟 Truth Unveiled â€” ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹")
+    st.title("🌟 Truth Unveiled — Алтын Яҡты")
     st.markdown("*The Golden Light: Proverbs, Timeline, and the Deeper Knowledge*")
 
     # Load data from both sources for comprehensive coverage
@@ -3129,7 +3129,7 @@ elif "Truth Unveiled" in selected_page:
     # The Golden Light Introduction
     st.markdown(f"""
     <div class="meditation-box" style="border: 3px solid #d4af37; border-left: 5px solid #d4af37;">
-        <h3 style="color: #d4af37; text-align: center;">✨ ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹ â€” Golden Light ✨</h3>
+        <h3 style="color: #d4af37; text-align: center;">✨ Алтын Яҡты — Golden Light ✨</h3>
         <p style="text-align: center; font-size: 1.2em; margin: 15px 0;">
             <strong>"{legacy_proverb.get('bashkir', '')}"</strong>
         </p>
@@ -3143,7 +3143,7 @@ elif "Truth Unveiled" in selected_page:
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    *This is the anchoring proverb of Golden Lightâ€”the Ural-Batyr legacy. It reflects the hero's
+    *This is the anchoring proverb of Golden Light—the Ural-Batyr legacy. It reflects the hero's
     ultimate sacrifice and the enduring Bashkir spirit. When Ural poured the waters of life for
     all rather than drinking them himself, he demonstrated this truth: we live on through what we give.*
     """)
@@ -3152,7 +3152,7 @@ elif "Truth Unveiled" in selected_page:
     tab1, tab2, tab3, tab4 = st.tabs(["📜 Proverbs", "â³ Timeline", "📍️ Cultural Facts", "🔥 The Duality"])
 
     with tab1:
-        st.markdown("### 📜 Bashkir Proverbs â€” ÐœÓ™Ò¡Ó™Ð»Ð´Ó™Ñ€")
+        st.markdown("### 📜 Bashkir Proverbs — Мәҡәлдәр")
         st.markdown("*Wisdom passed down through generations*")
 
         # Filter by category
@@ -3174,7 +3174,7 @@ elif "Truth Unveiled" in selected_page:
             """, unsafe_allow_html=True)
 
     with tab2:
-        st.markdown("### â³ Historical Timeline â€” Ð¢Ð°Ñ€Ð¸Ñ… ÑŽÐ»Ñ‹")
+        st.markdown("### â³ Historical Timeline — Тарих ÑŽлы")
         st.markdown("*Key moments in Bashkir history*")
 
         # Timeline visualization
@@ -3194,7 +3194,7 @@ elif "Truth Unveiled" in selected_page:
             """, unsafe_allow_html=True)
 
     with tab3:
-        st.markdown("### 📍️ Cultural Facts â€” ÐœÓ™Ò™Ó™Ð½Ð¸Ó™Ñ‚")
+        st.markdown("### 📍️ Cultural Facts — Мәҙәниәт")
         st.markdown("*Deep knowledge of Bashkir heritage*")
 
         # Filter by category
@@ -3237,7 +3237,7 @@ elif "Truth Unveiled" in selected_page:
                 <p><strong>Legacy:</strong> Eternal protection</p>
                 <hr>
                 <p style="font-style: italic;">
-                "I am not dyingâ€”I am becoming something greater. These mountains will be my body,
+                "I am not dying—I am becoming something greater. These mountains will be my body,
                 and I will protect our people forever."
                 </p>
                 <hr>
@@ -3258,7 +3258,7 @@ elif "Truth Unveiled" in selected_page:
                 <hr>
                 <p style="font-style: italic;">
                 "Brother... I see now what I became. Forgive me..."
-                â€” Shulgen's final words
+                — Shulgen's final words
                 </p>
                 <hr>
                 <p><strong>Redemption:</strong> Shulgan-Tash cave holds 16,000-year-old paintings.
@@ -3270,15 +3270,15 @@ elif "Truth Unveiled" in selected_page:
         ---
         ### The Unity of Opposites
 
-        In Bashkir philosophy, Ural and Shulgen are not simply good and evilâ€”they are
+        In Bashkir philosophy, Ural and Shulgen are not simply good and evil—they are
         complementary forces. The mountains rise into light; the caves descend into memory.
         Both are necessary.
 
         **For twins:** You carry both paths within you. One may be called to shine in the world;
         another may be called to preserve and protect from the depths. Neither path is lesser.
-        Together, you form something completeâ€”like the mountains and the caves of Bashkortostan.
+        Together, you form something complete—like the mountains and the caves of Bashkortostan.
 
-        *"Ð‘Ð°Ñ‚Ñ‹Ñ€ Ò¯Ð»Ð¼Ó™Ð¹, Ð°Ñ‚Ñ‹ Ò¡Ð°Ð»Ð°"* â€” The hero doesn't die, his name remains.
+        *"Батыр үлмәй, аты ҡала"* — The hero doesn't die, his name remains.
         """)
 
         st.markdown(f"""

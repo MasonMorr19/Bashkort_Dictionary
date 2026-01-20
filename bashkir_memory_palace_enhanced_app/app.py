@@ -818,11 +818,14 @@ if "Palace" in selected_page:
 
         locus_options = list(loci_data.keys())
         locus_display = {
-            "Ufa": "🦅 Өфө — Eagle's Perch (Civic)",
-            "Shulgan-Tash": "🐦‍⬛ Шүлгәнташ — Crow's Archive (Ancestry)",
-            "Yamantau": "🔥🕊️ Ямантау — Anqa's Ascent (Mystery)",
-            "Beloretsk": "🕊️ Белорет — Ringdove's Forge (Labor)",
-            "Bizhbulyak": "🕊️ Бижбуляк — Ringdove's Hearth (Home)"
+            "Ufa": "🦅 Өфө – Eagle's Perch",
+            "TwoFountains": "⛲ Ике Фонтан – Meeting of Waters",
+            "ThreeShihans": "🏔️ Өс Шиһан – Toratau, Yuraktau, Kushtau",
+            "Shulgan-Tash": "🐦⬛ Шүлгәнташ – Crow's Archive",
+            "Yamantau": "🔥🕊️ Ямантау – Anqa's Ascent",
+            "Beloretsk": "🕊️ Белорет – Ringdove's Forge",
+            "SevenGirls": "💃 Ете Ҡыҙ – Seven Sisters in the Sky",
+            "Bizhbulyak": "🕊️ Бижбуляк – Ringdove's Hearth"
         }
 
         selected_locus = st.selectbox(

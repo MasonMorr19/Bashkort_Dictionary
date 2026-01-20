@@ -1,14 +1,14 @@
 """
-ðŸ° Bashkir Memory Palace: Secrets of Voyaging
+🏰 Bashkir Memory Palace: Secrets of Voyaging
 ==============================================
 A language learning app integrating Ibn Arabi's mystical framework,
 memory palace techniques, and anthropological pedagogy.
 
 The Four Birds guide your journey:
-ðŸ¦… Eagle (First Intellect) - Civic knowledge at Ufa
-ðŸ¦â¬› Crow (Universal Body) - Ancestral memory at Shulgan-Tash
-ðŸ”¥ðŸ•Šï¸ Anqa (Prime Matter) - Transformation at Yamantau
-ðŸ•Šï¸ Ringdove (Universal Soul) - Daily life at Beloretsk & Bizhbulyak
+🦅 Eagle (First Intellect) - Civic knowledge at Ufa
+🐦‍⬛ Crow (Universal Body) - Ancestral memory at Shulgan-Tash
+🔥🕊️ Anqa (Prime Matter) - Transformation at Yamantau
+🕊️ Ringdove (Universal Soul) - Daily life at Beloretsk & Bizhbulyak
 
 Enhanced with retry logic, audio export, and OCM cultural classifications.
 """
@@ -101,7 +101,7 @@ def generate_audio_with_retry(text: str, slow: bool = True, language: str = 'ru'
 def play_audio(text: str, slow: bool = True, language: str = 'ru'):
     """Generate and play audio for Bashkir text with caching and retry logic."""
     if not AUDIO_AVAILABLE:
-        st.warning("ðŸ”‡ Audio unavailable. Install with: `pip install gTTS`")
+        st.warning("🔇 Audio unavailable. Install with: `pip install gTTS`")
         return
 
     audio_bytes = generate_audio_with_retry(text, slow, language)
@@ -109,7 +109,7 @@ def play_audio(text: str, slow: bool = True, language: str = 'ru'):
     if audio_bytes:
         st.audio(audio_bytes, format='audio/mp3')
     else:
-        st.error("ðŸ”‡ Audio generation failed after multiple attempts.")
+        st.error("🔇 Audio generation failed after multiple attempts.")
 
 
 def translate_text(text: str, source: str = 'en', target: str = 'ru') -> str:
@@ -184,7 +184,7 @@ def transcribe_audio(audio_path: str) -> str:
 # Page configuration
 st.set_page_config(
     page_title="Bashkir Memory Palace",
-    page_icon="ðŸ°",
+    page_icon="🏰",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -700,33 +700,33 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Sidebar Navigation ---
-st.sidebar.title("ðŸ° Memory Palace")
+st.sidebar.title("🏰 Memory Palace")
 
 # Sidebar toggle hint for mobile users
-st.sidebar.caption("ðŸ“± *Tap âœ• to collapse sidebar*")
+st.sidebar.caption("📱 *Tap âœ• to collapse sidebar*")
 st.sidebar.markdown("---")
 
 # Navigation - Radio buttons for individual tabs
 # Tab order: Palace, Golden Light, Independence, Four Birds, Ural-Batyr Epic, Geography, Alphabet...
 pages = [
-    "ðŸ—ºï¸ Palace",
-    "âœ¨ Golden Light",
-    "âš–ï¸ Independence",
-    "ðŸ“š Four Birds",
-    "âš”ï¸ Ural-Batyr Epic",
-    "ðŸ—ºï¸ Geography",
-    "ðŸ“º Media",
-    "ðŸ”¤ Alphabet",
-    "âœï¸ Sentence Builder",
-    "ðŸ”Š Audio Dictionary",
-    "ðŸ”„ Review",
-    "ðŸ•¸ï¸ BashkortNet Explorer",
-    "ðŸ“– Cultural Context",
-    "ðŸŒŸ Truth Unveiled",
+    "🗺️ Palace",
+    "✨ Golden Light",
+    "⚖️ Independence",
+    "📚 Four Birds",
+    "⚔️ Ural-Batyr Epic",
+    "🗺️ Geography",
+    "📺 Media",
+    "🔤 Alphabet",
+    "âœ️ Sentence Builder",
+    "🔊 Audio Dictionary",
+    "🔄 Review",
+    "🕸️ BashkortNet Explorer",
+    "📖 Cultural Context",
+    "🌟 Truth Unveiled",
     "🧘 Sacred Practice",
     "📈 Your Journey",
     "📚 The Eleven Pillars",
-    "âš™ï¸ Settings"
+    "⚙️ Settings"
 ]
 
 selected_page = st.sidebar.radio("Navigate", pages, label_visibility="collapsed")
@@ -738,19 +738,19 @@ total_count = len(words_data)
 progress = learned_count / total_count if total_count > 0 else 0
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("### ðŸ“Š Progress")
+st.sidebar.markdown("### 📊 Progress")
 st.sidebar.progress(progress)
 st.sidebar.markdown(f"**{learned_count}** / {total_count} words learned")
 
 # Quick stats
 st.sidebar.markdown("---")
-st.sidebar.markdown("### ðŸŽ¯ Today")
+st.sidebar.markdown("### 🎯 Today")
 st.sidebar.metric("Words to Review", len(st.session_state.review_queue))
 st.sidebar.metric("Sentences Created", len(st.session_state.saved_sentences))
 
 # === PAGE: PALACE ===
 if "Palace" in selected_page:
-    st.title("ðŸ° The Memory Palace of Bashkortostan")
+    st.title("🏰 The Memory Palace of Bashkortostan")
     st.markdown("*Walk through the stations. Let the Four Birds guide your learning.*")
 
     # === NEW: Centering Practice Before Entry (Theological Framework) ===
@@ -818,11 +818,11 @@ if "Palace" in selected_page:
 
         locus_options = list(loci_data.keys())
         locus_display = {
-            "Ufa": "ðŸ¦… Ó¨Ñ„Ó© â€“ Eagle's Perch (Civic)",
-            "Shulgan-Tash": "ðŸ¦â¬› Ð¨Ò¯Ð»Ð³Ó™Ð½Ñ‚Ð°Ñˆ â€“ Crow's Archive (Ancestry)",
-            "Yamantau": "ðŸ”¥ðŸ•Šï¸ Ð¯Ð¼Ð°Ð½Ñ‚Ð°Ñƒ â€“ Anqa's Ascent (Mystery)",
-            "Beloretsk": "ðŸ•Šï¸ Ð‘ÐµÐ»Ð¾Ñ€ÐµÑ‚ â€“ Ringdove's Forge (Labor)",
-            "Bizhbulyak": "ðŸ•Šï¸ Ð‘Ð¸Ð¶Ð±ÑƒÐ»ÑÐº â€“ Ringdove's Hearth (Home)"
+            "Ufa": "🦅 Ó¨Ñ„Ó© â€“ Eagle's Perch (Civic)",
+            "Shulgan-Tash": "🐦‍⬛ Ð¨Ò¯Ð»Ð³Ó™Ð½Ñ‚Ð°Ñˆ â€“ Crow's Archive (Ancestry)",
+            "Yamantau": "🔥🕊️ Ð¯Ð¼Ð°Ð½Ñ‚Ð°Ñƒ â€“ Anqa's Ascent (Mystery)",
+            "Beloretsk": "🕊️ Ð‘ÐµÐ»Ð¾Ñ€ÐµÑ‚ â€“ Ringdove's Forge (Labor)",
+            "Bizhbulyak": "🕊️ Ð‘Ð¸Ð¶Ð±ÑƒÐ»ÑÐº â€“ Ringdove's Hearth (Home)"
         }
 
         selected_locus = st.selectbox(
@@ -834,7 +834,7 @@ if "Palace" in selected_page:
     with col2:
         if selected_locus:
             locus = loci_data[selected_locus]
-            bird_symbol = locus.get('symbol', 'ðŸ¦')
+            bird_symbol = locus.get('symbol', '🐦')
             bird_name = locus.get('bird', 'Bird')
             # Handle nested description structure
             description = locus.get('description', {})
@@ -868,7 +868,7 @@ if "Palace" in selected_page:
 
         # Ibn Arabi connection
         if ibn_arabi_connection:
-            with st.expander("ðŸŒŸ Ibn Arabi's Teaching", expanded=False):
+            with st.expander("🌟 Ibn Arabi's Teaching", expanded=False):
                 st.markdown(f"""
                 <div class="meditation-box">
                 {ibn_arabi_connection}
@@ -876,19 +876,19 @@ if "Palace" in selected_page:
                 """, unsafe_allow_html=True)
 
         # Station walkthrough
-        st.markdown("### ðŸš¶ Station Walkthrough")
+        st.markdown("### 🚶 Station Walkthrough")
 
         for station in locus.get('stations', []):
             station_name = station.get('display_name', station.get('name', 'Station'))
             station_words = station.get('words', [])
 
-            with st.expander(f"ðŸ“ Station {station.get('number', '?')}: {station_name}", expanded=True):
+            with st.expander(f"📍 Station {station.get('number', '?')}: {station_name}", expanded=True):
                 # Opening meditation
                 opening_med = station.get('opening_meditation', '')
                 if opening_med:
                     st.markdown(f"""
                     <div class="meditation-box">
-                    <strong>ðŸ•¯ï¸ Opening Meditation:</strong><br>
+                    <strong>🕯️ Opening Meditation:</strong><br>
                     {opening_med}
                     </div>
                     """, unsafe_allow_html=True)
@@ -911,7 +911,7 @@ if "Palace" in selected_page:
                                 <span class="bashkir-text">{word['bashkir']} {"âœ…" if is_learned else ""}</span>
                                 <span class="ipa-text">{word.get('ipa', '')}</span>
                                 <div class="english-text">{word['english']}</div>
-                                <span class="russian-text">ðŸ‡·ðŸ‡º {word.get('russian', '')}</span>
+                                <span class="russian-text">🇷🇺 {word.get('russian', '')}</span>
                             </div>
                             '''
                             st.markdown(card_html, unsafe_allow_html=True)
@@ -919,14 +919,14 @@ if "Palace" in selected_page:
                             # Audio and Mnemonic buttons in a row
                             btn_col1, btn_col2 = st.columns(2)
                             with btn_col1:
-                                if st.button("ðŸ”Š Hear", key=f"audio_{station_name}_{word['bashkir']}_{idx}"):
+                                if st.button("🔊 Hear", key=f"audio_{station_name}_{word['bashkir']}_{idx}"):
                                     play_audio(word['bashkir'])
 
                             with btn_col2:
                                 # Mnemonic
                                 mnemonic = word.get('memory_palace', {}).get('mnemonic', '')
                                 if mnemonic:
-                                    with st.popover("ðŸ’¡ Hint"):
+                                    with st.popover("💡 Hint"):
                                         st.markdown(f"""
                                         <div class="mnemonic-text">
                                         {mnemonic}
@@ -947,7 +947,7 @@ if "Palace" in selected_page:
                 if closing_med:
                     st.markdown(f"""
                     <div class="meditation-box">
-                    <strong>ðŸ•¯ï¸ Closing Meditation:</strong><br>
+                    <strong>🕯️ Closing Meditation:</strong><br>
                     {closing_med}
                     </div>
                     """, unsafe_allow_html=True)
@@ -961,7 +961,7 @@ elif "Golden Light" in selected_page:
     legacy_proverb = gl_info.get('legacy_proverb', {})
     stations = gl_info.get('memory_palace_stations', [])
 
-    st.title("âœ¨ ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹ â€” Golden Light")
+    st.title("✨ ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹ â€” Golden Light")
     st.markdown(f"*{gl_title.get('subtitle_bashkir', '')}*")
     st.markdown(f"*{gl_title.get('subtitle_english', '')}*")
 
@@ -970,7 +970,7 @@ elif "Golden Light" in selected_page:
     <div style="background: linear-gradient(135deg, #d4af37 0%, #f4e4bc 50%, #d4af37 100%);
                 padding: 30px; border-radius: 15px; text-align: center; margin: 20px 0;
                 border: 3px solid #8B7355; box-shadow: 0 8px 32px rgba(212,175,55,0.3);">
-        <h2 style="color: #2d1f10; margin-bottom: 15px; font-size: 1.8em;">ðŸŒŸ The Legacy Proverb ðŸŒŸ</h2>
+        <h2 style="color: #2d1f10; margin-bottom: 15px; font-size: 1.8em;">🌟 The Legacy Proverb 🌟</h2>
         <p style="font-size: 1.5em; color: #2d1f10; font-weight: bold; margin: 15px 0;">
             "{legacy_proverb.get('bashkir', '')}"
         </p>
@@ -978,7 +978,7 @@ elif "Golden Light" in selected_page:
             "{legacy_proverb.get('english', '')}"
         </p>
         <p style="font-size: 0.95em; color: #5a4738;">
-            ðŸ‡·ðŸ‡º {legacy_proverb.get('russian', '')}
+            🇷🇺 {legacy_proverb.get('russian', '')}
         </p>
         <p style="font-size: 0.9em; color: #6a5748; margin-top: 10px;">
             [{legacy_proverb.get('phonetic', '')}]
@@ -995,7 +995,7 @@ elif "Golden Light" in selected_page:
     st.markdown("---")
 
     # Memory Palace Stations - Golden Light Version
-    st.markdown("### ðŸ° The Memory Palace of the Ural-Batyr Epic")
+    st.markdown("### 🏰 The Memory Palace of the Ural-Batyr Epic")
     st.markdown("*Walk through the 10 stations of the hero's journey. Each station holds vocabulary and wisdom.*")
 
     # Station navigation buttons
@@ -1007,7 +1007,7 @@ elif "Golden Light" in selected_page:
     for idx, station in enumerate(stations):
         with cols[idx]:
             btn_style = "primary" if idx == st.session_state.gl_station else "secondary"
-            if st.button(station.get('icon', 'ðŸ“'), key=f"gl_station_{idx}", help=station.get('title', '')):
+            if st.button(station.get('icon', '📍'), key=f"gl_station_{idx}", help=station.get('title', '')):
                 st.session_state.gl_station = idx
 
     # Current station display
@@ -1025,7 +1025,7 @@ elif "Golden Light" in selected_page:
         st.markdown(f"""
         <div class="word-card" style="border-left: 5px solid {station_color}; background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 2em;">{current_station.get('icon', 'ðŸ“')}</span>
+                <span style="font-size: 2em;">{current_station.get('icon', '📍')}</span>
                 <span style="background: {station_color}; color: white; padding: 5px 15px; border-radius: 20px;">
                     Station {current_station.get('id', '?')}
                 </span>
@@ -1044,7 +1044,7 @@ elif "Golden Light" in selected_page:
         with col1:
             st.markdown(f"""
             <div class="stat-box" style="text-align: left;">
-                <h4>ðŸ”‘ Memory Peg</h4>
+                <h4>🔑 Memory Peg</h4>
                 <p style="font-size: 1.1em; font-family: monospace; color: #0066B3;">
                     {current_station.get('memory_peg', '')}
                 </p>
@@ -1054,13 +1054,13 @@ elif "Golden Light" in selected_page:
         with col2:
             st.markdown(f"""
             <div class="mnemonic-text">
-                <h4>ðŸŽ¨ Visualization</h4>
+                <h4>🎨 Visualization</h4>
                 <p>{current_station.get('memory_image', '')}</p>
             </div>
             """, unsafe_allow_html=True)
 
         # Vocabulary at this station
-        st.markdown("### ðŸ“š Station Vocabulary")
+        st.markdown("### 📚 Station Vocabulary")
         vocab = current_station.get('vocab', [])
 
         if vocab:
@@ -1074,7 +1074,7 @@ elif "Golden Light" in selected_page:
                         <div class="english-text">{word.get('english', '')}</div>
                     </div>
                     """, unsafe_allow_html=True)
-                    if st.button(f"ðŸ”Š", key=f"gl_audio_{current_station['id']}_{idx}"):
+                    if st.button(f"🔊", key=f"gl_audio_{current_station['id']}_{idx}"):
                         play_audio(word.get('bashkir', ''), slow=True)
 
     # Navigation buttons
@@ -1097,7 +1097,7 @@ elif "Independence" in selected_page:
     title_info = independence.get('title', {})
     reasons = independence.get('reasons', [])
 
-    st.title("âš–ï¸ Ð‘Ó™Ð¹Ò»ÐµÒ™Ð»ÐµÐº â€” Independence")
+    st.title("⚖️ Ð‘Ó™Ð¹Ò»ÐµÒ™Ð»ÐµÐº â€” Independence")
     st.markdown(f"### {title_info.get('subtitle', '')}")
     st.markdown(f"*By {independence.get('author', '')} â€” {independence.get('organization', '')}*")
 
@@ -1107,7 +1107,7 @@ elif "Independence" in selected_page:
                 padding: 25px; border-radius: 15px; margin: 20px 0;
                 border: 2px solid #8B7355; box-shadow: 0 4px 15px rgba(139,115,85,0.2);">
         <div style="text-align: center;">
-            <span style="font-size: 3em;">ðŸ“œâš–ï¸ðŸ“œ</span>
+            <span style="font-size: 3em;">📜⚖️📜</span>
             <h3 style="color: #4a3728; margin: 15px 0;">A Declaration of Rights</h3>
             <p style="color: #5a4738; font-style: italic;">
                 "International law supports self-determination for peoples under colonial rule."
@@ -1131,7 +1131,7 @@ elif "Independence" in selected_page:
                 st.markdown(f"""
                 <div class="word-card" style="border-left: 5px solid #8B7355; min-height: 180px;">
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
-                        <span style="font-size: 2em;">{reason.get('icon', 'ðŸ“œ')}</span>
+                        <span style="font-size: 2em;">{reason.get('icon', '📜')}</span>
                         <div>
                             <span style="background: #8B7355; color: white; padding: 2px 10px; border-radius: 10px; font-size: 0.8em;">
                                 Reason {reason.get('id', '')}
@@ -1141,7 +1141,7 @@ elif "Independence" in selected_page:
                     </div>
                     <p style="color: #333; font-size: 0.95em;">{reason.get('description', '')}</p>
                     <p style="color: #0066B3; font-style: italic; margin-top: 10px;">
-                        ðŸ·ï¸ {reason.get('bashkir_term', '')}
+                        🏷️ {reason.get('bashkir_term', '')}
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -1152,7 +1152,7 @@ elif "Independence" in selected_page:
                 st.markdown(f"""
                 <div class="word-card" style="border-left: 5px solid #8B7355; min-height: 180px;">
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
-                        <span style="font-size: 2em;">{reason.get('icon', 'ðŸ“œ')}</span>
+                        <span style="font-size: 2em;">{reason.get('icon', '📜')}</span>
                         <div>
                             <span style="background: #8B7355; color: white; padding: 2px 10px; border-radius: 10px; font-size: 0.8em;">
                                 Reason {reason.get('id', '')}
@@ -1162,7 +1162,7 @@ elif "Independence" in selected_page:
                     </div>
                     <p style="color: #333; font-size: 0.95em;">{reason.get('description', '')}</p>
                     <p style="color: #0066B3; font-style: italic; margin-top: 10px;">
-                        ðŸ·ï¸ {reason.get('bashkir_term', '')}
+                        🏷️ {reason.get('bashkir_term', '')}
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -1171,7 +1171,7 @@ elif "Independence" in selected_page:
     st.markdown("---")
     st.markdown(f"""
     <div class="meditation-box" style="text-align: center; border: 2px solid #8B7355;">
-        <p style="font-size: 1.2em;">ðŸ“œ âš–ï¸ ðŸ“œ</p>
+        <p style="font-size: 1.2em;">📜 ⚖️ 📜</p>
         <p style="font-size: 1.1em; color: #004d00;">
             <strong>"Ð¥Ð°Ð»Ñ‹Ò¡ ÐºÓ©ÑÓ© â€” Ñ‚Ð°Ñˆ Ñ‚Ð¸ÑˆÓ™"</strong><br>
             <em>The people's strength pierces stone.</em>
@@ -1181,7 +1181,7 @@ elif "Independence" in selected_page:
 
 # === PAGE: FOUR BIRDS ===
 elif "Four Birds" in selected_page:
-    st.title("ðŸ“š The Four Birds of Ibn Arabi")
+    st.title("📚 The Four Birds of Ibn Arabi")
     st.markdown("*Understanding the cosmological framework of your learning journey.*")
 
     birds = [
@@ -1189,7 +1189,7 @@ elif "Four Birds" in selected_page:
             "name": "Eagle",
             "arabic": "Ø§Ù„Ø¹Ù‚Ù„ Ø§Ù„Ø£ÙˆÙ„",
             "english": "First Intellect",
-            "symbol": "ðŸ¦…",
+            "symbol": "🦅",
             "color": "eagle",
             "locus": "Ufa",
             "domain": "Civic & Legal Knowledge",
@@ -1203,7 +1203,7 @@ elif "Four Birds" in selected_page:
             "name": "Crow",
             "arabic": "Ø§Ù„Ø¬Ø³Ù… Ø§Ù„ÙƒÙ„ÙŠ",
             "english": "Universal Body",
-            "symbol": "ðŸ¦â¬›",
+            "symbol": "🐦‍⬛",
             "color": "crow",
             "locus": "Shulgan-Tash",
             "domain": "Ancestral Memory & Nature",
@@ -1217,7 +1217,7 @@ elif "Four Birds" in selected_page:
             "name": "Anqa",
             "arabic": "Ø§Ù„Ù‡ÙŠÙˆÙ„Ù‰",
             "english": "Prime Matter",
-            "symbol": "ðŸ”¥ðŸ•Šï¸",
+            "symbol": "🔥🕊️",
             "color": "anqa",
             "locus": "Yamantau",
             "domain": "Potential & Transformation",
@@ -1231,7 +1231,7 @@ elif "Four Birds" in selected_page:
             "name": "Ringdove",
             "arabic": "Ø§Ù„Ù†ÙØ³ Ø§Ù„ÙƒÙ„ÙŠØ©",
             "english": "Universal Soul",
-            "symbol": "ðŸ•Šï¸",
+            "symbol": "🕊️",
             "color": "ringdove",
             "locus": "Beloretsk & Bizhbulyak",
             "domain": "Daily Life & Community",
@@ -1257,7 +1257,7 @@ elif "Four Birds" in selected_page:
 
     # Quiz section
     st.markdown("---")
-    st.markdown("### ðŸŽ¯ Test Your Understanding")
+    st.markdown("### 🎯 Test Your Understanding")
 
     quiz_questions = [
         {
@@ -1347,7 +1347,7 @@ elif "Four Birds" in selected_page:
 
 # === PAGE: URAL-BATYR EPIC ===
 elif "Ural-Batyr" in selected_page:
-    st.title("âš”ï¸ Ð£Ñ€Ð°Ð»-Ð‘Ð°Ñ‚Ñ‹Ñ€ / Ural-Batyr")
+    st.title("⚔️ Ð£Ñ€Ð°Ð»-Ð‘Ð°Ñ‚Ñ‹Ñ€ / Ural-Batyr")
     st.markdown("*The foundational myth of the Bashkir people â€” 4,576 lines of heroic legend*")
 
     # Load epic data
@@ -1358,20 +1358,20 @@ elif "Ural-Batyr" in selected_page:
     # Legacy proverb banner
     st.markdown(f"""
     <div class="meditation-box" style="text-align: center; border-left: none; border: 3px solid #d4af37;">
-        <p style="font-size: 1.3em; margin-bottom: 10px;">âœ¨ <strong>{legacy_proverb.get('bashkir', '')}</strong></p>
+        <p style="font-size: 1.3em; margin-bottom: 10px;">✨ <strong>{legacy_proverb.get('bashkir', '')}</strong></p>
         <p style="font-size: 1.1em; color: #004d00;">{legacy_proverb.get('english', '')}</p>
         <p style="font-size: 0.9em; color: #666;">[{legacy_proverb.get('phonetic', '')}]</p>
     </div>
     """, unsafe_allow_html=True)
 
     # Chapter navigation
-    st.markdown("### ðŸ“– The Ten Chapters")
+    st.markdown("### 📖 The Ten Chapters")
     chapter_cols = st.columns(10)
     for idx, ch in enumerate(chapters):
         with chapter_cols[idx]:
             bird_colors = {'Eagle': '#0066B3', 'Crow': '#333333', 'Anqa': '#cc3333', 'Ringdove': '#00AF66'}
             color = bird_colors.get(ch.get('bird', 'Ringdove'), '#00AF66')
-            if st.button(f"{ch.get('icon', 'ðŸ“–')}", key=f"ch_{idx}", help=ch.get('title', '')):
+            if st.button(f"{ch.get('icon', '📖')}", key=f"ch_{idx}", help=ch.get('title', '')):
                 st.session_state.epic_chapter = idx
 
     # Current chapter display
@@ -1391,7 +1391,7 @@ elif "Ural-Batyr" in selected_page:
         """, unsafe_allow_html=True)
 
         # Create tabs for chapter content
-        tab1, tab2, tab3, tab4 = st.tabs(["ðŸ“œ Story", "ðŸ§  Memory Palace", "ðŸ“š Vocabulary", "ðŸŒŸ Unveiling"])
+        tab1, tab2, tab3, tab4 = st.tabs(["📜 Story", "🧠 Memory Palace", "📚 Vocabulary", "🌟 Unveiling"])
 
         with tab1:
             st.markdown("### The Tale")
@@ -1404,19 +1404,19 @@ elif "Ural-Batyr" in selected_page:
                     st.markdown("")
 
         with tab2:
-            st.markdown("### ðŸ§  Method of Loci â€” Memory Palace Technique")
+            st.markdown("### 🧠 Method of Loci â€” Memory Palace Technique")
             memory = current_ch.get('memory_palace', {})
 
             st.markdown(f"""
             <div class="stat-box" style="text-align: left;">
-                <h4>ðŸ”‘ Memory Peg</h4>
+                <h4>🔑 Memory Peg</h4>
                 <p style="font-size: 1.3em; font-family: monospace; color: #0066B3;">{memory.get('peg', '')}</p>
             </div>
             """, unsafe_allow_html=True)
 
             st.markdown(f"""
             <div class="mnemonic-text">
-                <h4>ðŸŽ¨ Visualization</h4>
+                <h4>🎨 Visualization</h4>
                 <p>{memory.get('image', '')}</p>
             </div>
             """, unsafe_allow_html=True)
@@ -1424,7 +1424,7 @@ elif "Ural-Batyr" in selected_page:
             st.info(f"**Technique:** {memory.get('technique', '')}")
 
         with tab3:
-            st.markdown("### ðŸ“š Chapter Vocabulary")
+            st.markdown("### 📚 Chapter Vocabulary")
             vocab = current_ch.get('vocabulary', [])
             if vocab:
                 vocab_cols = st.columns(len(vocab))
@@ -1437,11 +1437,11 @@ elif "Ural-Batyr" in selected_page:
                             <div class="english-text">{word.get('english', '')}</div>
                         </div>
                         """, unsafe_allow_html=True)
-                        if st.button(f"ðŸ”Š Hear", key=f"epic_audio_{current_ch['id']}_{idx}"):
+                        if st.button(f"🔊 Hear", key=f"epic_audio_{current_ch['id']}_{idx}"):
                             play_audio(word.get('bashkir', ''), slow=True)
 
         with tab4:
-            st.markdown("### ðŸŒŸ The Unveiling")
+            st.markdown("### 🌟 The Unveiling")
             unveiling = current_ch.get('unveiling', '')
             st.markdown(f"""
             <div class="meditation-box">
@@ -1491,17 +1491,17 @@ elif "Geography" in selected_page:
     facts = geography.get('facts', [])
     map_bounds = geography.get('map_bounds', {})
 
-    st.title("ðŸ—ºï¸ Ð“ÐµÐ¾Ð³Ñ€Ð°Ñ„Ð¸Ó™ â€” Geography of Bashkortostan")
+    st.title("🗺️ Ð“ÐµÐ¾Ð³Ñ€Ð°Ñ„Ð¸Ó™ â€” Geography of Bashkortostan")
     st.markdown(f"*{geo_title.get('bashkir', '')}*")
 
     # Overview stats
-    st.markdown("### ðŸ“Š Republic Overview")
+    st.markdown("### 📊 Republic Overview")
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
         st.markdown(f"""
         <div class="stat-box">
-            <h3>ðŸ›ï¸</h3>
+            <h3>🛕️</h3>
             <p style="font-size: 1.1em; font-weight: bold;">{overview.get('capital', '')}</p>
             <small>Capital</small>
         </div>
@@ -1510,7 +1510,7 @@ elif "Geography" in selected_page:
     with col2:
         st.markdown(f"""
         <div class="stat-box">
-            <h3>ðŸ“</h3>
+            <h3>📍</h3>
             <p style="font-size: 1.1em; font-weight: bold;">{overview.get('area_km2', ''):,} kmÂ²</p>
             <small>Area</small>
         </div>
@@ -1519,7 +1519,7 @@ elif "Geography" in selected_page:
     with col3:
         st.markdown(f"""
         <div class="stat-box">
-            <h3>ðŸ‘¥</h3>
+            <h3>👥</h3>
             <p style="font-size: 1.1em; font-weight: bold;">{overview.get('population', ''):,}</p>
             <small>Population</small>
         </div>
@@ -1528,7 +1528,7 @@ elif "Geography" in selected_page:
     with col4:
         st.markdown(f"""
         <div class="stat-box">
-            <h3>ðŸ·ï¸</h3>
+            <h3>🏷️</h3>
             <p style="font-size: 0.9em; font-weight: bold;">{overview.get('bashkir_name', '')}</p>
             <small>Official Name</small>
         </div>
@@ -1537,10 +1537,10 @@ elif "Geography" in selected_page:
     st.markdown("---")
 
     # Create tabs for different geography sections
-    tab1, tab2, tab3, tab4 = st.tabs(["ðŸ™ï¸ Cities", "â›°ï¸ Landmarks", "ðŸ“š Facts", "ðŸ—ºï¸ Map"])
+    tab1, tab2, tab3, tab4 = st.tabs(["🏙️ Cities", "â›°️ Landmarks", "📚 Facts", "🗺️ Map"])
 
     with tab1:
-        st.markdown("### ðŸ™ï¸ Major Cities")
+        st.markdown("### 🏙️ Major Cities")
         st.markdown("*Click on a city to hear its Bashkir name*")
 
         # Display cities in a grid
@@ -1564,24 +1564,24 @@ elif "Geography" in selected_page:
                         </div>
                         """, unsafe_allow_html=True)
 
-                        if st.button(f"ðŸ”Š Hear", key=f"city_{city.get('name', '')}"):
+                        if st.button(f"🔊 Hear", key=f"city_{city.get('name', '')}"):
                             play_audio(city.get('bashkir', ''), slow=True)
 
     with tab2:
-        st.markdown("### â›°ï¸ Notable Landmarks")
+        st.markdown("### â›°️ Notable Landmarks")
         st.markdown("*Sacred mountains, rivers, and caves of Bashkortostan*")
 
         for landmark in landmarks:
             st.markdown(f"""
             <div class="word-card" style="border-left: 5px solid #d4af37;">
                 <div style="display: flex; align-items: flex-start; gap: 15px;">
-                    <span style="font-size: 2.5em;">{landmark.get('icon', 'ðŸ”ï¸')}</span>
+                    <span style="font-size: 2.5em;">{landmark.get('icon', '📍️')}</span>
                     <div style="flex: 1;">
                         <h4 style="color: #00AF66; margin: 0;">{landmark.get('name', '')}</h4>
                         <p class="bashkir-text" style="font-size: 1.2em; margin: 5px 0;">{landmark.get('bashkir', '')}</p>
                         <p style="color: #333;">{landmark.get('description', '')}</p>
                         <p style="color: #0066B3; font-style: italic; margin-top: 8px;">
-                            ðŸŒŸ <em>{landmark.get('significance', '')}</em>
+                            🌟 <em>{landmark.get('significance', '')}</em>
                         </p>
                     </div>
                 </div>
@@ -1589,7 +1589,7 @@ elif "Geography" in selected_page:
             """, unsafe_allow_html=True)
 
     with tab3:
-        st.markdown("### ðŸ“š Geographic & Natural Facts")
+        st.markdown("### 📚 Geographic & Natural Facts")
 
         # Filter by category
         fact_categories = list(set([f.get('category', 'general') for f in facts]))
@@ -1612,7 +1612,7 @@ elif "Geography" in selected_page:
             """, unsafe_allow_html=True)
 
     with tab4:
-        st.markdown("### ðŸ—ºï¸ Map of Bashkortostan")
+        st.markdown("### 🗺️ Map of Bashkortostan")
         st.markdown("*Interactive map showing cities and landmarks*")
 
         # Create map data for Streamlit
@@ -1626,7 +1626,7 @@ elif "Geography" in selected_page:
                 map_data.append({
                     'lat': city.get('lat', 54.0),
                     'lon': city.get('lon', 56.0),
-                    'name': f"ðŸ™ï¸ {city.get('name', '')} ({city.get('bashkir', '')})",
+                    'name': f"🏙️ {city.get('name', '')} ({city.get('bashkir', '')})",
                     'type': 'city'
                 })
 
@@ -1634,7 +1634,7 @@ elif "Geography" in selected_page:
                 map_data.append({
                     'lat': landmark.get('lat', 54.0),
                     'lon': landmark.get('lon', 56.0),
-                    'name': f"{landmark.get('icon', 'â›°ï¸')} {landmark.get('name', '')} ({landmark.get('bashkir', '')})",
+                    'name': f"{landmark.get('icon', 'â›°️')} {landmark.get('name', '')} ({landmark.get('bashkir', '')})",
                     'type': 'landmark'
                 })
 
@@ -1646,10 +1646,10 @@ elif "Geography" in selected_page:
             # Legend
             st.markdown("""
             **Map Legend:**
-            - ðŸ™ï¸ Cities
-            - â›°ï¸ Mountains
-            - ðŸŽ¨ Cave (Shulgan-Tash)
-            - ðŸŒŠ River
+            - 🏙️ Cities
+            - â›°️ Mountains
+            - 🎨 Cave (Shulgan-Tash)
+            - 🌊 River
 
             *Map data: OpenStreetMap contributors*
             """)
@@ -1661,20 +1661,20 @@ elif "Geography" in selected_page:
 
 # === PAGE: MEDIA (TV Guide, Real Russia, Transcription) ===
 elif "Media" in selected_page:
-    st.title("ðŸ“º ÐœÐµÐ´Ð¸Ð° â€” Media Center")
+    st.title("📺 МедÐ¸Ð° â€” Media Center")
     st.markdown("*Watch Bashkir TV, follow Real Russia content, and transcribe audio*")
 
     # Create tabs for different media sections
     media_tab1, media_tab2, media_tab3, media_tab4 = st.tabs([
-        "ðŸ“º TV Guide",
-        "ðŸ‡·ðŸ‡º Real Russia",
-        "â¬‡ï¸ Downloads",
-        "âœï¸ Media Transcript"
+        "📺 TV Guide",
+        "🇷🇺 Real Russia",
+        "â¬‡️ Downloads",
+        "âœ️ Media Transcript"
     ])
 
     # === TV GUIDE TAB ===
     with media_tab1:
-        st.markdown("### ðŸ“º Bashkir Television")
+        st.markdown("### 📺 Bashkir Television")
         st.markdown("*Live and recorded content from Bashkir TV channels*")
 
         # Dimmed viewing container
@@ -1707,32 +1707,32 @@ elif "Media" in selected_page:
                 "name": "Ð‘Ð¡Ð¢ (Bashkir Satellite Television)",
                 "description": "Main Bashkir language broadcaster - news, culture, entertainment",
                 "stream_url": "https://bst.tv/live",
-                "icon": "ðŸ“¡"
+                "icon": "📡"
             },
             {
                 "name": "ÐšÑƒÑ€Ð°Ð¹ Ð¢Ð’ (Kuray TV)",
                 "description": "Music and cultural programs featuring traditional Bashkir arts",
                 "stream_url": "https://kuray.tv",
-                "icon": "ðŸŽµ"
+                "icon": "🎵"
             },
             {
                 "name": "Ð¡Ð°Ð»Ð°Ð²Ð°Ñ‚ Ð®Ð»Ð°ÐµÐ² Ð¢Ð’",
                 "description": "Sports channel - hockey and regional sports coverage",
                 "stream_url": "#",
-                "icon": "ðŸ’"
+                "icon": "💬"
             },
             {
                 "name": "Ð¢Ð°Ð¼Ñ‹Ñ€ (Tamyr)",
                 "description": "Children's programming in Bashkir language",
                 "stream_url": "#",
-                "icon": "ðŸ‘¶"
+                "icon": "👶"
             }
         ]
 
         col1, col2 = st.columns([2, 1])
 
         with col1:
-            st.markdown("#### ðŸ“º Available Channels")
+            st.markdown("#### 📺 Available Channels")
             for channel in tv_channels:
                 st.markdown(f"""
                 <div class="channel-card">
@@ -1743,7 +1743,7 @@ elif "Media" in selected_page:
                 """, unsafe_allow_html=True)
 
         with col2:
-            st.markdown("#### ðŸ• TV Schedule (Sample)")
+            st.markdown("#### 🕐 TV Schedule (Sample)")
             st.markdown("""
             **Ð‘Ð¡Ð¢ Tonight:**
             - 18:00 â€” Ð¥Ó™Ð±Ó™Ñ€Ò™Ó™Ñ€ (News)
@@ -1756,7 +1756,7 @@ elif "Media" in selected_page:
 
         # VLC Player Section
         st.markdown("---")
-        st.markdown("### ðŸŽ¬ Video Player")
+        st.markdown("### 🎬 Video Player")
         st.markdown("*Paste a stream URL or video link to watch*")
 
         video_url = st.text_input("Enter video/stream URL:", placeholder="https://example.com/stream.m3u8")
@@ -1772,7 +1772,7 @@ elif "Media" in selected_page:
             """, unsafe_allow_html=True)
 
         # Sample video embed (YouTube Bashkir content)
-        st.markdown("#### ðŸ“¹ Sample Bashkir Content")
+        st.markdown("#### 📹 Sample Bashkir Content")
         st.markdown("*Educational content about Bashkir language and culture*")
 
         sample_videos = [
@@ -1793,7 +1793,7 @@ elif "Media" in selected_page:
 
     # === REAL RUSSIA TAB ===
     with media_tab2:
-        st.markdown("### ðŸ‡·ðŸ‡º Real Russia â€” Sergey Baklykov")
+        st.markdown("### 🇷🇺 Real Russia â€” Sergey Baklykov")
         st.markdown("*Follow Sergey Baklykov's Telegram for authentic Russian and Bashkir content*")
 
         col1, col2 = st.columns([3, 2])
@@ -1804,7 +1804,7 @@ elif "Media" in selected_page:
             <div style="background: linear-gradient(135deg, #0088cc 0%, #006699 100%);
                         padding: 25px; border-radius: 15px; margin-bottom: 20px;">
                 <div style="display: flex; align-items: center; gap: 15px;">
-                    <span style="font-size: 3em;">ðŸ“±</span>
+                    <span style="font-size: 3em;">📱</span>
                     <div>
                         <h3 style="color: white; margin: 0;">@baklykovlive</h3>
                         <p style="color: rgba(255,255,255,0.8); margin: 5px 0;">Real Russia â€” Sergey Baklykov</p>
@@ -1813,7 +1813,7 @@ elif "Media" in selected_page:
             </div>
             """, unsafe_allow_html=True)
 
-            st.markdown("#### ðŸ“° Latest from Real Russia")
+            st.markdown("#### 📰 Latest from Real Russia")
 
             # Simulated RSS-style feed entries
             feed_entries = [
@@ -1850,7 +1850,7 @@ elif "Media" in selected_page:
                     <p style="color: #333; margin: 10px 0;">{entry['preview']}</p>
                     <div style="display: flex; justify-content: space-between; color: #666; font-size: 0.9em;">
                         <span>â° {entry['date']}</span>
-                        <span>ðŸ‘ï¸ {entry['engagement']}</span>
+                        <span>👀️ {entry['engagement']}</span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -1859,26 +1859,26 @@ elif "Media" in selected_page:
             # Channel Info
             st.markdown("""
             <div class="stat-box">
-                <h4>ðŸ“Š Channel Stats</h4>
+                <h4>📊 Channel Stats</h4>
                 <p><strong>Platform:</strong> Telegram</p>
                 <p><strong>Focus:</strong> Russian culture, travel, language</p>
                 <p><strong>Languages:</strong> Russian, English</p>
             </div>
             """, unsafe_allow_html=True)
 
-            st.markdown("#### ðŸ”— Connect")
-            st.link_button("ðŸ“± Open Telegram Channel", "https://t.me/baklykovlive", use_container_width=True)
+            st.markdown("#### 🔗 Connect")
+            st.link_button("📱 Open Telegram Channel", "https://t.me/baklykovlive", use_container_width=True)
 
-            st.markdown("#### ðŸŽ¯ Why Follow?")
+            st.markdown("#### 🎯 Why Follow?")
             st.markdown("""
-            - ðŸ”ï¸ Authentic regional content
-            - ðŸ—£ï¸ Language learning tips
-            - ðŸ¯ Cultural immersion
-            - ðŸ“¹ Regular video updates
-            - ðŸŒ Travel insights
+            - 📍️ Authentic regional content
+            - 🗣️ Language learning tips
+            - 🏯 Cultural immersion
+            - 📹 Regular video updates
+            - 🌍 Travel insights
             """)
 
-            st.markdown("#### ðŸ“š Related Resources")
+            st.markdown("#### 📚 Related Resources")
             st.markdown("""
             - [Real Russia YouTube](https://youtube.com)
             - [Patreon Support](https://patreon.com)
@@ -1887,13 +1887,13 @@ elif "Media" in selected_page:
 
     # === DOWNLOADS TAB ===
     with media_tab3:
-        st.markdown("### â¬‡ï¸ Downloadable Content")
+        st.markdown("### â¬‡️ Downloadable Content")
         st.markdown("*Resources you can save for offline study*")
 
-        download_categories = st.tabs(["ðŸ“„ PDFs", "ðŸŽµ Audio", "ðŸ“– Texts"])
+        download_categories = st.tabs(["📄 PDFs", "🎵 Audio", "📖 Texts"])
 
         with download_categories[0]:
-            st.markdown("#### ðŸ“„ PDF Resources")
+            st.markdown("#### 📄 PDF Resources")
 
             pdf_resources = [
                 {"name": "Bashkir Alphabet Chart", "size": "1.2 MB", "desc": "Complete 42-letter alphabet with examples"},
@@ -1910,10 +1910,10 @@ elif "Media" in selected_page:
                 with col2:
                     st.caption(pdf['size'])
                 with col3:
-                    st.button(f"ðŸ“¥ Download", key=f"dl_{pdf['name'][:10]}")
+                    st.button(f"📥 Download", key=f"dl_{pdf['name'][:10]}")
 
         with download_categories[1]:
-            st.markdown("#### ðŸŽµ Audio Resources")
+            st.markdown("#### 🎵 Audio Resources")
 
             audio_resources = [
                 {"name": "Alphabet Pronunciation", "duration": "5:30", "desc": "All 42 letters spoken clearly"},
@@ -1928,12 +1928,12 @@ elif "Media" in selected_page:
                     st.markdown(f"**{audio['name']}**")
                     st.caption(audio['desc'])
                 with col2:
-                    st.caption(f"ðŸ• {audio['duration']}")
+                    st.caption(f"🕐 {audio['duration']}")
                 with col3:
-                    st.button(f"ðŸ“¥ Download", key=f"dla_{audio['name'][:10]}")
+                    st.button(f"📥 Download", key=f"dla_{audio['name'][:10]}")
 
         with download_categories[2]:
-            st.markdown("#### ðŸ“– Text Resources")
+            st.markdown("#### 📖 Text Resources")
 
             text_resources = [
                 {"name": "Word List (JSON)", "format": "JSON", "desc": "Complete vocabulary database"},
@@ -1948,19 +1948,19 @@ elif "Media" in selected_page:
                     st.markdown(f"**{text['name']}**")
                     st.caption(text['desc'])
                 with col2:
-                    st.caption(f"ðŸ“„ {text['format']}")
+                    st.caption(f"📄 {text['format']}")
                 with col3:
-                    st.button(f"ðŸ“¥ Download", key=f"dlt_{text['name'][:10]}")
+                    st.button(f"📥 Download", key=f"dlt_{text['name'][:10]}")
 
     # === MEDIA TRANSCRIPT TAB ===
     with media_tab4:
-        st.markdown("### âœï¸ Media Transcription")
+        st.markdown("### âœ️ Media Transcription")
         st.markdown("*Transcribe Bashkir audio to text using AI-powered recognition*")
 
-        st.info("ðŸ”¬ **Powered by:** Turkic Languages Audio-to-Text Transcription technology")
+        st.info("🔬 **Powered by:** Turkic Languages Audio-to-Text Transcription technology")
 
         # Transcription interface
-        st.markdown("#### ðŸ“¤ Upload Audio for Transcription")
+        st.markdown("#### 📤 Upload Audio for Transcription")
 
         uploaded_file = st.file_uploader(
             "Choose an audio file",
@@ -1983,7 +1983,7 @@ elif "Media" in selected_page:
                     ["Plain Text", "With Timestamps", "SRT Subtitles"]
                 )
 
-            if st.button("ðŸŽ¯ Start Transcription", use_container_width=True):
+            if st.button("🎯 Start Transcription", use_container_width=True):
                 with st.spinner("Transcribing audio... This may take a moment."):
                     import time
                     time.sleep(2)  # Simulated processing
@@ -1991,7 +1991,7 @@ elif "Media" in selected_page:
                 st.success("âœ… Transcription complete!")
 
                 # Sample output
-                st.markdown("#### ðŸ“œ Transcription Result")
+                st.markdown("#### 📜 Transcription Result")
                 st.markdown("""
                 <div class="word-card" style="background: #f5f5f5;">
                     <p style="font-family: monospace; white-space: pre-wrap;">
@@ -2005,15 +2005,15 @@ elif "Media" in selected_page:
 
                 col1, col2, col3 = st.columns(3)
                 with col1:
-                    st.button("ðŸ“‹ Copy Text")
+                    st.button("📋 Copy Text")
                 with col2:
-                    st.button("ðŸ“¥ Download TXT")
+                    st.button("📥 Download TXT")
                 with col3:
-                    st.button("ðŸ“¥ Download SRT")
+                    st.button("📥 Download SRT")
         else:
             st.markdown("""
             <div class="meditation-box" style="text-align: center;">
-                <span style="font-size: 3em;">ðŸŽ™ï¸</span>
+                <span style="font-size: 3em;">🎙️</span>
                 <h4>Upload audio to begin transcription</h4>
                 <p>Drag and drop or click to select a file</p>
             </div>
@@ -2022,7 +2022,7 @@ elif "Media" in selected_page:
         st.markdown("---")
 
         # Manual transcription tools
-        st.markdown("#### âœï¸ Manual Transcription Helper")
+        st.markdown("#### ✏️ Manual Transcription Helper")
         st.markdown("*Type what you hear with assistance*")
 
         col1, col2 = st.columns([2, 1])
@@ -2039,7 +2039,7 @@ elif "Media" in selected_page:
                 st.markdown("**Character Count:** " + str(len(manual_text)))
 
         with col2:
-            st.markdown("##### ðŸ”¤ Quick Insert")
+            st.markdown("##### 🔤 Quick Insert")
             special_chars = ['Ó™', 'Ó©', 'Ò¯', 'Ò¡', 'Ò“', 'Ò»', 'Ò™', 'Ò«', 'Ò£']
             char_cols = st.columns(3)
             for idx, char in enumerate(special_chars):
@@ -2050,7 +2050,7 @@ elif "Media" in selected_page:
         st.markdown("---")
 
         # Transcription tips
-        with st.expander("ðŸ’¡ Transcription Tips"):
+        with st.expander("💡 Transcription Tips"):
             st.markdown("""
             **For accurate Bashkir transcription:**
 
@@ -2076,11 +2076,11 @@ elif "Alphabet" in selected_page:
     full_alphabet = alphabet_data.get('full_alphabet', [])
     special_letters = alphabet_data.get('special_letters', [])
 
-    st.title("ðŸ”¤ Ð‘Ð°ÑˆÒ¡Ð¾Ñ€Ñ‚ Ó™Ð»Ð¸Ñ„Ð±Ð°Ò»Ñ‹ â€” The Bashkir Alphabet")
+    st.title("🔤 БашÒ¡Ð¾Ñ€Ñ‚ Ó™Ð»Ð¸Ñ„Ð±Ð°Ò»Ñ‹ â€” The Bashkir Alphabet")
     st.markdown(f"*{alphabet_data.get('description', '')}*")
 
     # Full alphabet display
-    st.markdown("### ðŸ“ The Complete Alphabet (42 Letters)")
+    st.markdown("### 📍 The Complete Alphabet (42 Letters)")
 
     # Display alphabet in rows
     cols_per_row = 14
@@ -2112,7 +2112,7 @@ elif "Alphabet" in selected_page:
     st.markdown("---")
 
     # Special letters detailed
-    st.markdown("### ðŸŒŸ The 9 Special Bashkir Letters")
+    st.markdown("### 🌟 The 9 Special Bashkir Letters")
     st.markdown("*These unique letters represent sounds not found in Russian*")
 
     for letter_info in special_letters:
@@ -2126,10 +2126,10 @@ elif "Alphabet" in selected_page:
             <div style="flex: 1;">
                 <h4 style="color: #00AF66; margin: 0 0 5px 0;">{letter_info.get('name', '')}</h4>
                 <p style="color: #0066B3; margin: 5px 0;">
-                    ðŸ”Š Sound: <strong>{letter_info.get('sound', '')}</strong>
+                    🔊 Sound: <strong>{letter_info.get('sound', '')}</strong>
                 </p>
                 <p style="color: #333; margin: 5px 0;">
-                    ðŸ“ Example: <span class="bashkir-text" style="font-size: 1.1em;">{letter_info.get('example', '')}</span>
+                    📍 Example: <span class="bashkir-text" style="font-size: 1.1em;">{letter_info.get('example', '')}</span>
                 </p>
             </div>
         </div>
@@ -2139,14 +2139,14 @@ elif "Alphabet" in selected_page:
         example_word = letter_info.get('example', '').split(' ')[0]  # Get just the Bashkir word
         col1, col2 = st.columns([1, 4])
         with col1:
-            if st.button(f"ðŸ”Š Hear example", key=f"alpha_{letter_info.get('letter', '')}"):
+            if st.button(f"🔊 Hear example", key=f"alpha_{letter_info.get('letter', '')}"):
                 play_audio(example_word, slow=True)
         with col2:
             st.write("")
 
     # Practice section
     st.markdown("---")
-    st.markdown("### ðŸŽ¯ Quick Reference")
+    st.markdown("### 🎯 Quick Reference")
 
     st.markdown("""
     | Letter | IPA | Similar To | Example |
@@ -2157,20 +2157,20 @@ elif "Alphabet" in selected_page:
     | **Ò’** | /Ê/ | Arabic 'Øº' (gh) | Ò“Ð°Ð¸Ð»Ó™ (family) |
     | **Ò ** | /q/ | Deep throat 'k' | Ò¡Ñ‹Ò™ (girl) |
     | **Ò¢** | /Å‹/ | 'ng' in "sing" | Ñ‚Ð°Ò£ (dawn) |
-    | **Ò˜** | /Ã°/ | 'th' in "this" | Ò™ÑƒÑ€ (big) |
+    | **Ò˜** | // | 'th' in "this" | Ò™ÑƒÑ€ (big) |
     | **Òª** | /Î¸/ | 'th' in "think" | Ò«Ó™Ñ (hair) |
     | **Òº** | /h/ | 'h' in "house" | Ò»Ñ‹Ñƒ (water) |
     """)
 
 # === PAGE: SENTENCE BUILDER (Enhanced with Audio Export and Working Word Bank) ===
 elif "Sentence Builder" in selected_page:
-    st.title("âœï¸ Sentence Builder")
+    st.title("âœ️ Sentence Builder")
     st.markdown("*Create your own Bashkir sentences, hear them spoken, and export audio for poems or stories!*")
 
     patterns = load_patterns()
 
     # Pattern templates
-    st.markdown("### ðŸ“ Sentence Patterns")
+    st.markdown("### 📍 Sentence Patterns")
 
     pattern_list = patterns.get('patterns', [])[:5]
 
@@ -2190,7 +2190,7 @@ elif "Sentence Builder" in selected_page:
     st.markdown("---")
 
     # Word bank - enhanced with expanded categories
-    st.markdown("### ðŸ¦ Word Bank")
+    st.markdown("### 🐦 Word Bank")
     st.markdown("*Click words to add them to your sentence. Words are organized by semantic categories.*")
 
     # Define OCM-based semantic categories for nouns
@@ -2207,15 +2207,15 @@ elif "Sentence Builder" in selected_page:
 
     # Expanded word categories
     word_categories = {
-        "ðŸ‘¥ Pronouns": [],
-        "ðŸŒ¿ Nature": [],
-        "ðŸŽ­ Culture": [],
-        "ðŸ‘¨â€ðŸ‘©â€ðŸ‘§ People": [],
-        "ðŸ›ï¸ Places": [],
-        "ðŸ’­ Concepts": [],
-        "ðŸŽ¬ Verbs": [],
-        "ðŸ“ Adjectives": [],
-        "ðŸ”¢ Numbers": []
+        "👥 Pronouns": [],
+        "🌿 Nature": [],
+        "🎭 Culture": [],
+        "👨â€👩â€👧 People": [],
+        "🛕️ Places": [],
+        "💭 Concepts": [],
+        "🎬 Verbs": [],
+        "📍 Adjectives": [],
+        "🔢 Numbers": []
     }
 
     for word in words_data:
@@ -2229,13 +2229,13 @@ elif "Sentence Builder" in selected_page:
             ocm_codes = word['cultural_context']['ocm_codes']
 
         if pos == 'pronoun':
-            word_categories["ðŸ‘¥ Pronouns"].append(bashkir)
+            word_categories["👥 Pronouns"].append(bashkir)
         elif pos == 'verb':
-            word_categories["ðŸŽ¬ Verbs"].append(bashkir)
+            word_categories["🎬 Verbs"].append(bashkir)
         elif pos in ['adjective', 'adj']:
-            word_categories["ðŸ“ Adjectives"].append(bashkir)
+            word_categories["📍 Adjectives"].append(bashkir)
         elif pos in ['number', 'numeral']:
-            word_categories["ðŸ”¢ Numbers"].append(bashkir)
+            word_categories["🔢 Numbers"].append(bashkir)
         elif pos == 'noun':
             # Categorize nouns by OCM code or keywords
             categorized = False
@@ -2243,36 +2243,36 @@ elif "Sentence Builder" in selected_page:
             # Check OCM codes first
             for code in ocm_codes:
                 if code in nature_ocm:
-                    word_categories["ðŸŒ¿ Nature"].append(bashkir)
+                    word_categories["🌿 Nature"].append(bashkir)
                     categorized = True
                     break
                 elif code in culture_ocm:
-                    word_categories["ðŸŽ­ Culture"].append(bashkir)
+                    word_categories["🎭 Culture"].append(bashkir)
                     categorized = True
                     break
                 elif code in people_ocm:
-                    word_categories["ðŸ‘¨â€ðŸ‘©â€ðŸ‘§ People"].append(bashkir)
+                    word_categories["👨â€👩â€👧 People"].append(bashkir)
                     categorized = True
                     break
                 elif code in places_ocm:
-                    word_categories["ðŸ›ï¸ Places"].append(bashkir)
+                    word_categories["🛕️ Places"].append(bashkir)
                     categorized = True
                     break
 
             # If not categorized by OCM, check keywords
             if not categorized:
                 if any(kw in bashkir for kw in nature_keywords) or any(kw in english for kw in ['sun', 'moon', 'star', 'water', 'river', 'lake', 'tree', 'forest', 'bird', 'animal', 'wolf', 'bear', 'fish', 'horse', 'cow', 'sheep', 'snow', 'rain', 'wind', 'day', 'night', 'spring', 'summer', 'autumn', 'winter', 'flower', 'grass', 'mountain', 'stone', 'earth', 'sky']):
-                    word_categories["ðŸŒ¿ Nature"].append(bashkir)
+                    word_categories["🌿 Nature"].append(bashkir)
                 elif any(kw in bashkir for kw in culture_keywords) or any(kw in english for kw in ['festival', 'wedding', 'song', 'dance', 'music', 'honey', 'kumis', 'bread', 'meat', 'tea', 'food', 'tradition', 'legend', 'tale', 'story', 'holiday', 'craft', 'art', 'ornament', 'religion']):
-                    word_categories["ðŸŽ­ Culture"].append(bashkir)
+                    word_categories["🎭 Culture"].append(bashkir)
                 elif any(kw in bashkir for kw in people_keywords) or any(kw in english for kw in ['father', 'mother', 'child', 'girl', 'boy', 'grandfather', 'grandmother', 'family', 'relative', 'people', 'nation', 'friend', 'guest', 'teacher', 'worker', 'hero', 'citizen', 'president']):
-                    word_categories["ðŸ‘¨â€ðŸ‘©â€ðŸ‘§ People"].append(bashkir)
+                    word_categories["👨â€👩â€👧 People"].append(bashkir)
                 elif any(kw in bashkir for kw in places_keywords) or any(kw in english for kw in ['city', 'street', 'square', 'house', 'home', 'school', 'factory', 'shop', 'bank', 'post', 'country', 'state', 'republic', 'capital', 'village', 'ufa', 'bashkortostan']):
-                    word_categories["ðŸ›ï¸ Places"].append(bashkir)
+                    word_categories["🛕️ Places"].append(bashkir)
                 else:
-                    word_categories["ðŸ’­ Concepts"].append(bashkir)
+                    word_categories["💭 Concepts"].append(bashkir)
         else:
-            word_categories["ðŸ’­ Concepts"].append(bashkir)
+            word_categories["💭 Concepts"].append(bashkir)
 
     # Remove empty categories and deduplicate
     word_categories = {k: list(dict.fromkeys(v)) for k, v in word_categories.items() if v}
@@ -2315,7 +2315,7 @@ elif "Sentence Builder" in selected_page:
     st.markdown("---")
 
     # Current sentence display
-    st.markdown("### ðŸ“œ Your Sentence")
+    st.markdown("### 📜 Your Sentence")
 
     if st.session_state.builder_sentence:
         sentence_text = ' '.join([w['word'] for w in st.session_state.builder_sentence])
@@ -2330,19 +2330,19 @@ elif "Sentence Builder" in selected_page:
         """, unsafe_allow_html=True)
 
         # Audio controls
-        st.markdown("### ðŸ”Š Audio Controls")
+        st.markdown("### 🔊 Audio Controls")
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
-            if st.button("ðŸ”Š Hear Sentence"):
+            if st.button("🔊 Hear Sentence"):
                 play_audio(sentence_text, slow=False)
 
         with col2:
-            if st.button("ðŸ”Š Hear Slow"):
+            if st.button("🔊 Hear Slow"):
                 play_audio(sentence_text, slow=True)
 
         with col3:
-            if st.button("ðŸ’¾ Save Sentence"):
+            if st.button("💾 Save Sentence"):
                 st.session_state.saved_sentences.append({
                     'bashkir': sentence_text,
                     'gloss': gloss_text,
@@ -2351,23 +2351,23 @@ elif "Sentence Builder" in selected_page:
                 st.success("Sentence saved to your phrasebook!")
 
         with col4:
-            if st.button("ðŸ—‘ï¸ Clear"):
+            if st.button("🗑️ Clear"):
                 st.session_state.builder_sentence = []
                 st.rerun()
 
         # Audio export
-        st.markdown("### ðŸ’¾ Export Audio")
+        st.markdown("### 💾 Export Audio")
         audio_bytes = generate_audio_with_retry(sentence_text, slow=True)
         if audio_bytes:
             st.download_button(
-                label="â¬‡ï¸ Download Audio (MP3)",
+                label="â¬‡️ Download Audio (MP3)",
                 data=audio_bytes,
                 file_name=f"bashkir_sentence_{datetime.now().strftime('%Y%m%d_%H%M%S')}.mp3",
                 mime="audio/mp3"
             )
 
         # Grammar notes
-        st.markdown("### ðŸ“– Grammar Helper")
+        st.markdown("### 📖 Grammar Helper")
         st.info("""
         **Bashkir Word Order: Subject - Object - Verb (SOV)**
 
@@ -2386,7 +2386,7 @@ elif "Sentence Builder" in selected_page:
     # Saved sentences with audio export
     if st.session_state.saved_sentences:
         st.markdown("---")
-        st.markdown("### ðŸ“’ Your Phrasebook")
+        st.markdown("### 📒 Your Phrasebook")
 
         for idx, sentence in enumerate(st.session_state.saved_sentences[-5:]):
             with st.container():
@@ -2399,26 +2399,26 @@ elif "Sentence Builder" in selected_page:
 
                 sent_col1, sent_col2, sent_col3 = st.columns(3)
                 with sent_col1:
-                    if st.button(f"â–¶ï¸ Play", key=f"play_saved_{idx}"):
+                    if st.button(f"â–¶️ Play", key=f"play_saved_{idx}"):
                         play_audio(sentence['bashkir'], slow=True)
                 with sent_col2:
                     audio_data = generate_audio_with_retry(sentence['bashkir'], slow=True)
                     if audio_data:
                         st.download_button(
-                            label="â¬‡ï¸ Download",
+                            label="â¬‡️ Download",
                             data=audio_data,
                             file_name=f"sentence_{idx+1}.mp3",
                             mime="audio/mp3",
                             key=f"download_saved_{idx}"
                         )
                 with sent_col3:
-                    if st.button(f"ðŸ—‘ï¸ Remove", key=f"remove_saved_{idx}"):
+                    if st.button(f"🗑️ Remove", key=f"remove_saved_{idx}"):
                         st.session_state.saved_sentences.pop(idx)
                         st.rerun()
 
 # === PAGE: AUDIO DICTIONARY (Enhanced with OCM Categories) ===
 elif "Audio Dictionary" in selected_page:
-    st.title("ðŸ”Š Audio Dictionary")
+    st.title("🔊 Audio Dictionary")
     st.markdown("*Listen to all Bashkir words organized by cultural categories (OCM eHRAF 2021)*")
 
     # Load OCM mapping
@@ -2427,7 +2427,7 @@ elif "Audio Dictionary" in selected_page:
     ocm_labels = ocm_data.get('ocm_labels', {})
 
     # Search bar with improved styling
-    st.markdown("### ðŸ” Search")
+    st.markdown("### 📄 Search")
     search_term = st.text_input("Search words (Bashkir, English, or Russian):",
                                  key="audio_search",
                                  placeholder="Type to search all words...")
@@ -2442,7 +2442,7 @@ elif "Audio Dictionary" in selected_page:
 
         # Show search results
         for word in filtered_words:
-            with st.expander(f"ðŸ”Š {word['bashkir']} â€” {word.get('english', '')}"):
+            with st.expander(f"🔊 {word['bashkir']} â€” {word.get('english', '')}"):
                 col1, col2 = st.columns([2, 1])
 
                 with col1:
@@ -2454,23 +2454,23 @@ elif "Audio Dictionary" in selected_page:
                         <span class="bashkir-text" style="font-size: 2em;">{word['bashkir']}</span>
                         <span class="ipa-text" style="font-size: 1.2em;">{word.get('ipa', '')}</span>
                         <div class="english-text" style="font-size: 1.3em; margin: 10px 0;">{word.get('english', '')}</div>
-                        <span class="russian-text" style="font-size: 1.1em;">ðŸ‡·ðŸ‡º {word.get('russian', '')}</span>
+                        <span class="russian-text" style="font-size: 1.1em;">🇷🇺 {word.get('russian', '')}</span>
                         <br><br>
-                        <span style="color: #0066B3; font-size: 0.9em;">ðŸ“š OCM: {', '.join(ocm_names) if ocm_names else 'General'}</span>
+                        <span style="color: #0066B3; font-size: 0.9em;">📚 OCM: {', '.join(ocm_names) if ocm_names else 'General'}</span>
                     </div>
                     """, unsafe_allow_html=True)
 
                 with col2:
-                    st.markdown("**ðŸ”Š Audio:**")
-                    if st.button("â–¶ï¸ Normal", key=f"audio_normal_{word['id']}"):
+                    st.markdown("**🔊 Audio:**")
+                    if st.button("â–¶️ Normal", key=f"audio_normal_{word['id']}"):
                         play_audio(word['bashkir'], slow=False)
-                    if st.button("ðŸ¢ Slow", key=f"audio_slow_{word['id']}"):
+                    if st.button("🏢 Slow", key=f"audio_slow_{word['id']}"):
                         play_audio(word['bashkir'], slow=True)
 
                     audio_bytes = generate_audio_with_retry(word['bashkir'], slow=True)
                     if audio_bytes:
                         st.download_button(
-                            label="â¬‡ï¸ Download",
+                            label="â¬‡️ Download",
                             data=audio_bytes,
                             file_name=f"{word['bashkir']}.mp3",
                             mime="audio/mp3",
@@ -2479,7 +2479,7 @@ elif "Audio Dictionary" in selected_page:
     else:
         # Show all words organized by OCM thematic groups
         st.markdown("---")
-        st.markdown("### ðŸ“š Browse by Cultural Category (OCM eHRAF 2021)")
+        st.markdown("### 📚 Browse by Cultural Category (OCM eHRAF 2021)")
         st.markdown("*Words organized into 2-5 word groups by anthropological classification*")
 
         # Create tabs for thematic groups
@@ -2532,20 +2532,20 @@ elif "Audio Dictionary" in selected_page:
                                             <span class="bashkir-text" style="font-size: 1.6em;">{word['bashkir']}</span>
                                             <span class="ipa-text">{word.get('ipa', '')}</span>
                                             <div style="color: #004d00; font-size: 1.1em; margin: 8px 0;">{word.get('english', '')}</div>
-                                            <small style="color: #666;">ðŸ‡·ðŸ‡º {word.get('russian', '')}</small>
+                                            <small style="color: #666;">🇷🇺 {word.get('russian', '')}</small>
                                         </div>
                                         """, unsafe_allow_html=True)
 
                                         bcol1, bcol2 = st.columns(2)
                                         with bcol1:
-                                            if st.button("ðŸ”Š", key=f"cat_audio_{group_key}_{word['id']}",
+                                            if st.button("🔊", key=f"cat_audio_{group_key}_{word['id']}",
                                                         help=f"Play {word['bashkir']}"):
                                                 play_audio(word['bashkir'], slow=True)
                                         with bcol2:
                                             audio_data = generate_audio_with_retry(word['bashkir'], slow=True)
                                             if audio_data:
                                                 st.download_button(
-                                                    "â¬‡ï¸",
+                                                    "â¬‡️",
                                                     data=audio_data,
                                                     file_name=f"{word['bashkir']}.mp3",
                                                     mime="audio/mp3",
@@ -2556,11 +2556,11 @@ elif "Audio Dictionary" in selected_page:
 
         # Show total word count
         st.markdown("---")
-        st.markdown(f"**ðŸ“Š Total: {len(words_data)} words in dictionary**")
+        st.markdown(f"**📊 Total: {len(words_data)} words in dictionary**")
 
 # === PAGE: REVIEW (Fixed ZeroDivisionError) ===
 elif "Review" in selected_page:
-    st.title("ðŸ”„ Spaced Repetition Review")
+    st.title("🔄 Spaced Repetition Review")
     st.markdown("*Review learned words using the SM-2 algorithm for optimal retention.*")
 
     # Stats
@@ -2569,7 +2569,7 @@ elif "Review" in selected_page:
     with col1:
         st.markdown("""
         <div class="stat-box">
-            <h3>ðŸ“š</h3>
+            <h3>📚</h3>
             <h2>{}</h2>
             <p>Total Learned</p>
         </div>
@@ -2578,7 +2578,7 @@ elif "Review" in selected_page:
     with col2:
         st.markdown("""
         <div class="stat-box">
-            <h3>ðŸ“‹</h3>
+            <h3>📋</h3>
             <h2>{}</h2>
             <p>Due Today</p>
         </div>
@@ -2589,7 +2589,7 @@ elif "Review" in selected_page:
                        if st.session_state.srs_data.get(w, {}).get('interval', 0) >= 21])
         st.markdown(f"""
         <div class="stat-box">
-            <h3>ðŸ†</h3>
+            <h3>🏆</h3>
             <h2>{mastered}</h2>
             <p>Mastered</p>
         </div>
@@ -2599,7 +2599,7 @@ elif "Review" in selected_page:
         accuracy = 85  # Placeholder
         st.markdown(f"""
         <div class="stat-box">
-            <h3>ðŸŽ¯</h3>
+            <h3>🎯</h3>
             <h2>{accuracy}%</h2>
             <p>Accuracy</p>
         </div>
@@ -2609,7 +2609,7 @@ elif "Review" in selected_page:
 
     # Review session
     if st.session_state.review_queue:
-        st.markdown("### ðŸ“ Review Session")
+        st.markdown("### 📍 Review Session")
 
         # Get current word
         if 'review_index' not in st.session_state:
@@ -2633,7 +2633,7 @@ elif "Review" in selected_page:
                 """, unsafe_allow_html=True)
 
                 if not st.session_state.show_answer:
-                    if st.button("ðŸ‘ï¸ Show Answer", use_container_width=True):
+                    if st.button("👀️ Show Answer", use_container_width=True):
                         st.session_state.show_answer = True
                         st.rerun()
                 else:
@@ -2659,10 +2659,10 @@ elif "Review" in selected_page:
                     col1, col2, col3, col4 = st.columns(4)
 
                     ratings = [
-                        ("ðŸ˜ž Forgot", 1, col1),
-                        ("ðŸ˜• Hard", 3, col2),
-                        ("ðŸ™‚ Good", 4, col3),
-                        ("ðŸ˜„ Easy", 5, col4)
+                        ("😞 Forgot", 1, col1),
+                        ("😕 Hard", 3, col2),
+                        ("🏙‚ Good", 4, col3),
+                        ("😄 Easy", 5, col4)
                     ]
 
                     for label, rating, col in ratings:
@@ -2704,7 +2704,7 @@ elif "Review" in selected_page:
                 st.progress(min(progress, 1.0))
                 st.caption(f"Card {st.session_state.review_index + 1} of {total_reviews}")
         else:
-            st.success("ðŸŽ‰ Review session complete!")
+            st.success("🎉 Review session complete!")
             if st.button("Start New Session"):
                 st.session_state.review_index = 0
                 st.session_state.show_answer = False
@@ -2793,7 +2793,7 @@ elif "Review" in selected_page:
 
 # === PAGE: BASHKORTNET EXPLORER (Enhanced with OCM and Neo4j) ===
 elif "BashkortNet" in selected_page:
-    st.title("ðŸ•¸ï¸ BashkortNet Explorer (Semantic Network)")
+    st.title("🕸️ BashkortNet Explorer (Semantic Network)")
     st.markdown("*Explore the semantic network connecting Bashkir words with OCM cultural classifications.*")
 
     # Load OCM data
@@ -2803,7 +2803,7 @@ elif "BashkortNet" in selected_page:
 
     # Neo4j integration info
     st.markdown("---")
-    st.markdown("### ðŸ—„ï¸ Neo4j Graph Database Integration")
+    st.markdown("### 🗄️ Neo4j Graph Database Integration")
     st.info("""
     **Future Development:** BashkortNet is designed to integrate with Neo4j graph database for advanced semantic queries.
 
@@ -2818,7 +2818,7 @@ elif "BashkortNet" in selected_page:
     """)
 
     # Export to Neo4j format button
-    if st.button("ðŸ“¤ Export to Neo4j Format (Cypher)"):
+    if st.button("📤 Export to Neo4j Format (Cypher)"):
         # Generate Cypher statements
         cypher_statements = []
         cypher_statements.append("// Neo4j Cypher statements for BashkortNet")
@@ -2876,12 +2876,12 @@ elif "BashkortNet" in selected_page:
                 """, unsafe_allow_html=True)
 
                 # Audio button
-                if st.button("ðŸ”Š Play Pronunciation", key=f"bashkortnet_audio_{word_data['id']}"):
+                if st.button("🔊 Play Pronunciation", key=f"bashkortnet_audio_{word_data['id']}"):
                     play_audio(word_data['bashkir'], slow=True)
 
             with col2:
                 # Create tabs for different aspects
-                tab1, tab2, tab3 = st.tabs(["ðŸ•¸ï¸ Semantic Network", "ðŸ“š OCM Codes", "ðŸ”— Etymology"])
+                tab1, tab2, tab3 = st.tabs(["🕸️ Semantic Network", "📚 OCM Codes", "🔗 Etymology"])
 
                 with tab1:
                     st.markdown("### Semantic Relations")
@@ -2893,14 +2893,14 @@ elif "BashkortNet" in selected_page:
                         for rel_type, targets in relations.items():
                             if targets:
                                 rel_labels = {
-                                    'SYN': 'ðŸ”„ Synonyms',
-                                    'ANT': 'â†”ï¸ Antonyms',
-                                    'ISA': 'â¬†ï¸ Is a type of',
-                                    'HAS_TYPE': 'â¬‡ï¸ Types',
-                                    'PART_OF': 'ðŸ§© Part of',
-                                    'HAS_PART': 'ðŸ”§ Has parts',
-                                    'CULT_ASSOC': 'ðŸ›ï¸ Cultural',
-                                    'MYTH_LINK': 'ðŸ“œ Mythological'
+                                    'SYN': '🔄 Synonyms',
+                                    'ANT': 'â†”️ Antonyms',
+                                    'ISA': 'â¬†️ Is a type of',
+                                    'HAS_TYPE': 'â¬‡️ Types',
+                                    'PART_OF': '🧩 Part of',
+                                    'HAS_PART': '🔧 Has parts',
+                                    'CULT_ASSOC': '🛕️ Cultural',
+                                    'MYTH_LINK': '📜 Mythological'
                                 }
 
                                 st.markdown(f"**{rel_labels.get(rel_type, rel_type)}:**")
@@ -2963,12 +2963,12 @@ elif "BashkortNet" in selected_page:
                     memory_palace = word_data.get('memory_palace', {})
                     if memory_palace:
                         st.markdown("### Memory Palace")
-                        st.write(f"ðŸ¦ Bird: {memory_palace.get('bird', 'N/A')}")
-                        st.write(f"ðŸ“ Locus: {memory_palace.get('locus', 'N/A')}")
+                        st.write(f"🐦 Bird: {memory_palace.get('bird', 'N/A')}")
+                        st.write(f"📍 Locus: {memory_palace.get('locus', 'N/A')}")
 
 # === PAGE: CULTURAL CONTEXT (Enhanced with OCM) ===
 elif "Cultural Context" in selected_page:
-    st.title("ðŸ“– Cultural Context")
+    st.title("📖 Cultural Context")
     st.markdown("*Understand the anthropological depth behind each word with eHRAF 2021 OCM classifications.*")
 
     # Load OCM data
@@ -2979,7 +2979,7 @@ elif "Cultural Context" in selected_page:
 
     # Truth Unveiled toggle
     st.sidebar.markdown("---")
-    st.sidebar.markdown("### ðŸ”“ Truth Unveiled")
+    st.sidebar.markdown("### 🔓 Truth Unveiled")
     st.session_state.truth_unveiled = st.sidebar.toggle(
         "Show sensitive sources",
         value=st.session_state.truth_unveiled,
@@ -2987,7 +2987,7 @@ elif "Cultural Context" in selected_page:
     )
 
     # Create tabs for different views
-    tab1, tab2, tab3 = st.tabs(["ðŸ” Browse by Word", "ðŸ“Š Browse by OCM", "ðŸŽ¨ Thematic Groups"])
+    tab1, tab2, tab3 = st.tabs(["📄 Browse by Word", "📊 Browse by OCM", "🎨 Thematic Groups"])
 
     with tab1:
         # Word selection
@@ -3011,7 +3011,7 @@ elif "Cultural Context" in selected_page:
                 all_codes = list(set([str(c) for c in word_ocm_codes + embedded_ocm_codes]))
 
                 if all_codes:
-                    st.markdown("### ðŸ·ï¸ OCM Categories (eHRAF 2021)")
+                    st.markdown("### 🏷️ OCM Categories (eHRAF 2021)")
                     for code in all_codes:
                         label = ocm_labels.get(str(code), f"Category {code}")
                         st.markdown(f"- **{code}**: {label}")
@@ -3019,7 +3019,7 @@ elif "Cultural Context" in selected_page:
                 # Significance
                 significance = cultural.get('significance', '')
                 if significance:
-                    st.markdown("### ðŸ“œ Cultural Significance")
+                    st.markdown("### 📜 Cultural Significance")
                     st.markdown(f"""
                     <div class="meditation-box">
                     {significance}
@@ -3029,7 +3029,7 @@ elif "Cultural Context" in selected_page:
                 # Sources
                 sources = cultural.get('sources', [])
                 if sources:
-                    st.markdown("### ðŸ“š Sources")
+                    st.markdown("### 📚 Sources")
                     for source in sources:
                         if isinstance(source, dict):
                             st.markdown(f"- {source.get('author', '')} ({source.get('year', '')}). *{source.get('title', '')}*")
@@ -3039,7 +3039,7 @@ elif "Cultural Context" in selected_page:
                 # Sensitivity warning
                 sensitivity = cultural.get('sensitivity', {})
                 if sensitivity.get('has_sensitive_context') and st.session_state.truth_unveiled:
-                    st.markdown("### âš ï¸ Sensitivity Context")
+                    st.markdown("### âš ️ Sensitivity Context")
                     st.warning(sensitivity.get('note', 'This topic has sensitive political context.'))
 
     with tab2:
@@ -3089,7 +3089,7 @@ elif "Cultural Context" in selected_page:
                 theme_ocm_codes = theme_data.get('ocm_codes', [])
                 theme_words = theme_data.get('words', [])
 
-                with st.expander(f"ðŸŽ¨ {display_name}"):
+                with st.expander(f"🎨 {display_name}"):
                     if theme_ocm_codes:
                         st.markdown("**OCM Codes:**")
                         code_labels = [f"{c}: {ocm_labels.get(c, 'Unknown')}" for c in theme_ocm_codes]
@@ -3110,7 +3110,7 @@ elif "Cultural Context" in selected_page:
 
 # === PAGE: TRUTH UNVEILED ===
 elif "Truth Unveiled" in selected_page:
-    st.title("ðŸŒŸ Truth Unveiled â€” ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹")
+    st.title("🌟 Truth Unveiled â€” ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹")
     st.markdown("*The Golden Light: Proverbs, Timeline, and the Deeper Knowledge*")
 
     # Load data from both sources for comprehensive coverage
@@ -3129,7 +3129,7 @@ elif "Truth Unveiled" in selected_page:
     # The Golden Light Introduction
     st.markdown(f"""
     <div class="meditation-box" style="border: 3px solid #d4af37; border-left: 5px solid #d4af37;">
-        <h3 style="color: #d4af37; text-align: center;">âœ¨ ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹ â€” Golden Light âœ¨</h3>
+        <h3 style="color: #d4af37; text-align: center;">✨ ÐÐ»Ñ‚Ñ‹Ð½ Ð¯Ò¡Ñ‚Ñ‹ â€” Golden Light ✨</h3>
         <p style="text-align: center; font-size: 1.2em; margin: 15px 0;">
             <strong>"{legacy_proverb.get('bashkir', '')}"</strong>
         </p>
@@ -3149,10 +3149,10 @@ elif "Truth Unveiled" in selected_page:
     """)
 
     # Create tabs
-    tab1, tab2, tab3, tab4 = st.tabs(["ðŸ“œ Proverbs", "â³ Timeline", "ðŸ”ï¸ Cultural Facts", "ðŸ”¥ The Duality"])
+    tab1, tab2, tab3, tab4 = st.tabs(["📜 Proverbs", "â³ Timeline", "📍️ Cultural Facts", "🔥 The Duality"])
 
     with tab1:
-        st.markdown("### ðŸ“œ Bashkir Proverbs â€” ÐœÓ™Ò¡Ó™Ð»Ð´Ó™Ñ€")
+        st.markdown("### 📜 Bashkir Proverbs â€” ÐœÓ™Ò¡Ó™Ð»Ð´Ó™Ñ€")
         st.markdown("*Wisdom passed down through generations*")
 
         # Filter by category
@@ -3168,8 +3168,8 @@ elif "Truth Unveiled" in selected_page:
                     {proverb.get('category', 'General')}
                 </span>
                 <p class="bashkir-text" style="margin-top: 10px;">{proverb.get('bashkir', '')}</p>
-                <p class="russian-text">ðŸ‡·ðŸ‡º {proverb.get('russian', '')}</p>
-                <p class="english-text">ðŸ‡¬ðŸ‡§ {proverb.get('english', '')}</p>
+                <p class="russian-text">🇷🇺 {proverb.get('russian', '')}</p>
+                <p class="english-text">🇬🇧 {proverb.get('english', '')}</p>
             </div>
             """, unsafe_allow_html=True)
 
@@ -3194,7 +3194,7 @@ elif "Truth Unveiled" in selected_page:
             """, unsafe_allow_html=True)
 
     with tab3:
-        st.markdown("### ðŸ”ï¸ Cultural Facts â€” ÐœÓ™Ò™Ó™Ð½Ð¸Ó™Ñ‚")
+        st.markdown("### 📍️ Cultural Facts â€” ÐœÓ™Ò™Ó™Ð½Ð¸Ó™Ñ‚")
         st.markdown("*Deep knowledge of Bashkir heritage*")
 
         # Filter by category
@@ -3221,7 +3221,7 @@ elif "Truth Unveiled" in selected_page:
             """, unsafe_allow_html=True)
 
     with tab4:
-        st.markdown("### ðŸ”¥ The Duality: Ural and Shulgen")
+        st.markdown("### 🔥 The Duality: Ural and Shulgen")
         st.markdown("*Understanding the twin paths of the Bashkir soul*")
 
         col1, col2 = st.columns(2)
@@ -3229,7 +3229,7 @@ elif "Truth Unveiled" in selected_page:
         with col1:
             st.markdown(f"""
             <div class="bird-card eagle-card" style="min-height: 350px;">
-                <h3>ðŸ”ï¸ URAL</h3>
+                <h3>📍️ URAL</h3>
                 <p><strong>The Path of Light</strong></p>
                 <hr>
                 <p><strong>Choice:</strong> Sacrifice for all</p>
@@ -3249,7 +3249,7 @@ elif "Truth Unveiled" in selected_page:
         with col2:
             st.markdown(f"""
             <div class="bird-card crow-card" style="min-height: 350px;">
-                <h3>ðŸŒŠ SHULGEN</h3>
+                <h3>🌊 SHULGEN</h3>
                 <p><strong>The Path of Depth</strong></p>
                 <hr>
                 <p><strong>Choice:</strong> Power over love</p>
@@ -3284,9 +3284,9 @@ elif "Truth Unveiled" in selected_page:
         st.markdown(f"""
         <div class="meditation-box" style="text-align: center; margin-top: 20px;">
             <p style="font-size: 1.1em;">
-                ðŸ”ï¸ The Ural Mountains are Ural-Batyr's body.<br>
-                ðŸŒŠ Shulgan-Tash Cave holds Shulgen's memory.<br>
-                ðŸŒŸ Together, they are Bashkortostan.
+                📍️ The Ural Mountains are Ural-Batyr's body.<br>
+                🌊 Shulgan-Tash Cave holds Shulgen's memory.<br>
+                🌟 Together, they are Bashkortostan.
             </p>
         </div>
         """, unsafe_allow_html=True)
@@ -3927,19 +3927,19 @@ elif "Eleven Pillars" in selected_page:
 
 # === PAGE: SETTINGS ===
 elif "Settings" in selected_page:
-    st.title("âš™ï¸ Settings")
+    st.title("⚙️ Settings")
 
-    st.markdown("### ðŸŽ¨ Display Settings")
+    st.markdown("### 🎨 Display Settings")
 
-    st.markdown("### ðŸ”Š Audio Settings")
+    st.markdown("### 🔊 Audio Settings")
     st.checkbox("Enable audio playback", value=True)
     st.slider("Audio speed", 0.5, 1.5, 1.0)
 
-    st.markdown("### ðŸ“Š Learning Settings")
+    st.markdown("### 📊 Learning Settings")
     st.number_input("New words per session", 1, 20, 5)
     st.number_input("Review words per session", 5, 50, 20)
 
-    st.markdown("### ðŸ”„ Data Management")
+    st.markdown("### 🔄 Data Management")
 
     col1, col2 = st.columns(2)
 

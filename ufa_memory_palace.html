@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Агидел / Belaya — Ufa Memory Palace</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #1a1409;
+    --deep-earth: #0f0c06;
+    --gold: #c9a84c;
+    --gold-bright: #f0cc6e;
+    --river-blue: #4a7fa5;
+    --river-glow: #6db3e8;
+    --hearth-red: #c04a2a;
+    --birch-white: #e8dfc8;
+    --moss: #4a6741;
+    --ink: #2c2010;
+    --text-main: #d4c49a;
+    --text-dim: #8a7a58;
+    --node-size: 18px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--deep-earth);
+    color: var(--text-main);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* === NOISE TEXTURE OVERLAY === */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* === HEADER === */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 3rem 2rem 1.5rem;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+  }
+
+  .title-bash {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 4vw, 2.4rem);
+    color: var(--gold-bright);
+    letter-spacing: 0.12em;
+    text-shadow: 0 0 30px rgba(201, 168, 76, 0.4);
+  }
+
+  .title-cyrillic {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+    letter-spacing: 0.08em;
+  }
+
+  .subtitle {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* === HEARTH ARCHITECTURE DIAGRAM === */
+  .hearth-section {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem 1rem 1rem;
+  }
+
+  .hearth-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+  }
+
+  .hearth-rings {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+
+  .ring-outer {
+    inset: 0;
+    border-color: rgba(74, 103, 65, 0.5);
+    background: radial-gradient(circle, transparent 60%, rgba(74, 103, 65, 0.06) 100%);
+  }
+
+  .ring-middle {
+    inset: 18%;
+    border-color: rgba(201, 168, 76, 0.4);
+    background: radial-gradient(circle, transparent 60%, rgba(201, 168, 76, 0.06) 100%);
+  }
+
+  .ring-inner {
+    inset: 36%;
+    border-color: rgba(192, 74, 42, 0.6);
+    background: radial-gradient(circle, rgba(192, 74, 42, 0.15) 0%, transparent 70%);
+    cursor: pointer;
+    animation: hearth-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes hearth-pulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(192, 74, 42, 0.3); }
+    50% { box-shadow: 0 0 28px rgba(192, 74, 42, 0.6); }
+  }
+
+  .ring-label {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.3;
+    pointer-events: none;
+  }
+
+  .ring-outer .ring-label {
+    top: -2.2rem;
+    font-size: 0.75rem;
+    color: var(--moss);
+    letter-spacing: 0.05em;
+  }
+
+  .ring-middle .ring-label {
+    top: -2rem;
+    font-size: 0.8rem;
+    color: var(--gold);
+  }
+
+  .ring-inner .ring-label {
+    font-size: 0.85rem;
+    color: var(--hearth-red);
+    font-weight: 600;
+  }
+
+  /* === RIVER PALACE MAP === */
+  .palace-section {
+    position: relative;
+    z-index: 10;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(201, 168, 76, 0.12);
+  }
+
+  .river-container {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+
+  .river-svg {
+    width: 100%;
+    min-width: 700px;
+    height: 220px;
+    overflow: visible;
+  }
+
+  /* === STATION NODES GRID === */
+  .stations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  .station-card {
+    background: rgba(26, 20, 9, 0.8);
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    border-radius: 4px;
+    padding: 1.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .station-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .station-card:hover {
+    border-color: rgba(201, 168, 76, 0.4);
+    background: rgba(30, 24, 12, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  }
+
+  .station-card:hover::before { opacity: 1; }
+
+  .station-card.hearth-node {
+    border-color: rgba(192, 74, 42, 0.4);
+    background: rgba(20, 10, 5, 0.9);
+  }
+
+  .station-card.hearth-node::before {
+    background: linear-gradient(90deg, transparent, var(--hearth-red), transparent);
+    opacity: 0.5;
+  }
+
+  .station-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .peg-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .station-names {
+    flex: 1;
+  }
+
+  .name-russian {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    color: var(--birch-white);
+    line-height: 1.2;
+  }
+
+  .name-bashkir {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--gold);
+    margin-top: 0.15rem;
+  }
+
+  .station-peg-word {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--river-glow);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  .station-image {
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+    border-left: 2px solid rgba(201, 168, 76, 0.2);
+    padding-left: 0.8rem;
+  }
+
+  .vocab-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+
+  .vocab-chip {
+    font-size: 0.78rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(74, 127, 165, 0.1);
+    border: 1px solid rgba(74, 127, 165, 0.25);
+    border-radius: 2px;
+    color: var(--river-glow);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  .vocab-chip:hover {
+    background: rgba(74, 127, 165, 0.25);
+    color: #fff;
+  }
+
+  .phonetic-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    margin-top: 0.6rem;
+  }
+
+  /* === MODAL === */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--parchment);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 4px;
+    max-width: 620px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 0 60px rgba(0,0,0,0.8);
+    animation: modal-in 0.3s ease;
+  }
+
+  @keyframes modal-in {
+    from { opacity: 0; transform: scale(0.96) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none; border: none;
+    color: var(--text-dim);
+    font-size: 1.3rem;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--gold); }
+
+  .modal-title-bash { font-family: 'Cinzel Decorative', serif; font-size: 1.3rem; color: var(--gold-bright); }
+  .modal-title-ru { font-style: italic; color: var(--text-dim); margin-top: 0.2rem; font-size: 1rem; }
+
+  .modal-divider { height: 1px; background: rgba(201, 168, 76, 0.2); margin: 1rem 0; }
+
+  .modal-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .vocab-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+  .vocab-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    text-align: left;
+  }
+  .vocab-table td {
+    padding: 0.45rem 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.9rem;
+    vertical-align: top;
+  }
+  .vocab-table tr:hover td { background: rgba(201, 168, 76, 0.04); }
+  .vocab-table .bash { font-style: italic; color: var(--gold); font-size: 1rem; }
+  .vocab-table .phonetic { color: var(--river-glow); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+  .vocab-table .meaning { color: var(--text-main); }
+  .vocab-table .peg-anchor { color: var(--text-dim); font-style: italic; font-size: 0.82rem; }
+
+  /* === EXPORT PANEL === */
+  .export-section {
+    position: relative;
+    z-index: 10;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem 3rem;
+  }
+
+  .export-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  .export-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.5rem;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 1px solid;
+  }
+
+  .export-btn.knightlab {
+    background: rgba(192, 74, 42, 0.08);
+    border-color: var(--hearth-red);
+    color: var(--hearth-red);
+  }
+  .export-btn.knightlab:hover { background: rgba(192, 74, 42, 0.2); }
+
+  .export-btn.arcgis {
+    background: rgba(74, 127, 165, 0.08);
+    border-color: var(--river-blue);
+    color: var(--river-glow);
+  }
+  .export-btn.arcgis:hover { background: rgba(74, 127, 165, 0.2); }
+
+  .export-btn.palace {
+    background: rgba(201, 168, 76, 0.08);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .export-btn.palace:hover { background: rgba(201, 168, 76, 0.2); }
+
+  /* === SCROLLBAR === */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--deep-earth); }
+  ::-webkit-scrollbar-thumb { background: rgba(201, 168, 76, 0.3); border-radius: 3px; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 600px) {
+    .stations-grid { grid-template-columns: 1fr; }
+    .hearth-rings { width: 220px; height: 220px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="title-bash">Агидел · Белая · Memory Palace</div>
+  <div class="title-cyrillic">Уфа — Өфө — The Hearth of Rodina</div>
+  <div class="subtitle">Nested Hearth Architecture · Belaya River Journey · Lorayne Peg System</div>
+</header>
+
+<!-- HEARTH RINGS DIAGRAM -->
+<div class="hearth-section">
+  <div class="hearth-label">Nested Hearth Architecture</div>
+  <div class="hearth-rings">
+    <div class="ring ring-outer">
+      <div class="ring-label">Республика Башкортостан<br><span style="font-size:0.65rem; color: #4a6741; opacity:0.8;">Anthropological Layer</span></div>
+    </div>
+    <div class="ring ring-middle">
+      <div class="ring-label">Уфа · Өфө<br><span style="font-size:0.68rem;">Родина — The Great Hearth</span></div>
+    </div>
+    <div class="ring ring-inner" onclick="openModal('ufa')">
+      <div class="ring-label">Бижбуляк<br><span style="font-size:0.68rem;">Personal Anchor</span></div>
+    </div>
+  </div>
+  <div style="margin-top:1rem; font-size:0.78rem; color:var(--text-dim); font-style:italic; text-align:center; max-width:400px;">
+    Three concentric hearths — from intimate village to republican homeland. Click the inner flame to enter.
+  </div>
+</div>
+
+<!-- RIVER MAP -->
+<div class="palace-section">
+  <div class="section-title">The Belaya River Palace · 1,430 km · 6 Stations</div>
+  <div class="river-container">
+    <svg class="river-svg" viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="riverGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#2a4a6a;stop-opacity:0.3"/>
+          <stop offset="40%" style="stop-color:#4a7fa5;stop-opacity:0.7"/>
+          <stop offset="80%" style="stop-color:#4a7fa5;stop-opacity:0.9"/>
+          <stop offset="100%" style="stop-color:#2a4a6a;stop-opacity:0.4"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="node-glow">
+          <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- River path -->
+      <path d="M 60 120 C 100 90, 150 130, 220 105 C 290 80, 330 130, 400 110 C 450 95, 490 130, 560 105 C 620 85, 670 130, 740 110 C 790 98, 830 120, 870 115" 
+            fill="none" stroke="url(#riverGrad)" stroke-width="8" stroke-linecap="round" opacity="0.6" filter="url(#glow)"/>
+      <!-- River shimmer -->
+      <path d="M 60 120 C 100 90, 150 130, 220 105 C 290 80, 330 130, 400 110 C 450 95, 490 130, 560 105 C 620 85, 670 130, 740 110 C 790 98, 830 120, 870 115" 
+            fill="none" stroke="#6db3e8" stroke-width="2" stroke-linecap="round" opacity="0.4" stroke-dasharray="10,15"/>
+
+      <!-- Compass rose hint -->
+      <text x="855" y="195" font-family="Georgia" font-size="11" fill="rgba(201,168,76,0.3)" text-anchor="middle">Кама ↓</text>
+      <text x="45" y="175" font-family="Georgia" font-size="11" fill="rgba(201,168,76,0.3)" text-anchor="middle">Урал ↑</text>
+
+      <!-- STATION 1: Iremel -->
+      <g class="station-node" onclick="openModal('iremel')" style="cursor:pointer" filter="url(#node-glow)">
+        <circle cx="60" cy="120" r="10" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1.5"/>
+        <circle cx="60" cy="120" r="5" fill="#c9a84c" opacity="0.8"/>
+        <text x="60" y="90" font-family="Cormorant Garamond, serif" font-size="11" fill="#c9a84c" text-anchor="middle" font-style="italic">Иремел</text>
+        <text x="60" y="103" font-family="JetBrains Mono, monospace" font-size="9" fill="#6db3e8" text-anchor="middle">PEG 1: TIDY</text>
+        <text x="60" y="148" font-family="Cormorant Garamond, serif" font-size="10" fill="rgba(201,168,76,0.5)" text-anchor="middle">S.1 · 0km</text>
+      </g>
+
+      <!-- STATION 2: Beloretsk -->
+      <g class="station-node" onclick="openModal('beloretsk')" style="cursor:pointer" filter="url(#node-glow)">
+        <circle cx="220" cy="105" r="10" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1.5"/>
+        <circle cx="220" cy="105" r="5" fill="#c9a84c" opacity="0.8"/>
+        <text x="220" y="75" font-family="Cormorant Garamond, serif" font-size="11" fill="#c9a84c" text-anchor="middle" font-style="italic">Белорецк</text>
+        <text x="220" y="88" font-family="JetBrains Mono, monospace" font-size="9" fill="#6db3e8" text-anchor="middle">PEG 2: NEON</text>
+        <text x="220" y="133" font-family="Cormorant Garamond, serif" font-size="10" fill="rgba(201,168,76,0.5)" text-anchor="middle">S.2 · ~300km</text>
+      </g>
+
+      <!-- STATION 3: Sterlitamak -->
+      <g class="station-node" onclick="openModal('sterlitamak')" style="cursor:pointer" filter="url(#node-glow)">
+        <circle cx="400" cy="110" r="10" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1.5"/>
+        <circle cx="400" cy="110" r="5" fill="#c9a84c" opacity="0.8"/>
+        <text x="400" y="80" font-family="Cormorant Garamond, serif" font-size="11" fill="#c9a84c" text-anchor="middle" font-style="italic">Стәрлетамаҡ</text>
+        <text x="400" y="93" font-family="JetBrains Mono, monospace" font-size="9" fill="#6db3e8" text-anchor="middle">PEG 3: MUMMY</text>
+        <text x="400" y="138" font-family="Cormorant Garamond, serif" font-size="10" fill="rgba(201,168,76,0.5)" text-anchor="middle">S.3 · ~700km</text>
+      </g>
+
+      <!-- STATION 4: UFA - THE HEARTH -->
+      <g class="station-node" onclick="openModal('ufa')" style="cursor:pointer" filter="url(#node-glow)">
+        <circle cx="560" cy="105" r="16" fill="rgba(192,74,42,0.15)" stroke="#c04a2a" stroke-width="2"/>
+        <circle cx="560" cy="105" r="8" fill="#c04a2a" opacity="0.9"/>
+        <circle cx="560" cy="105" r="14" fill="none" stroke="rgba(192,74,42,0.3)" stroke-width="1" stroke-dasharray="3,4"/>
+        <text x="560" y="68" font-family="Cinzel Decorative, serif" font-size="12" fill="#f0cc6e" text-anchor="middle">Өфө · УФА</text>
+        <text x="560" y="81" font-family="JetBrains Mono, monospace" font-size="9" fill="#c04a2a" text-anchor="middle">PEG 4: ROWER · HEARTH</text>
+        <text x="560" y="138" font-family="Cormorant Garamond, serif" font-size="10" fill="rgba(192,74,42,0.6)" text-anchor="middle">S.4 · ~900km · РОДИНА</text>
+      </g>
+
+      <!-- STATION 5: Birsk -->
+      <g class="station-node" onclick="openModal('birsk')" style="cursor:pointer" filter="url(#node-glow)">
+        <circle cx="740" cy="110" r="10" fill="rgba(201,168,76,0.1)" stroke="#c9a84c" stroke-width="1.5"/>
+        <circle cx="740" cy="110" r="5" fill="#c9a84c" opacity="0.8"/>
+        <text x="740" y="80" font-family="Cormorant Garamond, serif" font-size="11" fill="#c9a84c" text-anchor="middle" font-style="italic">Бирск</text>
+        <text x="740" y="93" font-family="JetBrains Mono, monospace" font-size="9" fill="#6db3e8" text-anchor="middle">PEG 5: LILY</text>
+        <text x="740" y="138" font-family="Cormorant Garamond, serif" font-size="10" fill="rgba(201,168,76,0.5)" text-anchor="middle">S.5 · ~1,200km</text>
+      </g>
+
+      <!-- STATION 6: Kama Confluence -->
+      <g class="station-node" onclick="openModal('kama')" style="cursor:pointer" filter="url(#node-glow)">
+        <circle cx="860" cy="115" r="10" fill="rgba(74,103,65,0.2)" stroke="#4a6741" stroke-width="1.5"/>
+        <circle cx="860" cy="115" r="5" fill="#4a6741" opacity="0.8"/>
+        <text x="860" y="85" font-family="Cormorant Garamond, serif" font-size="11" fill="#7a9770" text-anchor="middle" font-style="italic">Ҡама</text>
+        <text x="860" y="98" font-family="JetBrains Mono, monospace" font-size="9" fill="#6db3e8" text-anchor="middle">PEG 6: SHOE</text>
+        <text x="860" y="143" font-family="Cormorant Garamond, serif" font-size="10" fill="rgba(74,103,65,0.6)" text-anchor="middle">S.6 · 1,430km</text>
+      </g>
+
+      <!-- Distance markers -->
+      <line x1="60" y1="165" x2="860" y2="165" stroke="rgba(201,168,76,0.1)" stroke-width="0.5"/>
+      <text x="460" y="185" font-family="JetBrains Mono, monospace" font-size="9" fill="rgba(201,168,76,0.25)" text-anchor="middle" letter-spacing="0.2em">АГИДЕЛ  ·  А Ғ И Д Е Л  ·  БЕЛАЯ РЕКА  ·  1,430 KM</text>
+    </svg>
+  </div>
+</div>
+
+<!-- STATION CARDS -->
+<div class="palace-section" style="margin-top:0">
+  <div class="stations-grid" id="stations-grid">
+    <!-- Cards rendered by JS -->
+  </div>
+</div>
+
+<!-- EXPORT PANEL -->
+<div class="export-section">
+  <div class="section-title">Export Formats</div>
+  <div class="export-row">
+    <button class="export-btn knightlab" onclick="exportKnightLab()">⟶ Knight Lab StoryMapJS JSON</button>
+    <button class="export-btn arcgis" onclick="exportArcGIS()">⟶ ArcGIS GeoJSON</button>
+    <button class="export-btn palace" onclick="exportPalace()">⟶ Full Palace JSON</button>
+  </div>
+  <div id="export-output" style="display:none; margin-top:1.5rem; background:rgba(0,0,0,0.5); border:1px solid rgba(201,168,76,0.15); border-radius:3px; padding:1.2rem; max-height:300px; overflow-y:auto;">
+    <pre id="export-text" style="font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:#6db3e8; white-space:pre-wrap; word-break:break-all;"></pre>
+    <button onclick="copyExport()" style="margin-top:1rem; font-family:'JetBrains Mono',monospace; font-size:0.7rem; background:rgba(201,168,76,0.1); border:1px solid var(--gold); color:var(--gold); padding:0.4rem 1rem; cursor:pointer; border-radius:2px; letter-spacing:0.1em;">COPY TO CLIPBOARD</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModalBackdrop(event)">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  PALACE DATA
+// ============================================================
+const PALACE_DATA = {
+  stations: [
+    {
+      id: "iremel",
+      num: 1,
+      name_ru: "Иремел",
+      name_bash: "Иремел тауы",
+      name_en: "Mount Iremel",
+      peg_num: "PEG 1 (T/D)",
+      peg_word: "TIDY",
+      lat: 54.51,
+      lng: 58.84,
+      km: 0,
+      memory_image: "A pristinely TIDY, snow-white mountain peak — the very source of the White River. Clean snow as pure as the word 'Belaya.' The mountain itself IS the peg, standing upright like the number 1.",
+      sound_bridge: "IREMÉL → 'I REMAIN' — something ancient that remains, a sacred summit",
+      hearth_type: "outer",
+      vocab: [
+        { bash: "таў", phonetic: "TAW", ru: "гора", meaning: "mountain", peg_anchor: "TOE = T-sound → Tidy tower" },
+        { bash: "ҡар", phonetic: "QAR", ru: "снег", meaning: "snow", peg_anchor: "CAR buried in snow" },
+        { bash: "башы", phonetic: "BA-shih", ru: "вершина", meaning: "summit / head", peg_anchor: "BASH = top, head, capital" },
+        { bash: "ғиззәт", phonetic: "ghiz-ZAT", ru: "священный", meaning: "sacred", peg_anchor: "Gizzard = gut-feeling of the sacred" },
+        { bash: "нигеҙ", phonetic: "ni-GEZ", ru: "основание", meaning: "foundation / origin", peg_anchor: "KNEES = the foundation of standing" },
+      ],
+      storymap_media: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Mount_Iremel.jpg/1280px-Mount_Iremel.jpg",
+      coords: [54.51, 58.84],
+      is_hearth: false,
+    },
+    {
+      id: "beloretsk",
+      num: 2,
+      name_ru: "Белорецк",
+      name_bash: "Белорет",
+      name_en: "Beloretsk",
+      peg_num: "PEG 2 (N/N)",
+      peg_word: "NEON",
+      lat: 53.97,
+      lng: 58.40,
+      km: 300,
+      memory_image: "NEON lights reflecting off white (belo) iron-forge waters — Belaya runs through steel and snow. A neon watch glows on a white wrist: 'Retsk' = 'Wrist'. The industrial fires of the city glow like a neon sign in the Ural forests.",
+      sound_bridge: "БЕЛО-РЕЦК → BELO (white) + RETSK (wrist sound) → White Wrist Watch glowing NEON",
+      hearth_type: "outer",
+      vocab: [
+        { bash: "аҡ", phonetic: "AQ", ru: "белый", meaning: "white", peg_anchor: "AK = AQua = white water" },
+        { bash: "тимер", phonetic: "ti-MER", ru: "железо / сталь", meaning: "iron / steel", peg_anchor: "TIMER ticking in steel" },
+        { bash: "ут", phonetic: "OOT", ru: "огонь", meaning: "fire", peg_anchor: "OOT = foot near fire" },
+        { bash: "ҡала", phonetic: "qa-LA", ru: "город", meaning: "city", peg_anchor: "QA-LA = HOLLA at the city" },
+        { bash: "эш", phonetic: "ESH", ru: "труд / работа", meaning: "work / labor", peg_anchor: "ESH = ETCH in metal" },
+      ],
+      storymap_media: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Belaya_river.jpg/1280px-Belaya_river.jpg",
+      coords: [53.97, 58.40],
+      is_hearth: false,
+    },
+    {
+      id: "sterlitamak",
+      num: 3,
+      name_ru: "Стерлитамак",
+      name_bash: "Стәрлетамаҡ",
+      name_en: "Sterlitamak",
+      peg_num: "PEG 3 (M/M)",
+      peg_word: "MUMMY",
+      lat: 53.63,
+      lng: 55.93,
+      km: 700,
+      memory_image: "Ancient Bashkir MUMMIES preserved in white limestone tombs along the riverbank — STIR (stirring) a pot, LEE (a calm place in a current), TA (a sound), MOCK (imitation). Stirl-ita-mak: 'STIR-LEE-ta-mock'. A mummy stirring in stillness.",
+      sound_bridge: "СТЕРЛИ-ТАМАҠ → STERLItamak → 'STIR-LEE-throat' (тамаҡ = throat/neck in Bashkir!)",
+      hearth_type: "outer",
+      vocab: [
+        { bash: "тамаҡ", phonetic: "ta-MAQ", ru: "горло / горловина", meaning: "throat / river narrows", peg_anchor: "TAMAK = the river's throat at the confluence" },
+        { bash: "таш", phonetic: "TASH", ru: "камень", meaning: "stone / rock", peg_anchor: "TASH = TRASH turned to stone" },
+        { bash: "ер", phonetic: "YER", ru: "земля / место", meaning: "earth / place", peg_anchor: "YER = YEAR in the earth" },
+        { bash: "ҡыуыш", phonetic: "qih-WUSH", ru: "пещера", meaning: "cave / shelter", peg_anchor: "QUIVISH = quivering in a cave" },
+        { bash: "халыҡ", phonetic: "ha-LIQ", ru: "народ", meaning: "people / nation", peg_anchor: "HALEEK = the people call out" },
+      ],
+      storymap_media: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Sterlitamak_panorama.jpg/1280px-Sterlitamak_panorama.jpg",
+      coords: [53.63, 55.93],
+      is_hearth: false,
+    },
+    {
+      id: "ufa",
+      num: 4,
+      name_ru: "Уфа",
+      name_bash: "Өфө",
+      name_en: "Ufa — The Hearth",
+      peg_num: "PEG 4 (R/R)",
+      peg_word: "ROWER",
+      lat: 54.74,
+      lng: 55.96,
+      km: 900,
+      memory_image: "A ROWER rowing white rapids where the Уфа River meets the Агидел (Belaya) — two rivers, two names, one Hearth. The rower is you. YOU-FAH! The paddle strikes the confluence and the whole city ignites like a second sun on the water. Ufa is the ROWER who routes all rivers home.",
+      sound_bridge: "УФА / ӨФӨÓ → OOF-ah → 'YOU-FAH!' — the exhale of arrival, of coming home to Родина",
+      hearth_type: "hearth",
+      vocab: [
+        { bash: "өй", phonetic: "OY", ru: "дом", meaning: "home / house", peg_anchor: "OY! Home at last" },
+        { bash: "йылы", phonetic: "YIH-lih", ru: "тёплый", meaning: "warm / warmth", peg_anchor: "YILLI = feel the hearth's warmth" },
+        { bash: "ағыс", phonetic: "a-GHIS", ru: "течение", meaning: "river current / flow", peg_anchor: "AGIS = the river guides us" },
+        { bash: "ҡойылыш", phonetic: "qoh-YIH-lish", ru: "слияние / устье", meaning: "confluence / meeting", peg_anchor: "QOYILISH = two things coiling together" },
+        { bash: "Ватан", phonetic: "va-TAN", ru: "Родина / Отечество", meaning: "Homeland / Fatherland", peg_anchor: "WATAN = WHAT-AN amazing homeland" },
+        { bash: "яҡын", phonetic: "ya-QIN", ru: "близкий", meaning: "close / near / dear", peg_anchor: "YAQ-IN = aching closeness" },
+        { bash: "ағыу", phonetic: "a-GHEW", ru: "течь", meaning: "to flow", peg_anchor: "AGEW = always flowing onward" },
+        { bash: "Өфө", phonetic: "OH-foh", ru: "Уфа", meaning: "Ufa (city name)", peg_anchor: "OHFOH = the breath of the city" },
+      ],
+      storymap_media: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Ufa_panorama.jpg/1280px-Ufa_panorama.jpg",
+      coords: [54.74, 55.96],
+      is_hearth: true,
+    },
+    {
+      id: "birsk",
+      num: 5,
+      name_ru: "Бирск",
+      name_bash: "Бирск",
+      name_en: "Birsk",
+      peg_num: "PEG 5 (L/L)",
+      peg_word: "LILY",
+      lat: 55.42,
+      lng: 55.51,
+      km: 1200,
+      memory_image: "White LILIES blooming on the birch-white Belaya banks at Birsk. BIRSK sounds like BURST — water bursting through white lily fields. A birch tree drops lily-white petals into the current. The lure of the fishing town draws you onward.",
+      sound_bridge: "БИРСК → BIRSK → BURST → BIRCH + LURE → White lilies bursting from birch roots",
+      hearth_type: "outer",
+      vocab: [
+        { bash: "сәскә", phonetic: "SAS-ka", ru: "цветок", meaning: "flower", peg_anchor: "SASKA = Saskatchewan flower fields" },
+        { bash: "ялан", phonetic: "ya-LAN", ru: "луг / поляна", meaning: "meadow / clearing", peg_anchor: "YALAN = lay on the meadow" },
+        { bash: "тартыу", phonetic: "tar-TIW", ru: "притяжение / тяга", meaning: "pull / draw / attraction", peg_anchor: "TARTIYOO = tartan pulls you in (LURE)" },
+        { bash: "аға", phonetic: "a-GHA", ru: "старший брат", meaning: "elder brother", peg_anchor: "AGA = the AGA Khan, an elder" },
+        { bash: "балыҡ", phonetic: "ba-LIQ", ru: "рыба", meaning: "fish", peg_anchor: "BALIQ = belly of a large fish" },
+      ],
+      storymap_media: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Birsk_Belaya.jpg/1280px-Birsk_Belaya.jpg",
+      coords: [55.42, 55.51],
+      is_hearth: false,
+    },
+    {
+      id: "kama",
+      num: 6,
+      name_ru: "Устье Камы",
+      name_bash: "Ҡама ҡуйылышы",
+      name_en: "Kama Confluence",
+      peg_num: "PEG 6 (SH/J)",
+      peg_word: "SHOE",
+      lat: 55.90,
+      lng: 54.00,
+      km: 1430,
+      memory_image: "A white SHOE floating at the royal junction where white Агидел meets the darker Кама — the shoe's laces tie the two rivers together forever. КАМА sounds like COMMA — the river becomes a punctuation mark, a pause before the Volga, before the sea. The SHAH crowns the confluence.",
+      sound_bridge: "ҠАМА → KAMA → COMMA — a pause, a breath, the end of the palace journey. Shoe floats on.",
+      hearth_type: "outer",
+      vocab: [
+        { bash: "ҡойылыу", phonetic: "qoh-yih-LIW", ru: "впадать / сливаться", meaning: "to flow into / confluence", peg_anchor: "QOYILIW = coiling together at the end" },
+        { bash: "тамам", phonetic: "ta-MAM", ru: "готово / конец", meaning: "finished / complete", peg_anchor: "TAMAM = da-MA-MA = done! (Arabic loan)" },
+        { bash: "юл", phonetic: "YOOL", ru: "дорога / путь", meaning: "road / journey", peg_anchor: "YOOL = YULE = the journey ends at celebration" },
+        { bash: "ирек", phonetic: "i-REK", ru: "свобода", meaning: "freedom", peg_anchor: "IREK = IRAQ? No — free as a river to the sea" },
+        { bash: "хуш", phonetic: "HOOSH", ru: "прощай", meaning: "farewell", peg_anchor: "HOOSH = whoosh of departing water" },
+      ],
+      storymap_media: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Kama_River.jpg/1280px-Kama_River.jpg",
+      coords: [55.90, 54.00],
+      is_hearth: false,
+    }
+  ],
+
+  hearth_connections: [
+    { from: "iremel", to: "ufa", label: "Sacred Source → Homeland Capital", type: "spiritual" },
+    { from: "beloretsk", to: "ufa", label: "Industrial Iron → Cultural Heart", type: "economic" },
+    { from: "sterlitamak", to: "ufa", label: "People's Throat → Voice of Bashkortostan", type: "political" },
+    { from: "birsk", to: "ufa", label: "River Meadow → Urban Memory", type: "natural" },
+    { from: "kama", to: "ufa", label: "Final Freedom → Eternal Rodina", type: "transcendental" },
+  ],
+
+  nested_hearth: {
+    level1: { name: "Бижбуляк / Bizhbulyak", type: "Personal Anchor", radius_km: 50 },
+    level2: { name: "Өфө / Уфа / Ufa", type: "Родина — The Great Hearth", radius_km: 300 },
+    level3: { name: "Республика Башкортостан", type: "Anthropological Layer", radius_km: 700 },
+  }
+};
+
+// ============================================================
+//  RENDER CARDS
+// ============================================================
+function renderCards() {
+  const grid = document.getElementById('stations-grid');
+  grid.innerHTML = PALACE_DATA.stations.map(s => `
+    <div class="station-card ${s.is_hearth ? 'hearth-node' : ''}" onclick="openModal('${s.id}')">
+      <div class="station-header">
+        <div class="peg-badge">${s.peg_num}</div>
+        <div class="station-names">
+          <div class="name-russian">${s.name_ru}</div>
+          <div class="name-bashkir">${s.name_bash}</div>
+        </div>
+      </div>
+      <div class="station-peg-word">▸ ${s.peg_word} · ${s.km} km</div>
+      <div class="station-image">${s.memory_image.substring(0, 120)}…</div>
+      <div class="vocab-row">
+        ${s.vocab.slice(0,4).map(v => `<span class="vocab-chip" title="${v.meaning}">${v.bash} (${v.ru})</span>`).join('')}
+      </div>
+      <div class="phonetic-hint">${s.sound_bridge.substring(0, 80)}…</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+//  MODAL
+// ============================================================
+function openModal(id) {
+  const s = PALACE_DATA.stations.find(x => x.id === id);
+  if (!s) return;
+
+  const rows = s.vocab.map(v => `
+    <tr>
+      <td class="bash">${v.bash}</td>
+      <td class="phonetic">[${v.phonetic}]</td>
+      <td class="meaning">${v.ru} — ${v.meaning}</td>
+      <td class="peg-anchor">${v.peg_anchor}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('modal-body').innerHTML = `
+    <div style="display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap;">
+      <div class="modal-title-bash">${s.name_bash}</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--text-dim);">${s.peg_num}</div>
+    </div>
+    <div class="modal-title-ru">${s.name_ru} · ${s.name_en} · ${s.km} km</div>
+    ${s.is_hearth ? '<div style="margin-top:0.5rem; font-size:0.75rem; font-family:JetBrains Mono; color:var(--hearth-red); letter-spacing:0.15em;">⬤ THE HEARTH — РОДИНА — ӨФӨÓ</div>' : ''}
+    <div class="modal-divider"></div>
+
+    <div class="modal-section-label">Memory Image</div>
+    <p style="font-style:italic; color:var(--text-dim); line-height:1.6; font-size:0.95rem;">"${s.memory_image}"</p>
+
+    <div class="modal-section-label">Sound Bridge</div>
+    <p style="font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--river-glow); line-height:1.5;">${s.sound_bridge}</p>
+
+    <div class="modal-section-label">Vocabulary Nodes (${s.vocab.length} words)</div>
+    <table class="vocab-table">
+      <thead>
+        <tr>
+          <th>Башкирский</th>
+          <th>Phonetic</th>
+          <th>Meaning</th>
+          <th>Peg Anchor</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+
+    <div class="modal-divider"></div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; color:var(--text-dim); line-height:1.6;">
+      <span style="color:var(--gold);">COORDS</span> ${s.lat}°N, ${s.lng}°E &nbsp;·&nbsp;
+      <span style="color:var(--gold);">HEARTH LEVEL</span> ${s.hearth_type} &nbsp;·&nbsp;
+      <span style="color:var(--gold);">STATION</span> ${s.num}/6
+    </div>
+  `;
+
+  document.getElementById('modal-backdrop').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-backdrop').classList.remove('open');
+}
+
+function closeModalBackdrop(e) {
+  if (e.target === document.getElementById('modal-backdrop')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ============================================================
+//  EXPORT FUNCTIONS
+// ============================================================
+
+// KNIGHT LAB STORYMAPJS FORMAT
+function exportKnightLab() {
+  const storymap = {
+    storymap: {
+      language: "en",
+      map_type: "osm:standard",
+      map_as_image: false,
+      call_to_action: true,
+      call_to_action_text: "Explore the Belaya River Memory Palace",
+      zoomify: false,
+      calculate_zoom: false,
+      slides: [
+        {
+          type: "overview",
+          date: "",
+          text: {
+            headline: "Агидел · Memory Palace of the Hearth",
+            text: "<p>A journey along the Belaya River (Агидел/Agidel) from its source at Mount Iremel in the Ural Mountains through Ufa — the Hearth (Родина) — to its confluence with the Kama River. Each station is a memory palace node anchored to Bashkir vocabulary via the Lorayne Major System.</p><p>Architecture: Bizhbulyak (personal) → Уфа (Родина) → Башкортостан (national).</p>"
+          },
+          media: {
+            url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Bashkortostan_map.jpg/1280px-Bashkortostan_map.jpg",
+            caption: "Republic of Bashkortostan",
+            credit: "Wikipedia Commons"
+          },
+          location: {
+            lat: 54.5,
+            lon: 56.5,
+            zoom: 6,
+            line: false
+          }
+        },
+        ...PALACE_DATA.stations.map(s => ({
+          date: `Station ${s.num}`,
+          text: {
+            headline: `${s.name_bash} · ${s.name_ru}`,
+            text: `<p><strong>Peg Word:</strong> ${s.peg_word} (${s.peg_num})</p>
+<p><em>"${s.memory_image}"</em></p>
+<p><strong>Sound Bridge:</strong> ${s.sound_bridge}</p>
+<hr/>
+<p><strong>Key Vocabulary:</strong></p>
+<ul>${s.vocab.map(v => `<li><strong>${v.bash}</strong> [${v.phonetic}] — ${v.meaning} (${v.ru})</li>`).join('')}</ul>`
+          },
+          media: {
+            url: s.storymap_media,
+            caption: `${s.name_en} · ${s.km}km along the Belaya`,
+            credit: "Wikimedia Commons"
+          },
+          location: {
+            lat: s.lat,
+            lon: s.lng,
+            zoom: s.is_hearth ? 11 : 10,
+            line: true
+          },
+          type: s.is_hearth ? "main" : ""
+        }))
+      ]
+    }
+  };
+  showExport(JSON.stringify(storymap, null, 2), 'knight-lab-storymap.json');
+}
+
+// ARCGIS GEOJSON FORMAT
+function exportArcGIS() {
+  const geojson = {
+    type: "FeatureCollection",
+    name: "Ufa_Memory_Palace_Belaya_River",
+    crs: { type: "name", properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+    features: PALACE_DATA.stations.map(s => ({
+      type: "Feature",
+      properties: {
+        STATION_NUM: s.num,
+        NAME_RU: s.name_ru,
+        NAME_BASH: s.name_bash,
+        NAME_EN: s.name_en,
+        PEG_NUM: s.peg_num,
+        PEG_WORD: s.peg_word,
+        KM_FROM_SOURCE: s.km,
+        IS_HEARTH: s.is_hearth ? "YES" : "NO",
+        HEARTH_LEVEL: s.hearth_type,
+        MEMORY_IMAGE: s.memory_image,
+        SOUND_BRIDGE: s.sound_bridge,
+        VOCAB_COUNT: s.vocab.length,
+        VOCAB_WORDS: s.vocab.map(v => v.bash).join(', '),
+        VOCAB_MEANINGS: s.vocab.map(v => v.meaning).join('; '),
+        PALACE_LAYER: "Belaya_River_Journey",
+        HEARTH_ARCH: s.is_hearth ? "L2_RODINA" : "L3_ANTHROPOLOGICAL",
+        COORD_LAT: s.lat,
+        COORD_LNG: s.lng,
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [s.lng, s.lat]
+      }
+    })).concat(
+      // Also export hearth connections as LineString features
+      PALACE_DATA.hearth_connections.map(c => {
+        const from = PALACE_DATA.stations.find(x => x.id === c.from);
+        const to = PALACE_DATA.stations.find(x => x.id === c.to);
+        return {
+          type: "Feature",
+          properties: {
+            CONNECTION_FROM: c.from,
+            CONNECTION_TO: c.to,
+            CONNECTION_LABEL: c.label,
+            CONNECTION_TYPE: c.type,
+            LAYER_TYPE: "HEARTH_CONNECTION"
+          },
+          geometry: {
+            type: "LineString",
+            coordinates: [[from.lng, from.lat], [to.lng, to.lat]]
+          }
+        };
+      })
+    )
+  };
+  showExport(JSON.stringify(geojson, null, 2), 'ufa_memory_palace_arcgis.geojson');
+}
+
+// FULL PALACE JSON
+function exportPalace() {
+  const palace = {
+    palace_name: "Агидел Memory Palace — Nested Hearth Architecture",
+    version: "1.0",
+    created: new Date().toISOString(),
+    author_context: "Bashkir anthropology language learner — Bizhbulyak → Уфа → Башкортостан",
+    methodology: "Harry Lorayne Major System + Anthony Metivier Memory Palace + Nested Hearth Architecture",
+    river: { name_ru: "Белая", name_bash: "Агидел", length_km: 1430, source: "Mount Iremel, Southern Urals", mouth: "Kama River confluence" },
+    nested_hearth: PALACE_DATA.nested_hearth,
+    stations: PALACE_DATA.stations,
+    hearth_connections: PALACE_DATA.hearth_connections,
+    total_vocabulary_nodes: PALACE_DATA.stations.reduce((sum, s) => sum + s.vocab.length, 0),
+    export_targets: ["Knight Lab StoryMapJS", "ArcGIS GeoJSON", "Bashkort_Dictionary GitHub repo"],
+  };
+  showExport(JSON.stringify(palace, null, 2), 'ufa_memory_palace_full.json');
+}
+
+function showExport(text, filename) {
+  const out = document.getElementById('export-output');
+  const pre = document.getElementById('export-text');
+  pre.textContent = text;
+  out.style.display = 'block';
+  out.dataset.filename = filename;
+  out.scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyExport() {
+  const text = document.getElementById('export-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ COPIED';
+    setTimeout(() => btn.textContent = 'COPY TO CLIPBOARD', 2000);
+  });
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+renderCards();
+</script>
+</body>
+</html>

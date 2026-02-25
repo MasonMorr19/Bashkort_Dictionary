@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Knowledge Bridge: Bashkortostan ↔ America</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --earth-dark: #1a1612;
+  --earth-mid: #2d2520;
+  --earth-warm: #3d3028;
+  --gold-bright: #d4a843;
+  --gold-muted: #b8943a;
+  --gold-dim: #8a7030;
+  --green-forest: #2d5a3d;
+  --green-sage: #5a7a5a;
+  --blue-river: #3a6b8a;
+  --blue-ural: #4a8aaa;
+  --cream: #f0e8d8;
+  --cream-dim: #d4c8b0;
+  --red-accent: #c44a3f;
+  --text-primary: #f0e8d8;
+  --text-secondary: #b8a888;
+  --text-dim: #8a7860;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--earth-dark);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ===================== NAV ===================== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(26,22,18,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(212,168,67,0.12);
+  transform: translateY(-100%);
+  transition: transform 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.65rem 1rem;
+  flex-wrap: wrap;
+}
+
+.nav.visible { transform: translateY(0); }
+
+.nav a {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+  white-space: nowrap;
+}
+
+.nav a:hover, .nav a.active {
+  color: var(--gold-bright);
+  border-color: var(--gold-dim);
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(45,90,61,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 40%, rgba(58,107,138,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(212,168,67,0.1) 0%, transparent 40%);
+  z-index: 1;
+}
+
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    repeating-linear-gradient(45deg, var(--gold-bright) 0px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(-45deg, var(--gold-bright) 0px, transparent 1px, transparent 20px);
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 0 2rem;
+}
+
+.hero-subtitle {
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.6s forwards;
+}
+
+.hero-title .gold { color: var(--gold-bright); }
+.hero-title .blue { color: var(--blue-ural); }
+
+.hero-desc {
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 1.5rem auto 2.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.9s forwards;
+}
+
+.hero-arrow {
+  opacity: 0;
+  animation: fadeUp 1s 1.2s forwards, float 3s 2s infinite;
+  cursor: pointer;
+}
+
+.hero-arrow svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--gold-muted);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+/* Bird SVG icon */
+.bird-symbol {
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 1s 0s forwards;
+  filter: drop-shadow(0 0 30px rgba(212,168,67,0.3));
+}
+
+.bird-symbol svg {
+  width: 72px;
+  height: 72px;
+}
+
+/* ===================== MAP SECTION ===================== */
+.map-section {
+  position: relative;
+  padding: 0;
+}
+
+#main-map {
+  width: 100%;
+  height: 70vh;
+  z-index: 1;
+}
+
+.map-overlay-title {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  background: rgba(26,22,18,0.9);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2.5rem;
+  border: 1px solid var(--gold-dim);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--gold-bright);
+  text-align: center;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ===================== SECTIONS ===================== */
+.narrative-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.section-label {
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  color: var(--cream);
+}
+
+.section-text {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.section-text em {
+  color: var(--cream);
+  font-style: italic;
+}
+
+.section-quote {
+  border-left: 3px solid var(--gold-dim);
+  padding: 1.5rem 2rem;
+  margin: 2.5rem 0;
+  background: rgba(212,168,67,0.05);
+}
+
+.section-quote p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--cream);
+  line-height: 1.8;
+}
+
+.section-quote cite {
+  display: block;
+  margin-top: 1rem;
+  font-family: 'Noto Sans', sans-serif;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+/* ===================== DIVIDERS ===================== */
+.divider {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.divider-line {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.divider-line::before,
+.divider-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+}
+
+.divider-symbol {
+  color: var(--gold-bright);
+  font-size: 1.2rem;
+}
+
+/* ===================== PERSON CARDS ===================== */
+.person-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.person-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 5rem;
+  padding: 3rem;
+  background: var(--earth-mid);
+  border: 1px solid rgba(212,168,67,0.15);
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.person-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.person-card::before {
+  content: attr(data-node);
+  position: absolute;
+  top: -14px;
+  left: 3rem;
+  background: var(--earth-dark);
+  padding: 0 1rem;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+}
+
+/* FIX: Use CSS order instead of direction:rtl */
+.person-card.reverse .person-info { order: 2; }
+.person-card.reverse .person-map { order: 1; }
+
+.person-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.person-role {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-muted);
+  margin-bottom: 1.5rem;
+}
+
+.person-route {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  flex-wrap: wrap;
+}
+
+.route-arrow {
+  color: var(--gold-dim);
+  font-size: 0.7rem;
+}
+
+.person-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.person-map {
+  min-height: 300px;
+  border: 1px solid rgba(212,168,67,0.1);
+  background: var(--earth-dark);
+}
+
+/* ===================== THEME SECTIONS ===================== */
+.theme-banner {
+  padding: 5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-banner.hockey { background: linear-gradient(135deg, rgba(45,90,61,0.2), rgba(26,22,18,1)); }
+.theme-banner.food { background: linear-gradient(135deg, rgba(212,168,67,0.15), rgba(26,22,18,1)); }
+.theme-banner.language { background: linear-gradient(135deg, rgba(58,107,138,0.2), rgba(26,22,18,1)); }
+.theme-banner.sacred { background: linear-gradient(135deg, rgba(196,74,63,0.15), rgba(26,22,18,1)); }
+
+.theme-icon { font-size: 3rem; margin-bottom: 1.5rem; }
+
+.theme-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+.theme-tagline {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.theme-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.theme-content h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+.theme-content p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* ===================== WORKS CITED ===================== */
+.works-cited {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+  border-top: 1px solid rgba(212,168,67,0.15);
+}
+
+.works-cited h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--cream);
+  margin-bottom: 2rem;
+}
+
+.cite-category { margin-bottom: 2.5rem; }
+
+.cite-category h4 {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin-bottom: 1rem;
+}
+
+.cite-entry {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  line-height: 1.6;
+}
+
+.cite-entry a {
+  color: var(--blue-ural);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(74,138,170,0.3);
+}
+
+.cite-entry a:hover {
+  color: var(--gold-bright);
+  border-color: var(--gold-bright);
+}
+
+/* ===================== FOOTER ===================== */
+.footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  border-top: 1px solid rgba(212,168,67,0.1);
+}
+
+.footer-text {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.footer-text .gold { color: var(--gold-muted); }
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 900px) {
+  .map-overlay-title {
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+    white-space: normal;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .person-card {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+  .person-card.reverse .person-info { order: 1; }
+  .person-card.reverse .person-map { order: 2; }
+  .person-map { min-height: 250px; }
+  .nav { gap: 0; }
+  .nav a { font-size: 0.6rem; padding: 0.3rem 0.5rem; }
+}
+
+/* ===================== LEAFLET OVERRIDES ===================== */
+.leaflet-popup-content-wrapper {
+  background: #2d2520 !important;
+  color: #f0e8d8 !important;
+  border: 1px solid #8a7030 !important;
+  border-radius: 0 !important;
+  font-family: 'Noto Sans', sans-serif !important;
+}
+
+.leaflet-popup-tip { background: #2d2520 !important; }
+
+.leaflet-popup-content {
+  font-size: 0.85rem !important;
+  line-height: 1.5 !important;
+}
+
+.leaflet-popup-content strong {
+  color: #d4a843;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+}
+
+.custom-marker {
+  background: #d4a843;
+  border: 2px solid #f0e8d8;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  box-shadow: 0 0 20px rgba(212,168,67,0.5);
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="nav" id="main-nav">
+  <a href="#hero">Home</a>
+  <a href="#map-section">Map</a>
+  <a href="#prologue">Prologue</a>
+  <a href="#network">Network</a>
+  <a href="#themes">Themes</a>
+  <a href="#works-cited">Sources</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="bird-symbol">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 10 C45 18, 30 22, 15 28 C25 30, 32 35, 35 42 C28 38, 18 36, 5 38 C20 42, 30 50, 35 60 C30 55, 20 52, 8 54 C22 58, 34 65, 42 78 C44 72, 47 65, 50 58 C53 65, 56 72, 58 78 C66 65, 78 58, 92 54 C80 52, 70 55, 65 60 C70 50, 80 42, 95 38 C82 36, 72 38, 65 42 C68 35, 75 30, 85 28 C70 22, 55 18, 50 10Z" fill="#d4a843" opacity="0.85"/>
+        <circle cx="40" cy="32" r="2" fill="#1a1612"/>
+        <circle cx="60" cy="32" r="2" fill="#1a1612"/>
+        <path d="M48 36 L50 40 L52 36" stroke="#1a1612" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <p class="hero-subtitle">An Anthropological StoryMap</p>
+    <h1 class="hero-title">
+      The <span class="gold">Knowledge</span> Bridge<br>
+      <span class="blue">Bashkortostan</span> &#8596; America
+    </h1>
+    <p class="hero-desc">
+      How land, language, myth, and hockey connect indigenous Bashkir culture
+      to the world &mdash; traced through the people who carry it across borders.
+    </p>
+    <div class="hero-arrow" onclick="document.getElementById('map-section').scrollIntoView({behavior:'smooth'})">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN MAP -->
+<section class="map-section" id="map-section">
+  <div class="map-overlay-title">The Network &mdash; People, Places, and Paths</div>
+  <div id="main-map"></div>
+</section>
+
+<!-- PROLOGUE -->
+<section class="narrative-section" id="prologue">
+  <p class="section-label">Prologue</p>
+  <h2 class="section-title">The Bird, The Hero, and The Land</h2>
+  <p class="section-text">
+    In the Bashkir epic <em>Ural Batyr</em>, the sky king Samrau has a daughter named <em>Homai</em> &mdash; a sacred bird who transforms between a swan and a beautiful woman, bridging heaven and earth. This is not mere myth. It is the operating system of a culture that has inhabited the southern Urals for over a millennium, weaving Tengrist cosmology with Sunni Islam, Turkic identity with Russian imperial pressure.
+  </p>
+  <p class="section-text">
+    The hockey team from Ufa &mdash; the capital of Bashkortostan &mdash; is named <em>Salavat Yulaev</em>, after the 18th-century Bashkir national hero who fought alongside Pugachev against Catherine the Great. His statue dominates the city skyline. His name appears on license plates, buildings, and the green jerseys worn by players from across the world &mdash; including, recently, a former Washington Capital named Evgeny Kuznetsov, who celebrates his goals with a bird wave.
+  </p>
+  <p class="section-text">
+    The bird connects everything. Homai in the epic. The hawk in the arena. The eagle on the Bashkir coat of arms. And the voices of the people who refuse to let their culture be mined away &mdash; like the ancient shihan mountains the Russian government tried to destroy.
+  </p>
+
+  <div class="section-quote">
+    <p>&ldquo;Land is vitally important to Bashkirs &mdash; both in terms of its spiritual, almost sacred value, and in terms of livelihood. So I think we will see more protests.&rdquo;</p>
+    <cite>&mdash; Iliuza Mukhamedianova, Bashkir social researcher</cite>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"><span class="divider-symbol">&#9670;</span></div></div>
+
+<!-- NETWORK -->
+<section class="narrative-section" id="network">
+  <p class="section-label">The Network</p>
+  <h2 class="section-title">Voices of the Bridge</h2>
+  <p class="section-text">
+    Each node in this network represents a person whose life traces the cultural currents between Bashkortostan and the wider world. Some carry the culture outward. Some defend it at home. Some build bridges back. Together, they form a village &mdash; tight-knit, interconnected, each voice essential.
+  </p>
+</section>
+
+<section class="person-grid">
+
+  <!-- NODE 1: KURMASHEVA -->
+  <div class="person-card" data-node="Node 01 &mdash; The Journalist">
+    <div class="person-info">
+      <h3>Alsu Kurmasheva</h3>
+      <p class="person-role">RFE/RL Tatar-Bashkir Service &middot; CPJ Press Freedom Award 2024</p>
+      <div class="person-route">
+        <span>Kazan</span><span class="route-arrow">&rarr;</span>
+        <span>Prague</span><span class="route-arrow">&rarr;</span>
+        <span>Russian Prison (288 days)</span><span class="route-arrow">&rarr;</span>
+        <span>Freedom</span>
+      </div>
+      <p class="person-desc">
+        An ethnic Tatar who speaks seven languages &mdash; Bashkir, Tatar, Crimean Tatar, Russian, Czech, English, and Turkish. For 20+ years she gave voice to indigenous communities through Radio Free Europe&rsquo;s Tatar-Bashkir Service. Arrested in Kazan in 2023 for editing a book called <em>Saying No to War</em>. Sentenced to 6.5 years. Freed in the same prisoner exchange as Evan Gershkovich. She built a lighthouse out of snow in a 6&times;9 foot prison courtyard and placed a yellow candy wrapper on top for the light.
+      </p>
+    </div>
+    <div class="person-map" id="map-kurmasheva"></div>
+  </div>
+
+  <!-- NODE 2: MUKHAMEDIANOVA -->
+  <div class="person-card reverse" data-node="Node 02 &mdash; The Researcher">
+    <div class="person-info">
+      <h3>Iliuza Mukhamedianova</h3>
+      <p class="person-role">Social Researcher &middot; From the Republics &middot; Baymak, Bashkortostan</p>
+      <div class="person-route">
+        <span>Baymak</span><span class="route-arrow">&rarr;</span>
+        <span>Ufa</span><span class="route-arrow">&rarr;</span>
+        <span>International Press</span>
+      </div>
+      <p class="person-desc">
+        A Bashkir social researcher from the Baymak region &mdash; ground zero for the largest political trial in modern Russian history. She analyzes Kremlin propaganda films like <em>The Anatomy of Bashkir Nationalism</em>, dissecting how the state constructs enemies from disbanded organizations. Quoted in <em>The Moscow Times</em> on the Kyrktytau mining protests. Her voice bridges Bashkir village knowledge and global media discourse.
+      </p>
+    </div>
+    <div class="person-map" id="map-mukhamedianova"></div>
+  </div>
+
+  <!-- NODE 3: GABBASOV -->
+  <div class="person-card" data-node="Node 03 &mdash; The Activist in Exile">
+    <div class="person-info">
+      <h3>Ruslan Gabbasov</h3>
+      <p class="person-role">Co-Founder, Bashkort Movement &middot; Political Asylum, Lithuania</p>
+      <div class="person-route">
+        <span>Bashkortostan</span><span class="route-arrow">&rarr;</span>
+        <span>K&uuml;k B&uuml;re</span><span class="route-arrow">&rarr;</span>
+        <span>Bashkort (banned 2020)</span><span class="route-arrow">&rarr;</span>
+        <span>Lithuania</span>
+      </div>
+      <p class="person-desc">
+        Co-founded the Bashkort organization with Fayil Alsynov in 2014 to preserve Bashkir language, culture, and sovereignty. The organization was designated &ldquo;extremist&rdquo; by Russian authorities in 2020. Now in exile, speaking to European Parliament with the Bashkir flag. His movement&rsquo;s earlier name, <em>K&uuml;k B&uuml;re</em> (Grey Wolf), references Turkic mythology &mdash; wolves and birds running through the same symbolic ecosystem as Homai.
+      </p>
+    </div>
+    <div class="person-map" id="map-gabbasov"></div>
+  </div>
+
+  <!-- NODE 4: ALSYNOV -->
+  <div class="person-card reverse" data-node="Node 04 &mdash; The Land Defender">
+    <div class="person-info">
+      <h3>Fayil Alsynov</h3>
+      <p class="person-role">Environmental &amp; Indigenous Rights Activist &middot; Imprisoned</p>
+      <div class="person-route">
+        <span>Yuldybayevo</span><span class="route-arrow">&rarr;</span>
+        <span>Kushtau Protests</span><span class="route-arrow">&rarr;</span>
+        <span>Baymak Trial</span><span class="route-arrow">&rarr;</span>
+        <span>4-Year Prison Sentence</span>
+      </div>
+      <p class="person-desc">
+        Sentenced to four years for speaking Bashkir words that were deliberately mistranslated into Russian. Led the defense of the sacred shihan mountains &mdash; ancient coral reef formations from the Permian period &mdash; against industrial mining. At Kushtau in 2020, activists gathered on Eid al-Adha to protect the mountain: Islamic holiday merged with indigenous land defense. 5,000 people rallied in &minus;20&deg;C at Baymak in his support &mdash; the largest protest in wartime Russia.
+      </p>
+    </div>
+    <div class="person-map" id="map-alsynov"></div>
+  </div>
+
+  <!-- NODE 5: KUZNETSOV -->
+  <div class="person-card" data-node="Node 05 &mdash; The Returning Player">
+    <div class="person-info">
+      <h3>Evgeny Kuznetsov</h3>
+      <p class="person-role">Forward, Salavat Yulaev Ufa &middot; 2018 Stanley Cup Champion</p>
+      <div class="person-route">
+        <span>Chelyabinsk</span><span class="route-arrow">&rarr;</span>
+        <span>Washington</span><span class="route-arrow">&rarr;</span>
+        <span>Carolina</span><span class="route-arrow">&rarr;</span>
+        <span>SKA</span><span class="route-arrow">&rarr;</span>
+        <span>Metallurg</span><span class="route-arrow">&rarr;</span>
+        <span>Salavat Yulaev</span>
+      </div>
+      <p class="person-desc">
+        A 2018 Stanley Cup champion who led the NHL playoffs with 32 points &mdash; then lost his way. Pushed out of the NHL, bounced between KHL teams, publicly called out by coaches. Claimed off waivers by Salavat Yulaev in January 2026 and immediately thrived under coach Viktor Kozlov &mdash; himself a former Capital. His bird celly in Salavat Yulaev green activates a symbol system he may not fully realize: Homai, the sacred bird, performed inside a team named after the Bashkir national hero.
+      </p>
+    </div>
+    <div class="person-map" id="map-kuznetsov"></div>
+  </div>
+
+  <!-- NODE 6: VASILEVSKIY BROTHERS -->
+  <div class="person-card reverse" data-node="Node 06 &mdash; The Brothers">
+    <div class="person-info">
+      <h3>Andrei &amp; Alexei Vasilevskiy</h3>
+      <p class="person-role">Tampa Bay Lightning (NHL) &middot; Salavat Yulaev (KHL)</p>
+      <div class="person-route">
+        <span>Ufa (born)</span><span class="route-arrow">&rarr;</span>
+        <span>Andrei: Tampa Bay</span>
+        <span class="route-arrow">|</span>
+        <span>Alexei: Ufa</span>
+      </div>
+      <p class="person-desc">
+        Two brothers from Ufa split across continents. Andrei guards Tampa Bay&rsquo;s net in the NHL &mdash; an American city&rsquo;s last line of defense. Alexei stays connected to the Salavat Yulaev organization in Ufa. They embody the fundamental question of the diaspora: one leaves for opportunity, one stays to maintain roots. Both carry Ufa wherever they are. Their split mirrors every family divided by migration &mdash; including the Bashkir families sending sons to fight in wars that aren&rsquo;t theirs.
+      </p>
+    </div>
+    <div class="person-map" id="map-vasilevskiy"></div>
+  </div>
+
+  <!-- NODE 7: CULTURAL CREATORS -->
+  <div class="person-card" data-node="Node 07 &mdash; The Cultural Creators">
+    <div class="person-info">
+      <h3>The Instagram Generation</h3>
+      <p class="person-role">@crazybasqortgirl &middot; @leyla.latypova &middot; @aisylu.ufa &middot; @nizamova978</p>
+      <div class="person-route">
+        <span>Ufa</span><span class="route-arrow">&rarr;</span>
+        <span>Instagram</span><span class="route-arrow">&rarr;</span>
+        <span>Global Bashkir Diaspora</span>
+      </div>
+      <p class="person-desc">
+        The everyday carriers of Bashkir culture. They organize Ramadan iftar gatherings in banquet halls. They teach Bashkir cooking. They share music and language. They create content that makes being Bashkir visible to the algorithm &mdash; and to young people who might otherwise lose the thread. Where Gabbasov uses political action and Kurmasheva uses journalism, these creators use daily cultural performance. They are the village gathering, digitized.
+      </p>
+    </div>
+    <div class="person-map" id="map-creators"></div>
+  </div>
+
+  <!-- NODE 8: THE ANTHROPOLOGIST -->
+  <div class="person-card reverse" data-node="Node 08 &mdash; The Bridge Builder">
+    <div class="person-info">
+      <h3>The American Anthropologist</h3>
+      <p class="person-role">Researcher &middot; CLI Scholar Candidate &middot; Bridge Builder</p>
+      <div class="person-route">
+        <span>Pinellas Park, FL</span><span class="route-arrow">&rarr;</span>
+        <span>San Bernardino, CA</span><span class="route-arrow">&rarr;</span>
+        <span>ASU (Applied)</span><span class="route-arrow">&rarr;</span>
+        <span>Ufa (Future)</span>
+      </div>
+      <p class="person-desc">
+        An American who sees the system from the outside and is building the bridge back. Learning Tatar and Bashkir. Transcribing interviews of activists in exile. Building digital tools for language acquisition. Following the hockey teams not as a casual fan but as an anthropologist mapping how sport carries identity across borders. The question isn&rsquo;t whether the bridge can be built &mdash; it&rsquo;s whether both sides will recognize it when they see it.
+      </p>
+    </div>
+    <div class="person-map" id="map-anthropologist"></div>
+  </div>
+
+</section>
+
+<div class="divider"><div class="divider-line"><span class="divider-symbol">&#9670;</span></div></div>
+
+<!-- THEMATIC LAYERS -->
+<section class="narrative-section" id="themes">
+  <p class="section-label">Thematic Layers</p>
+  <h2 class="section-title">The Currents That Flow Through the Network</h2>
+  <p class="section-text">
+    Each person in the network is connected by shared cultural currents &mdash; themes that run through their lives regardless of geography. These are the invisible threads that make the village cohere even when its members are scattered across continents.
+  </p>
+</section>
+
+<!-- HOCKEY -->
+<div class="theme-banner hockey">
+  <div class="theme-icon">&#127954;</div>
+  <h3 class="theme-name">Hockey as Cultural Vehicle</h3>
+  <p class="theme-tagline">When the team carries a nation&rsquo;s name, every game is an act of identity.</p>
+</div>
+<div class="theme-content">
+  <h4>The Team Named After a Hero</h4>
+  <p>
+    Salavat Yulaev Ufa is not just a hockey club. It is a symbol system carrying the weight of Bashkir national identity into arenas across Russia and beyond. The team&rsquo;s name invokes the 18th-century hero who fought against imperial Russia &mdash; the same fight that continues today in courtrooms and protest camps. When Kuznetsov scores in Salavat Yulaev green and does the bird wave, he performs inside a symbol he may not fully understand but the fans certainly do.
+  </p>
+  <h4>The NHL-KHL Pipeline</h4>
+  <p>
+    The flow of players between North America and Russia mirrors the flow of cultural knowledge. Andrei Vasilevskiy carries Ufa to Tampa. Kuznetsov brought Washington back to Ufa. Sheldon Rempal, a Hershey Bears product, now leads Salavat Yulaev&rsquo;s scoring. These aren&rsquo;t just career moves &mdash; they are vectors of cultural exchange, each player a node in the same network as the journalists and activists.
+  </p>
+</div>
+
+<!-- FOOD & GATHERING -->
+<div class="theme-banner food">
+  <div class="theme-icon">&#127855;</div>
+  <h3 class="theme-name">Food, Gathering &amp; Ramadan</h3>
+  <p class="theme-tagline">Bashkortostan produces more honey, meat, and milk than any other region in Russia. The table is where culture lives.</p>
+</div>
+<div class="theme-content">
+  <h4>The Iftar Table as Cultural Space</h4>
+  <p>
+    When Bashkir content creators organize Ramadan iftar gatherings in banquet halls, they are performing a dual identity that most Western observers cannot parse: they are simultaneously Muslim (breaking fast, honoring the Prophet) and Bashkir (gathering in community, maintaining kinship networks, cooking traditional food). This is not syncretism &mdash; it is a single, integrated cultural practice. The iftar table is where Islam and indigenous Bashkir life are indistinguishable.
+  </p>
+  <h4>Honey, Kumiss, and Horse Meat</h4>
+  <p>
+    Bashkortostan&rsquo;s identity is literally edible. The region ranks first in Russia for honey, meat, milk, and horse production. Bashkir honey is a national symbol. Kumiss (fermented mare&rsquo;s milk) connects to the nomadic heritage. These foods carry identity across borders &mdash; when a Bashkir family in exile cooks traditional dishes, they are performing a form of cultural preservation as powerful as any protest.
+  </p>
+</div>
+
+<!-- LANGUAGE -->
+<div class="theme-banner language">
+  <div class="theme-icon">&#128214;</div>
+  <h3 class="theme-name">Language &amp; Expression</h3>
+  <p class="theme-tagline">68% of students in Bashkortostan now choose Russian as their &ldquo;native language.&rdquo; The clock is ticking.</p>
+</div>
+<div class="theme-content">
+  <h4>A Language Under Siege</h4>
+  <p>
+    In 2018, Russia&rsquo;s Parliament made Bashkir and other minority languages no longer mandatory in schools. Instruction after 7th grade is exclusively in Russian. Graduation exams can only be taken in Russian. Fayil Alsynov was sentenced to four years in prison because his Bashkir words were deliberately mistranslated. Language is the frontline of cultural survival &mdash; and the battle is being lost in the classrooms while it&rsquo;s fought in the streets.
+  </p>
+  <h4>Digital Preservation</h4>
+  <p>
+    New tools are emerging: GitHub repositories for Bashkir dictionaries, memory palace applications integrating language learning with mnemonic systems, IPTV playlists for Bashkir and Tatar channels. The American anthropologist builds a Bashkort_Dictionary app. Kurmasheva&rsquo;s RFE/RL service broadcasts in Tatar and Bashkir. The content creators teach language through Instagram stories. Each is a node in the same linguistic survival network.
+  </p>
+</div>
+
+<!-- SACRED LANDSCAPE -->
+<div class="theme-banner sacred">
+  <div class="theme-icon">&#9968;</div>
+  <h3 class="theme-name">Sacred Landscape &amp; Sufi Islam</h3>
+  <p class="theme-tagline">&ldquo;We do not see God, but God sees you.&rdquo; &mdash; A Bashkir Naqshbandi murshid at the grave of Ural Batyr.</p>
+</div>
+<div class="theme-content">
+  <h4>The Shihans: Where Myth Meets Geology</h4>
+  <p>
+    The shihans are isolated chalk mountains formed from ancient coral reefs in the Permian period &mdash; over 250 million years old. Three remain. The fourth, Shakhtau, was mined into a pit. These mountains are sacred in Bashkir mythology, served as gathering points for the Bashkir elite, and became the site of the most successful grassroots protest in modern Russian history when activists saved Kushtau in 2020. Geology, mythology, and political resistance occupy the same physical space.
+  </p>
+  <h4>Heart Ethnography</h4>
+  <p>
+    Recent anthropological fieldwork in a Bashkir Naqshbandi Sufi circle reveals how pre-Islamic cosmology and Sufi practice merge seamlessly. Murids visit the grave of Ural Batyr &mdash; the Tengrist epic hero &mdash; and perform dhikr (Sufi remembrance of God) at the site. The sacred landscape is simultaneously indigenous and Islamic. A woman named Aisylu, a Sufi murid, asks the visiting researcher not what they think, but what they <em>feel</em>. This is &ldquo;heart ethnography&rdquo; &mdash; knowing through surrender rather than extraction.
+  </p>
+</div>
+
+<div class="divider"><div class="divider-line"><span class="divider-symbol">&#9670;</span></div></div>
+
+<!-- WORKS CITED -->
+<section class="works-cited" id="works-cited">
+  <h2>Works Cited</h2>
+
+  <div class="cite-category">
+    <h4>Academic Sources</h4>
+    <p class="cite-entry">Gorenburg, Dmitry. &ldquo;Identity Change in Bashkortostan: Tatars into Bashkirs and Back.&rdquo; <em>Ethnic and Racial Studies</em> 22, no. 3 (1999).</p>
+    <p class="cite-entry">&ldquo;What does the heart want?: Being seen, &lsquo;heart ethnography,&rsquo; and knowledge through surrender in a Bashkir Sufi circle in Russia.&rdquo; <em>HAU: Journal of Ethnographic Theory</em> 14, no. 1. <a href="https://www.journals.uchicago.edu/doi/full/10.1086/729989">University of Chicago Press</a>.</p>
+    <p class="cite-entry">Frank, Allen J. <em>Islamic Historiography and &lsquo;Bulghar&rsquo; Identity among the Tatars and Bashkirs of Russia</em>. Boston: Brill, 1998.</p>
+    <p class="cite-entry">&ldquo;Bashkortostan: A Case Study on Building National Identity.&rdquo; <em>RFE/RL</em>, August 26, 1997. <a href="https://www.rferl.org/a/1086129.html">rferl.org</a>.</p>
+    <p class="cite-entry">&ldquo;Bashkirs in the Russian Federation.&rdquo; <em>Minority Rights Group International</em>. <a href="https://minorityrights.org/communities/bashkirs/">minorityrights.org</a>.</p>
+  </div>
+
+  <div class="cite-category">
+    <h4>Journalism &amp; Reporting</h4>
+    <p class="cite-entry">Mukhamedianova, Iliuza. &ldquo;Kremlin-Funded Propaganda Fuels Destabilization in Bashkortostan.&rdquo; <em>From the Republics</em>, March 21, 2025. <a href="https://fromtherepublics.com/2025/03/21/kremlin-funded-propaganda-fuels-destabilization-in-bashkortostan/">fromtherepublics.com</a>.</p>
+    <p class="cite-entry">&ldquo;&lsquo;Harmful by Nature&rsquo;: Bashkortostan&rsquo;s Controversial New Mining Project Could Have Global Impacts.&rdquo; <em>The Moscow Times</em>, July 22, 2025. <a href="https://www.themoscowtimes.com/2025/07/22/harmful-by-nature-bashkortostans-controversial-new-mining-project-could-have-global-impacts-a89853">themoscowtimes.com</a>.</p>
+    <p class="cite-entry">&ldquo;Freed U.S.-Russian Journalist Alsu Kurmasheva: &lsquo;Our Work Right Now Is to Be a Witness to History.&rsquo;&rdquo; <em>The Moscow Times</em>, November 21, 2024. <a href="https://www.themoscowtimes.com/2024/11/21/freed-us-russian-journalist-alsu-kurmasheva-our-work-right-now-is-to-be-a-witness-to-history-a87081">themoscowtimes.com</a>.</p>
+    <p class="cite-entry">&ldquo;How Russia Suppresses its Internal National Diversity: The Case of Bashkortostan.&rdquo; <em>UkraineWorld</em>. Interview with Ruslan Gabbasov. <a href="https://ukraineworld.org/en/articles/infowatch/case-bashkortostan">ukraineworld.org</a>.</p>
+    <p class="cite-entry">&ldquo;Fail Alsynov: Defender of Bashkir Land, Language, and Rights.&rdquo; <em>Cultural Survival</em>. <a href="https://www.culturalsurvival.org/publications/cultural-survival-quarterly/fail-alsynov-defender-bashkir-land-language-and-rights">culturalsurvival.org</a>.</p>
+    <p class="cite-entry">&ldquo;From Rakhimov to Khabirov: How Bashkortostan Became the Seedbed of Russia&rsquo;s Indigenous-Led Protests.&rdquo; <em>The Moscow Times</em>, August 13, 2025. <a href="https://www.themoscowtimes.com/2025/08/13/from-rakhimov-to-khabirov-how-bashkortostan-became-the-seedbed-of-russias-indigenous-led-protests-a90181">themoscowtimes.com</a>.</p>
+    <p class="cite-entry">&ldquo;&lsquo;Intoxicating Victory&rsquo;: How Bashkir Activists Led a Historic Protest Movement at Kushtau.&rdquo; <em>The Moscow Times</em>, August 16, 2025. <a href="https://www.themoscowtimes.com/2025/08/16/intoxicating-victory-how-bashkir-activists-led-a-historic-protest-movement-at-kushtau-a90208">themoscowtimes.com</a>.</p>
+  </div>
+
+  <div class="cite-category">
+    <h4>KHL &amp; Hockey Sources</h4>
+    <p class="cite-entry">&ldquo;Kuznetsov enjoys Chelyabinsk return.&rdquo; <em>KHL Official</em>, February 18, 2026. <a href="https://en.khl.ru/news/2026/02/18/558128.html">en.khl.ru</a>.</p>
+    <p class="cite-entry">&ldquo;Evgeny Kuznetsov scores first goal with Salavat Yulaev.&rdquo; <em>Russian Machine Never Breaks</em>, January 10, 2026. <a href="https://russianmachineneverbreaks.com/2026/01/10/evgeny-kuznetsov-first-goal-salavat-yulaev-khl-bird-celly/">rmnb.com</a>.</p>
+    <p class="cite-entry">&ldquo;Evgeny Kuznetsov on how much longer he thinks he can continue playing.&rdquo; <em>Russian Machine Never Breaks</em>, February 14, 2026. <a href="https://russianmachineneverbreaks.com/2026/02/14/evgeny-kuznetsov-continue-playing-career-khl-salavat-yulaev-fewer-idiots-around/">rmnb.com</a>.</p>
+  </div>
+
+  <div class="cite-category">
+    <h4>Primary &amp; Community Sources</h4>
+    <p class="cite-entry">HC Salavat Yulaev Official. Instagram: <a href="https://www.instagram.com/hcsalavat">@hcsalavat</a>.</p>
+    <p class="cite-entry">Salavat Yulaev Hockey School. Instagram: <a href="https://www.instagram.com/schoolsalavat">@schoolsalavat</a>.</p>
+    <p class="cite-entry">@crazybasqortgirl. Instagram. Bashkir cultural content.</p>
+    <p class="cite-entry">@iliuzamukhamedian. Instagram. Bashkir social research.</p>
+    <p class="cite-entry">@leyla.latypova. Instagram. Bashkir cultural expression.</p>
+    <p class="cite-entry">@aisylu.ufa. Instagram. Bashkir cultural content, Ufa.</p>
+    <p class="cite-entry">@nizamova978. Instagram. Bashkir music and cultural expression.</p>
+    <p class="cite-entry">Committee to Protect Journalists. &ldquo;Alsu Kurmasheva, U.S. &ndash; Russia.&rdquo; CPJ International Press Freedom Awards 2024. <a href="https://cpj.org/awards/alsu-kurmasheva-u-s-russia/">cpj.org</a>.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p class="footer-text">
+    <span class="gold">The Knowledge Bridge: Bashkortostan &#8596; America</span><br>
+    An Anthropological StoryMap &middot; 2026<br><br>
+    Built on the Nested Hearth Architecture: Bizhbulyak &rarr; Ufa &rarr; Universal
+  </p>
+</footer>
+
+<script>
+/* ===================== NAV SHOW/HIDE ===================== */
+const nav = document.getElementById('main-nav');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y > window.innerHeight * 0.5) {
+    nav.classList.add('visible');
+  } else {
+    nav.classList.remove('visible');
+  }
+  lastScroll = y;
+});
+
+// Active nav link tracking
+const navLinks = document.querySelectorAll('.nav a');
+const sections = ['hero', 'map-section', 'prologue', 'network', 'themes', 'works-cited'];
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 150) current = id;
+  }
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+
+/* ===================== MAIN MAP ===================== */
+const goldIcon = L.divIcon({
+  className: 'custom-marker',
+  iconSize: [14, 14],
+  iconAnchor: [7, 7]
+});
+
+const mainMap = L.map('main-map', {
+  center: [45, 30],
+  zoom: 3,
+  zoomControl: false,
+  scrollWheelZoom: true,
+  minZoom: 2,
+  maxZoom: 12
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OpenStreetMap &copy; CARTO',
+  maxZoom: 19
+}).addTo(mainMap);
+
+L.control.zoom({ position: 'bottomright' }).addTo(mainMap);
+
+const locations = [
+  { lat: 54.7388, lng: 55.9721, name: "Ufa", desc: "Capital of Bashkortostan. Home of Salavat Yulaev hockey club. Cultural hearth." },
+  { lat: 54.3075, lng: 55.2042, name: "Bizhbulyak", desc: "Village anchor. Personal hearth of the Nested Hearth Architecture." },
+  { lat: 52.7987, lng: 56.0634, name: "Baymak", desc: "Site of the largest political trial in modern Russia. 5,000 protesters. \u221220\u00B0C." },
+  { lat: 53.3500, lng: 56.1833, name: "Kushtau", desc: "Sacred shihan mountain. Saved by protest in 2020. Eid al-Adha + indigenous land defense." },
+  { lat: 55.1644, lng: 61.4368, name: "Chelyabinsk", desc: "Traktor hockey club. Kuznetsov\u2019s birthplace. Industrial Urals." },
+  { lat: 27.9506, lng: -82.4572, name: "Tampa Bay", desc: "Andrei Vasilevskiy. Lightning hockey. NHL outpost of Ufa identity." },
+  { lat: 38.9072, lng: -77.0369, name: "Washington D.C.", desc: "Kuznetsov\u2019s 11 NHL seasons. Capitals. Stanley Cup 2018." },
+  { lat: 50.0755, lng: 14.4378, name: "Prague", desc: "Alsu Kurmasheva\u2019s home. RFE/RL Tatar-Bashkir Service." },
+  { lat: 55.6761, lng: 24.3575, name: "Vilnius", desc: "Ruslan Gabbasov\u2019s exile. Political asylum. European Parliament advocacy." },
+  { lat: 55.7558, lng: 49.1130, name: "Kazan", desc: "Capital of Tatarstan. Tatar-Bashkir cultural boundary. Kurmasheva arrested here." },
+  { lat: 33.4484, lng: -112.0740, name: "Arizona (ASU)", desc: "Arizona State University. CLI scholarship. Future academic base." },
+  { lat: 34.1083, lng: -117.2898, name: "San Bernardino, CA", desc: "Current base. Building the bridge from the American side." },
+  { lat: 51.1694, lng: 71.4491, name: "Astana", desc: "Kazakhstan. Turkic world connection. Shared Kipchak linguistic heritage." }
+];
+
+locations.forEach(loc => {
+  L.marker([loc.lat, loc.lng], { icon: goldIcon })
+    .addTo(mainMap)
+    .bindPopup('<strong>' + loc.name + '</strong><br>' + loc.desc);
+});
+
+const connections = [
+  [[54.7388, 55.9721], [27.9506, -82.4572]],
+  [[55.1644, 61.4368], [38.9072, -77.0369]],
+  [[55.1644, 61.4368], [54.7388, 55.9721]],
+  [[54.7388, 55.9721], [50.0755, 14.4378]],
+  [[54.7388, 55.9721], [55.6761, 24.3575]],
+  [[34.1083, -117.2898], [54.7388, 55.9721]],
+  [[54.7388, 55.9721], [55.7558, 49.1130]],
+  [[54.7388, 55.9721], [51.1694, 71.4491]]
+];
+
+connections.forEach(coords => {
+  L.polyline(coords, {
+    color: '#d4a843',
+    weight: 1,
+    opacity: 0.3,
+    dashArray: '5, 10'
+  }).addTo(mainMap);
+});
+
+/* ===================== MINI MAPS ===================== */
+/* FIX: Deferred map creation - only init when card becomes visible */
+const miniMapConfigs = {
+  'map-kurmasheva': {
+    center: [50, 20], zoom: 3,
+    markers: [
+      { coords: [55.7558, 49.1130], name: 'Kazan' },
+      { coords: [50.0755, 14.4378], name: 'Prague' },
+      { coords: [38.9072, -77.0369], name: 'Washington (freed)' }
+    ]
+  },
+  'map-mukhamedianova': {
+    center: [53.5, 56], zoom: 6,
+    markers: [
+      { coords: [52.7987, 56.0634], name: 'Baymak' },
+      { coords: [54.7388, 55.9721], name: 'Ufa' }
+    ]
+  },
+  'map-gabbasov': {
+    center: [53, 40], zoom: 4,
+    markers: [
+      { coords: [54.7388, 55.9721], name: 'Bashkortostan' },
+      { coords: [55.6761, 24.3575], name: 'Vilnius (exile)' }
+    ]
+  },
+  'map-alsynov': {
+    center: [53.0, 56.5], zoom: 7,
+    markers: [
+      { coords: [52.7987, 56.0634], name: 'Baymak' },
+      { coords: [53.3500, 56.1833], name: 'Kushtau' },
+      { coords: [52.55, 57.38], name: 'Yuldybayevo' }
+    ]
+  },
+  'map-kuznetsov': {
+    center: [50, 20], zoom: 2,
+    markers: [
+      { coords: [55.1644, 61.4368], name: 'Chelyabinsk' },
+      { coords: [38.9072, -77.0369], name: 'Washington D.C.' },
+      { coords: [35.2271, -80.8431], name: 'Carolina' },
+      { coords: [59.9343, 30.3351], name: 'SKA St. Petersburg' },
+      { coords: [53.3942, 58.9791], name: 'Metallurg' },
+      { coords: [54.7388, 55.9721], name: 'Salavat Yulaev, Ufa' }
+    ]
+  },
+  'map-vasilevskiy': {
+    center: [42, -15], zoom: 2,
+    markers: [
+      { coords: [54.7388, 55.9721], name: 'Ufa (born)' },
+      { coords: [27.9506, -82.4572], name: 'Tampa (Andrei)' }
+    ]
+  },
+  'map-creators': {
+    center: [54.7388, 55.9721], zoom: 10,
+    markers: [
+      { coords: [54.7388, 55.9721], name: 'Ufa' }
+    ]
+  },
+  'map-anthropologist': {
+    center: [42, -50], zoom: 2,
+    markers: [
+      { coords: [27.8006, -82.6673], name: 'Pinellas Park, FL' },
+      { coords: [34.1083, -117.2898], name: 'San Bernardino, CA' },
+      { coords: [33.4484, -112.0740], name: 'ASU, Arizona' },
+      { coords: [54.7388, 55.9721], name: 'Ufa (future)' }
+    ]
+  }
+};
+
+const initializedMaps = new Set();
+
+function createMiniMap(elementId) {
+  if (initializedMaps.has(elementId)) return;
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  const config = miniMapConfigs[elementId];
+  if (!config) return;
+
+  initializedMaps.add(elementId);
+
+  const map = L.map(elementId, {
+    center: config.center,
+    zoom: config.zoom,
+    zoomControl: false,
+    scrollWheelZoom: false,
+    dragging: false,
+    touchZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    attributionControl: false
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19
+  }).addTo(map);
+
+  config.markers.forEach(m => {
+    L.marker(m.coords, { icon: goldIcon })
+      .addTo(map)
+      .bindPopup('<strong>' + m.name + '</strong>');
+  });
+
+  if (config.markers.length > 1) {
+    const line = config.markers.map(m => m.coords);
+    L.polyline(line, {
+      color: '#d4a843',
+      weight: 1.5,
+      opacity: 0.5,
+      dashArray: '4, 8'
+    }).addTo(map);
+  }
+
+  // FIX: Force Leaflet to recalculate after becoming visible
+  setTimeout(() => { map.invalidateSize(); }, 100);
+  setTimeout(() => { map.invalidateSize(); }, 500);
+}
+
+/* ===================== SCROLL REVEAL + DEFERRED MAP INIT ===================== */
+const cardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Find and init any mini-map inside this card
+      const mapEl = entry.target.querySelector('.person-map');
+      if (mapEl && mapEl.id) {
+        createMiniMap(mapEl.id);
+      }
+    }
+  });
+}, { threshold: 0.1, rootMargin: '50px' });
+
+document.querySelectorAll('.person-card').forEach(card => cardObserver.observe(card));
+</script>
+
+</body>
+</html>

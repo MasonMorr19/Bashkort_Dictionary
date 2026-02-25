@@ -12,6 +12,9 @@ from .neo4j_service import Neo4jService, Neo4jConfig, get_neo4j_service, init_ne
 from .ocr_service import OCRService, get_ocr_service, scan_text_from_image
 from .content_scraper import ContentScraper, get_content_scraper, DifficultyLevel, ReadingText
 from .subtitle_service import SubtitleService, SubtitleFormat, get_subtitle_service, transcribe_to_subtitles
+from .memory_palace_ufa import (
+    MemoryPalaceUfa, Station, VocabularyWord, KnightLabSlide, get_default_palace
+)
 
 __all__ = [
     'BashkortNet',
@@ -47,4 +50,10 @@ __all__ = [
     'SubtitleFormat',
     'get_subtitle_service',
     'transcribe_to_subtitles',
+    # Memory Palace — Ufa Layer
+    'MemoryPalaceUfa',
+    'Station',
+    'VocabularyWord',
+    'KnightLabSlide',
+    'get_default_palace',
 ]
